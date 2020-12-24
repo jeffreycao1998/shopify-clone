@@ -26,10 +26,15 @@ import App from './App';
 //   .then(result => console.log(result));
 
 const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #f4f4f2;
+  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
   }
 `;
 
