@@ -1,32 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createGlobalStyle } from 'styled-components';
 import App from './App';
 
 // GraphQL
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { gql } from '@apollo/client';
+// import { ApolloClient, InMemoryCache } from '@apollo/client';
+// import { gql } from '@apollo/client';
 
-const apolloClient = new ApolloClient({
-  uri: 'http://localhost:4000/',
-  cache: new InMemoryCache()
-});
+// const apolloClient = new ApolloClient({
+//   uri: 'http://localhost:4000/',
+//   cache: new InMemoryCache()
+// });
 
-apolloClient
-  .query({
-    query: gql`
-      query books {
-        books {
-          title
-          author
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
+// apolloClient
+//   .query({
+//     query: gql`
+//       query books {
+//         books {
+//           title
+//           author
+//         }
+//       }
+//     `
+//   })
+//   .then(result => console.log(result));
 
+const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
