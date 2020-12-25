@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/'>
+        <Route path='/admin'>
           <Admin />
         </Route>
         <Route path='/'>

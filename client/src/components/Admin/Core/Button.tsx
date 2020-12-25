@@ -1,14 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { colors } from '../../../theme';
+
+type Props = {
+  text?: string
+  onClick?: () => void
+  color?: 'green' | 'white'
+}
 
 const ButtonContainer = styled.div`
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 14px;
+  display: inline-block;
+  
+  ${({color}: Props) => {
+    if (color === 'green') {
+      return `
+        color: white;
+        background-color: ${colors.BrandGreen};
+      `
+    } else if (color === 'white') {
+      return `
+        color: ${colors.Ink};
+        background-color: white;
+        border: 1px solid darkgrey;
 
+        &:hover {
+          background-color: transparent;
+        }
+      `
+    }
+  }}
 `;
 
-const Button = ({  }) => {
+const Button = ({ text, onClick, color }: Props) => {
   return (
-    <ButtonContainer>
-      
+    <ButtonContainer color={color}>
+      { text }
     </ButtonContainer>
   )
 }

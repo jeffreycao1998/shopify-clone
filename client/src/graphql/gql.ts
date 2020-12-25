@@ -1,0 +1,1 @@
+import storeImage from './mutations/storeImage';

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const NavContainer = styled.div`
   width: 240px;
@@ -16,38 +17,32 @@ const NavContainer = styled.div`
 
 const CategoryContainer = styled.div`
   width: 100%;
-  height: 32px;
-  padding-left: 12px;
-  margin-right: 4px;
-  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Category = styled(Link)`
   display: flex;
   align-items: center;
-
-  ion-icon {
-    font-size: 20px;
-    margin-right: 16px;
-  }
+  width: 100%;
+  height: 32px;
+  padding-left: 12px;
+  border-radius: 3px;
+  text-decoration: none;
 
   &:hover {
     background-color: lightgrey;
     cursor: pointer;
   }
 
-  .category {
-    display: flex;
-    align-items: center;
-
-    &-name {
-      line-height: 1px;
-    }
+  ion-icon {
+    font-size: 20px;
+    margin-right: 16px;
   }
 
-  .category-main {
-
-  }
-
-  .category-sub {
-
+  .category-name {
+    line-height: 1px;
   }
 `;
 
@@ -56,12 +51,17 @@ const Navigation = () => {
     {
       icon: 'home',
       name: 'Home',
-      subCategories: [],
+      route: '/admin',
     },
     {
       icon: 'pricetag',
-      name: 'Products',
-      subCategories: ['All products', 'Inventory']
+      name: 'All products',
+      route: '/admin/products',
+    },
+    {
+      icon: 'pricetag',
+      name: 'Add product',
+      route: '/admin/products/new',
     }
   ];
 
@@ -70,23 +70,12 @@ const Navigation = () => {
       {
         categories.map(category => {
           return (
-            <CategoryContainer>
-              <div className='category category-main'>
+            <CategoryContainer key={category.name}>
+              <Category to={category.route}>
                 {/* @ts-ignore */}
                 <ion-icon name={category.icon} />
                 <p className='category-name'>{category.name}</p>
-              </div>
-              <div className='category category-sub'>
-                {
-                  category.subCategories.length && category.subCategories.map(subcategory => {
-                    return (
-                      <div className='category'>
-                        <p className='category-name'>{category.name}</p>
-                      </div>
-                    )
-                  })
-                }
-              </div>
+              </Category>
             </CategoryContainer>
           )
         })

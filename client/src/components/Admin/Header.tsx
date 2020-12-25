@@ -14,6 +14,7 @@ const HeaderContainer = styled.div`
   -webkit-box-shadow:0px 1px 1px lightgrey;
   -moz-box-shadow:0px 1px 1px lightgrey;
   box-shadow:0px 1px 1px lightgrey;
+  z-index: 1;
 `;
 
 const LogoContainer = styled.div`
