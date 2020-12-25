@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-type Props = {
-  name: string
-  type: string
-}
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,20 +31,28 @@ const Container = styled.div`
   }
 `;
 
-const InputHook = ({ name, type }: Props) => {
+type Props = {
+  name: string
+  type: string
+  placeholder?: string
+}
+
+const InputHook = ({ name, type, placeholder }: Props) => {
   const [value, setValue] = useState('');
+
   const input = (
     <Container>
       <label htmlFor={name}>{name}</label>
-      <input id={name} value={value} onChange={e => setValue(e.target.value)} type={type} />
+      <input id={name} value={value} onChange={e => setValue(e.target.value)} type={type} placeholder={placeholder}/>
     </Container>
-  )
+  );
+
   const textarea = (
     <Container>
       <label htmlFor={name}>{name}</label>
-      <textarea id={name} value={value} onChange={e => setValue(e.target.value)} />
+      <textarea id={name} value={value} onChange={e => setValue(e.target.value)} placeholder={placeholder}/>
     </Container>
-  )
+  );
 
   if (type === 'textarea') {
     return [value, textarea]

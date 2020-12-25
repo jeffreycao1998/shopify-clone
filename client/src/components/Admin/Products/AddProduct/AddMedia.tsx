@@ -1,35 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
-import { useInput } from '../../../hooks';
-import { ImageData } from '../../../types';
-
-// Components
-import { ContainerRounded, GoBack, Button } from '../Core';
-
-const Container = styled.div`
-  padding: 16px;
-`;
-
-const Title = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
-
-  .header {
-    line-height: 0.1;
-    margin-left: 16px;
-    font-size: 20px;
-  }
-`;
-
-const Description = styled(ContainerRounded)`
-  padding: 20px;
-
-  .title {
-    margin-bottom: 24px;
-  }
-`;
+import { ImageData } from '../../../../types';
+import { ContainerRounded, Button } from '../../Core';
 
 type MediaProps = {
   imageShown: boolean
@@ -149,8 +122,8 @@ const Media = styled(ContainerRounded)`
 `;
 
 type ImageContainerProps = {
-  imageSelected: boolean
-  showOverlay: boolean
+  anImageSelected: boolean
+  thisImageSelected: boolean
 }
 
 const ImageContainer = styled.div`
@@ -164,7 +137,7 @@ const ImageContainer = styled.div`
 
   &:hover {
     .overlay {
-      display: ${({showOverlay}: ImageContainerProps) => showOverlay ? 'block' : 'none'};
+      display: ${({thisImageSelected}: ImageContainerProps) => !thisImageSelected ? 'block' : 'none'};
     }
     input {
       display: block;
@@ -180,26 +153,31 @@ const ImageContainer = styled.div`
   }
 
   input {
-    display: ${({imageSelected}: {imageSelected: boolean}) => imageSelected ? 'block' : 'none'};
+    display: ${({anImageSelected}: ImageContainerProps) => anImageSelected ? 'block' : 'none'};
     position: absolute;
     top: 12px;
     left: 12px;
     width: 18px;
     height: 18px;
+    z-index: 1;
   }
 
   img {
     height: 100%;
     width: 100%;
     user-select: none;
+    opacity: ${({thisImageSelected}: ImageContainerProps) => thisImageSelected ? 0.5 : 1};
   }
 `;
 
-const AddProducts = () => {
-  const [images, setImages] = useState([] as Array<ImageData>);
-  const [selectedImages, setSelectedImages] = useState([] as Array<string>);
-  const [title, titleInput] = useInput({ name: 'Title', type: 'text' });
-  const [description, descriptionInput] = useInput({ name: 'Description', type: 'textarea' });
+type Props = {
+  images: Array<ImageData>
+  selectedImages: Array<string>
+  setImages: React.Dispatch<React.SetStateAction<Array<ImageData>>>
+  setSelectedImages: React.Dispatch<React.SetStateAction<Array<string>>>
+}
+
+const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Props) => {
   const {
     acceptedFiles,
     getRootProps, 
@@ -208,9 +186,9 @@ const AddProducts = () => {
     isDragAccept,
     isDragReject
   } = useDropzone({ 
-    accept: 'immage/jpeg, image/png',
-    onDrop: (acceptedFiles) => {
-      acceptedFiles.forEach(file => {
+    accept: 'image/jpeg, image/png',
+    onDrop: (acceptedFiles: any) => {
+      acceptedFiles.forEach((file: any) => {
         let reader = new FileReader();
     
         reader.readAsDataURL(file);
@@ -222,7 +200,7 @@ const AddProducts = () => {
             size: file.size,
             id: `${file.lastModified}${file.name}`,
           }
-          // await setSelectedImages([]);
+          await setSelectedImages([]);
           await setImages(prev => [...prev, image])
         }
       });
@@ -253,8 +231,8 @@ const AddProducts = () => {
     return (
       <ImageContainer 
         key={`${index}${imageData.name}`}
-        imageSelected={selectedImages.length > 0}
-        showOverlay={!selectedImages.includes(imageData.id)}
+        anImageSelected={selectedImages.length > 0}
+        thisImageSelected={selectedImages.includes(imageData.id)}
         onClick={e => selectImage(e, imageData.id)}
       >
         <div className='overlay'></div>
@@ -271,62 +249,46 @@ const AddProducts = () => {
   });
 
   return (
-    <Container>
-      <Title>
-        <GoBack route='/admin/products'></GoBack>
-        <p className='header'>Add product</p>
-      </Title>
-
-      <Description>
-        <div className='title'>
-          { titleInput }
-        </div>
-        <div className='description'>
-          { descriptionInput }
-        </div>
-      </Description>
-
-      <Media imageShown={images.length > 0}>
-        <div className='header-container'>
-          {
-            selectedImages.length === 0
-            ? <p className='header-title'>Media</p>
-            : <>
-                <div 
-                  onClick={selectAllImages}
-                  className='select-all'
-                >
-                  <input type='checkbox' checked={selectedImages.length === images.length}/>
-                  <p className='header-title'>{selectedImages.length} images selected</p>
-                </div>
-                <p className='delete-images'>Delete images</p>
-              </>
-          }
-        </div>
-        { 
-          acceptedFiles.length === 0
-          ? <div {...getRootProps({className: 'dropzone upload-container'})}>
-              <input {...getInputProps()} />
-              {/* @ts-ignore */}
-              <ion-icon name="arrow-up-circle"></ion-icon>
-              <Button text='Add file' color='white'></Button>
-              <p className='instructions'>or drop files to upload</p>
-            </div>
-          // : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
-          : <div className='images' {...getRootProps()}>
-              <input {...getInputProps()} />
-              { renderImages }
-              <div className='upload-more'>
-                <div className='text-container'>
-                  <p className='title'>Add media</p>
-                  <p className='subtitle'>or drop files to upload</p>
-                </div>
+    <Media imageShown={images.length > 0}>
+      <div className='header-container'>
+        {
+          selectedImages.length === 0
+          ? <p className='header-title'>Media</p>
+          : <>
+              <div 
+                onClick={selectAllImages}
+                className='select-all'
+              >
+                <input type='checkbox' checked={selectedImages.length === images.length}/>
+                <p className='header-title'>{selectedImages.length} images selected</p>
+              </div>
+              <p className='delete-images'>Delete images</p>
+            </>
+        }
+      </div>
+      { 
+        acceptedFiles.length === 0
+        ? <div {...getRootProps({className: 'dropzone upload-container'})}>
+            <input {...getInputProps()} />
+            {/* @ts-ignore */}
+            <ion-icon name="arrow-up-circle"></ion-icon>
+            <Button text='Add file' color='white'></Button>
+            <p className='instructions'>or drop files to upload</p>
+          </div>
+        // : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+        : <div className='images' {...getRootProps()}>
+            <input {...getInputProps()} />
+            { renderImages }
+            <div className='upload-more'>
+              <div className='text-container'>
+                <p className='title'>Add media</p>
+                <p className='subtitle'>or drop files to upload</p>
               </div>
             </div>
-        }
-      </Media>
-    </Container>
-  )
+          </div>
+      }
+    </Media>
+  );
 };
 
-export default AddProducts;
+export default AddMedia;
