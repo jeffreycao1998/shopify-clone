@@ -160,46 +160,38 @@ const ImageContainer = styled.div`
   border-radius: 3px;
   overflow: hidden;
   user-select: none;
+  cursor: pointer;
 
-  label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-
-    &:hover {
-      .overlay {
-        display: ${({showOverlay}: ImageContainerProps) => showOverlay ? 'block' : 'none'};
-      }
-      input {
-        display: block;
-      }
-    }
-
+  &:hover {
     .overlay {
-      display: none;
-      height: 100%;
-      width: 100%;
-      background-image: linear-gradient(rgba(0,0,0,0.3), transparent);
-      position: absolute;
+      display: ${({showOverlay}: ImageContainerProps) => showOverlay ? 'block' : 'none'};
     }
-
     input {
-      display: ${({imageSelected}: {imageSelected: boolean}) => imageSelected ? 'block' : 'none'};
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      width: 18px;
-      height: 18px;
+      display: block;
     }
+  }
 
-    img {
-      height: 100%;
-      width: 100%;
-      user-select: none;
-    }
+  .overlay {
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.3), transparent);
+    position: absolute;
+  }
+
+  input {
+    display: ${({imageSelected}: {imageSelected: boolean}) => imageSelected ? 'block' : 'none'};
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    user-select: none;
   }
 `;
 
@@ -218,7 +210,6 @@ const AddProducts = () => {
   } = useDropzone({ 
     accept: 'immage/jpeg, image/png',
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
       acceptedFiles.forEach(file => {
         let reader = new FileReader();
     
@@ -231,31 +222,30 @@ const AddProducts = () => {
             size: file.size,
             id: `${file.lastModified}${file.name}`,
           }
-          await setSelectedImages([]);
+          // await setSelectedImages([]);
           await setImages(prev => [...prev, image])
         }
       });
     }
   });
 
-  const selectImage = (e: any) => {
-    const imageId = e.target.id;
-
-    if (e.target.checked) {
-      setSelectedImages([...selectedImages, imageId]);
-    } else {
+  const selectImage = (e: any, imageId: string) => {
+    e.stopPropagation();
+    if (selectedImages.includes(imageId)) {
       setSelectedImages(prev => {
         return prev.filter(currImageId => currImageId !== imageId);
       });
+    } else {
+      setSelectedImages([...selectedImages, imageId]);
     }
   };
 
-  const selectAllImages = (e: any) => {
-    e.stopPropogation();
+  const selectAllImages = async () => {
     if (selectedImages.length === images.length) {
-      setSelectedImages([]);
+      setSelectedImages(prev => [...[]]);
     } else {
-      setSelectedImages(images.map(image => image.id));
+      const newSelectedImages = images.map(image => image.id);
+      setSelectedImages(newSelectedImages);
     }
   };
 
@@ -263,24 +253,22 @@ const AddProducts = () => {
     return (
       <ImageContainer 
         key={`${index}${imageData.name}`}
-        id={imageData.id}
-        onClick={(e) => e.stopPropagation()}
         imageSelected={selectedImages.length > 0}
         showOverlay={!selectedImages.includes(imageData.id)}
+        onClick={e => selectImage(e, imageData.id)}
       >
-        <label>
-          <div className='overlay'></div>
-          <input type='checkbox' onChange={(e) => selectImage(e)} id={imageData.id} checked={selectedImages.includes(imageData.id)}></input>
-          <img  
-            src={imageData.url}
-            alt={imageData.name}
-          />
-        </label>
+        <div className='overlay'></div>
+        <input 
+          type='checkbox' 
+          checked={selectedImages.includes(imageData.id)}
+        />
+        <img  
+          src={imageData.url}
+          alt={imageData.name}
+        />
       </ImageContainer>
     )
   });
-
-  console.log(selectedImages);
 
   return (
     <Container>
@@ -304,13 +292,13 @@ const AddProducts = () => {
             selectedImages.length === 0
             ? <p className='header-title'>Media</p>
             : <>
-                <label 
+                <div 
                   onClick={selectAllImages}
                   className='select-all'
                 >
-                  <input type='checkbox' />
+                  <input type='checkbox' checked={selectedImages.length === images.length}/>
                   <p className='header-title'>{selectedImages.length} images selected</p>
-                </label>
+                </div>
                 <p className='delete-images'>Delete images</p>
               </>
           }
@@ -324,7 +312,8 @@ const AddProducts = () => {
               <Button text='Add file' color='white'></Button>
               <p className='instructions'>or drop files to upload</p>
             </div>
-          : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+          // : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+          : <div className='images' {...getRootProps()}>
               <input {...getInputProps()} />
               { renderImages }
               <div className='upload-more'>
