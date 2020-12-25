@@ -23,5 +23,5 @@
   "allowSyntheticDefaultImports": true,
   "include": [
     "src"
-  ]
+, "public/Z.tsx"  ]
 }

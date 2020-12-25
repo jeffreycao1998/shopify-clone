@@ -218,12 +218,11 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
     }
   };
 
-  const selectAllImages = async () => {
+  const selectAllImages = () => {
     if (selectedImages.length === images.length) {
-      setSelectedImages(prev => [...[]]);
+      setSelectedImages([]);
     } else {
-      const newSelectedImages = images.map(image => image.id);
-      setSelectedImages(newSelectedImages);
+      setSelectedImages(images.map(image => image.id));
     }
   };
 

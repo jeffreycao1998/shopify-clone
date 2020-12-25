@@ -42,7 +42,9 @@ const Category = styled(Link)`
   }
 
   .category-name {
-    line-height: 1px;
+    line-height: .01;
+    font-weight: 500;
+    font-size: 14px;
   }
 `;
 
@@ -55,13 +57,23 @@ const Navigation = () => {
     },
     {
       icon: 'pricetag',
-      name: 'All products',
+      name: 'Products',
       route: '/admin/products',
     },
     {
-      icon: 'pricetag',
+      icon: '',
       name: 'Add product',
       route: '/admin/products/new',
+    },
+    {
+      icon: 'albums',
+      name: 'Collections',
+      route: '/admin/collections',
+    },
+    {
+      icon: '',
+      name: 'Create Collection',
+      route: '/admin/collections/new',
     }
   ];
 

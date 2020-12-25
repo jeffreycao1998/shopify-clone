@@ -1,0 +1,21 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+// Components
+import { ContainerRounded, Button } from '../../Core';
+
+const Container = styled.div`
+  padding: 16px;
+`;
+
+const AllProducts = () => {
+  return (
+    <Container>
+
+      
+
+    </Container>
+  )
+};
+
+export default AllProducts;

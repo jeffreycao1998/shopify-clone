@@ -20,6 +20,7 @@ const Header = styled.div`
     line-height: 0.1;
     margin-left: 16px;
     font-size: 20px;
+    font-weight: 500;
   }
 `;
 

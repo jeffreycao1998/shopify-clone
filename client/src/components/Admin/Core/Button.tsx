@@ -15,11 +15,16 @@ type Props = {
 }
 
 const ButtonContainer = styled.div`
+  display: inline-block;
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 3px;
   font-size: 14px;
-  display: inline-block;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
   
   ${({color}: Props) => {
     if (color === 'green') {

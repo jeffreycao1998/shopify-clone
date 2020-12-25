@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled.div`
   height: 56px;
@@ -85,11 +86,13 @@ const Header = () => {
   return (
     <HeaderContainer>
       <LogoContainer>
-        <div className='logo'>
-          {/* @ts-ignore */}
-          <ion-icon name="aperture"></ion-icon>
-          <p className='store-name'>jeffreycao</p>
-        </div>
+        <Link to='/admin'>
+          <div className='logo'>
+            {/* @ts-ignore */}
+            <ion-icon name="aperture"></ion-icon>
+            <p className='store-name'>jeffreycao</p>
+          </div>
+        </Link>
       </LogoContainer>
       <ProfileContainer>
         <div className='profile'>

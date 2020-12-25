@@ -12,8 +12,10 @@ import Header from './Header';
 import Navigation from './Navigation'
 
 import Home from './Home';
-import AllProducts from './Products/AllProducts';
+import Products from './Products/Products';
 import AddProduct from './Products/AddProduct';
+import CreateCollection from './Products/CreateCollection';
+import Collections from './Products/Collections';
 
 const Container = styled.div`
   width: 100%;
@@ -33,12 +35,23 @@ const Admin = () => {
 
       <MainContainer>
         <Switch>
-          <Route path='/admin/products/new'>
+
+          {/* Products */}
+          <Route exact path='/admin/products'>
+            <Products />
+          </Route>
+          <Route exact path='/admin/products/new'>
             <AddProduct />
           </Route>
-          <Route path='/admin/products'>
-            <AllProducts />
+
+          {/* Collections */}
+          <Route exact path='/admin/collections'>
+            <Collections />
           </Route>
+          <Route exact path='/admin/collections/new'>
+            <CreateCollection />
+          </Route>
+
           <Route path='/admin'>
             <Home />
           </Route>
