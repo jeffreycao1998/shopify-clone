@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost'
 
-const ADD_ANON_MESSAGE = gql`
+const ADD_PRODUCT = gql`
   mutation addAnonMessage($sectionId: ID! ,$text: String!, $replyingTo: ID) {
     addAnonMessage(sectionId: $sectionId, text: $text, replyingTo: $replyingTo) {
       _id
@@ -25,4 +25,4 @@ const ADD_ANON_MESSAGE = gql`
   }
 `;
 
-export default ADD_ANON_MESSAGE
+export default ADD_PRODUCT;

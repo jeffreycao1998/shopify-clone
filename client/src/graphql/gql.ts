@@ -1,1 +1,5 @@
-import storeImage from './mutations/storeImage';
+import LOG_MESSAGE from './queries/logMessage';
+
+export {
+  LOG_MESSAGE,
+}

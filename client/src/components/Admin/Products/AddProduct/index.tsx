@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { LOG_MESSAGE } from '../../../../graphql/gql';
 import { useInput } from '../../../../hooks';
 import { ImageData } from '../../../../types';
 
@@ -56,6 +58,7 @@ const SaveBtn = styled.div`
 `;
 
 const AddProducts = () => {
+  const { loading, error, data } = useQuery(LOG_MESSAGE);
   const [images, setImages] = useState([] as Array<ImageData>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
 
@@ -74,6 +77,7 @@ const AddProducts = () => {
       comparePrice
     })
   };
+  console.log(data);
 
   return (
     <Container>

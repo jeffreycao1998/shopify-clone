@@ -3,27 +3,10 @@ import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import App from './App';
 
-// GraphQL
-// import { ApolloClient, InMemoryCache } from '@apollo/client';
-// import { gql } from '@apollo/client';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
-// const apolloClient = new ApolloClient({
-//   uri: 'http://localhost:4000/',
-//   cache: new InMemoryCache()
-// });
-
-// apolloClient
-//   .query({
-//     query: gql`
-//       query books {
-//         books {
-//           title
-//           author
-//         }
-//       }
-//     `
-//   })
-//   .then(result => console.log(result));
+const client = new ApolloClient({ uri: 'http://localhost:4000' })
 
 const GlobalStyle = createGlobalStyle`
   body, html {
@@ -44,7 +27,9 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
