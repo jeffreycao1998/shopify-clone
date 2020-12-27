@@ -2,7 +2,7 @@ import db from '../../db';
 
 const addProduct = async (obj: any, args: any, context: any, info: any) => {
   const {} = args;
-
+  console.log(args);
   const queryString = `
     UPDATE orders
     SET estimated_pickup=$1
@@ -14,8 +14,7 @@ const addProduct = async (obj: any, args: any, context: any, info: any) => {
   db.query(queryString, values)
   .then(updatedOrder => updatedOrder.rows)
   .catch(e => console.error(e));
-
-  console.log({context});
+  
   return { success: true };
 };
 

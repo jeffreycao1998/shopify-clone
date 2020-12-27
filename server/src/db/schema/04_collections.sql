@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS collections CASCADE;
+
+CREATE TABLE collections (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  active BOOLEAN,
+
+  -- FOREIGN KEYS
+  user_id INTEGER REFERENCES users(id)
+);

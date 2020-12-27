@@ -37,14 +37,13 @@ const runSeedFiles = async () => {
 
 const resetDb = async () => {
   try {
-    await client.connect();
+    client.connect();
     await runSchemaFiles();
     await runSeedFiles();
-    await client.end();
+    client.end();
   } catch(err) {
     console.error(chalk.red(`Failed due to error: ${err}`));
-    await client.end();
+    client.end();
   }
 };
-
 resetDb();

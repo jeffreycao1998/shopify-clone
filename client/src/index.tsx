@@ -6,7 +6,7 @@ import App from './App';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-const client = new ApolloClient({ uri: 'http://localhost:4000' })
+const client = new ApolloClient({ uri: 'http://localhost:4000/' })
 
 const GlobalStyle = createGlobalStyle`
   body, html {
@@ -23,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
     color: rgb(32, 34, 35);
   }
 `;
+
+console.log(client);
 
 ReactDOM.render(
   <React.StrictMode>

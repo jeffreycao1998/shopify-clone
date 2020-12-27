@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { LOG_MESSAGE } from '../../../../graphql/gql';
+import { useMutation } from '@apollo/react-hooks'
+import { ADD_PRODUCT } from '../../../../graphql/gql';
 import { useInput } from '../../../../hooks';
 import { ImageData } from '../../../../types';
 
@@ -58,7 +58,7 @@ const SaveBtn = styled.div`
 `;
 
 const AddProducts = () => {
-  const { loading, error, data } = useQuery(LOG_MESSAGE);
+  const [addProduct] = useMutation(ADD_PRODUCT);
   const [images, setImages] = useState([] as Array<ImageData>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
 
@@ -69,15 +69,20 @@ const AddProducts = () => {
   const [comparePrice, comparePriceInput] = useInput({ name: 'Compare price', type: 'text', placeholder: '0.00'});
 
   const onSave = () => {
-    console.log({
+    const product = {
       title,
       description,
       images,
-      price,
-      comparePrice
-    })
+      //@ts-ignore
+      price: parseFloat(price) * 100,
+      //@ts-ignore
+      comparePrice: parseFloat(comparePrice) * 100
+    }
+    
+    addProduct({
+      variables: { product }
+    }).then(data => console.log(data));
   };
-  console.log(data);
 
   return (
     <Container>
@@ -108,9 +113,6 @@ const AddProducts = () => {
         <div className='cost'>
           <div className='price'>
             { priceInput }
-          </div>
-          <div className='price'>
-            { comparePriceInput }
           </div>
         </div>
       </Pricing>
