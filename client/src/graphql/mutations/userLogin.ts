@@ -1,11 +1,11 @@
 import { gql } from 'apollo-boost'
 
-const USER_REGISTER = gql`
-  mutation userRegister($email: String, $password: String, $storeName: String) {
-    userRegister(email: $email, password: $password, storeName: $storeName) {
+const USER_LOGIN = gql`
+  mutation userLogin($email: String, $password: String) {
+    userLogin(email: $email, password: $password) {
       token
     }
   }
 `;
 
-export default USER_REGISTER;
+export default USER_LOGIN;

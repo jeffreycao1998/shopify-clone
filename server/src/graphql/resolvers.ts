@@ -4,6 +4,7 @@ import logMessage from './queries/logMessage';
 // Mutations
 import addProduct from './mutations/addProduct';
 import userRegister from './mutations/userRegister';
+import userLogin from './mutations/userLogin';
 
 const resolvers = {
   Query: {
@@ -12,6 +13,7 @@ const resolvers = {
   Mutation: {
     addProduct,
     userRegister,
+    userLogin,
   }
 }
 

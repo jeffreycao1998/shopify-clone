@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks'
-import { ADD_PRODUCT } from '../../../graphql/gql';
+import { USER_LOGIN } from '../../../graphql/gql';
 import { colors } from '../../../theme';
 import { useInput } from '../../../hooks';
 
@@ -71,6 +71,8 @@ const Login = () => {
   const [password, passwordInput] = useInput({ name: 'Password', type: 'password', placeholder: 'S3CR3t P@$$' })
   const [errorMsg, setErrorMsg] = useState('');
 
+  const [userLogin] = useMutation(USER_LOGIN);
+
   const login = () => {
     const missingFields = [];
 
@@ -81,7 +83,18 @@ const Login = () => {
       missingFields.push('password');
     }
 
-    setErrorMsg(`Missing field${missingFields.length > 1 ? 's' : ''} ${missingFields.join(', ')}!`)
+    if (missingFields.length) {
+      setErrorMsg(`Missing field${missingFields.length > 1 ? 's' : ''} ${missingFields.join(', ')}!`)
+    } else {
+      userLogin({
+        variables: {
+          email,
+          password
+        }
+      })
+      .then(res => console.log(res.data.userLogin.token))
+      .catch(err => setErrorMsg(err.message.split('error: ')[1]));
+    }
     
   };
 
