@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import cookies from 'js-cookie';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 // Components
@@ -28,6 +30,14 @@ const MainContainer = styled.div`
 `;
 
 const Admin = () => {
+  const history = useHistory();
+
+  const jwt = cookies.get('jwt');
+  if (!jwt) {
+    history.push('/auth/login');
+    return null;
+  }
+
   return (
     <Container>
       <Header />

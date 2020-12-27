@@ -21,6 +21,7 @@ const FormContainer = styled.div`
 `;
 
 const Auth = () => {
+
   return (
     <Container>
       <Header />
