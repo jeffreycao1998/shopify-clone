@@ -71,6 +71,7 @@ const Login = () => {
   const [email, emailInput] = useInput({ name: 'Email address', type: 'text', placeholder: 'jeffcao05@gmail.com' })
   const [password, passwordInput] = useInput({ name: 'Password', type: 'password', placeholder: 'S3CR3t P@$$' })
   const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
 
   const [userLogin] = useMutation(USER_LOGIN);
 
@@ -95,9 +96,9 @@ const Login = () => {
       .then(res => {
         const jwt = res.data.userLogin.token;
         cookies.set('jwt', jwt);
-        console.log('set the token in cookie');
+        history.push('/admin')
       })
-      .catch(err => setErrorMsg(err.message.split('error: ')[1]));
+      .catch(err => setErrorMsg(err.message));
     }
     
   };

@@ -5,10 +5,10 @@ const getUserId = (token: string) => {
     token.slice(7),
     process.env.JWT_SECRET
   );
-    console.log(decoded);
-  const userId = decoded.userId;
 
-  return '123';
+  const { userId } = decoded;
+
+  return userId;
 };
 
 const context = ({ req }: any) => {

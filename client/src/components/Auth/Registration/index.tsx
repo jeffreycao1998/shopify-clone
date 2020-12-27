@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import cookie from 'cookie';
-import { Link } from 'react-router-dom';
+import cookies from 'js-cookie';
+import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks'
 import { USER_REGISTER } from '../../../graphql/gql';
 import { colors } from '../../../theme';
@@ -72,6 +72,7 @@ const Registration = () => {
   const [password, passwordInput] = useInput({ name: 'Password', type: 'password', placeholder: 'S3CR3t P@$$' })
   const [storeName, storeNameInput] = useInput({ name: 'Your store name', type: 'text', placeholder: 'Gucci Clone' })
   const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
 
   const [userRegister] = useMutation(USER_REGISTER);
 
@@ -100,9 +101,8 @@ const Registration = () => {
       })
       .then(res => {
         const jwt = res.data.userRegister.token;
-        cookie.serialize('jwt', jwt);
-        const cookies = cookie.parse('jwt');
-        console.log(cookies);
+        cookies.set('jwt', jwt);
+        history.push('/admin')
       })
       .catch(err => setErrorMsg(err.message.split('error: ')[1]));
     }
@@ -125,7 +125,7 @@ const Registration = () => {
         <CreateStoreBtn onClick={createStore}>
           Create your store
         </CreateStoreBtn>
-        <Link to='/auth/signup'>Already have an account? Login</Link>
+        <Link to='/auth/login'>Already have an account? Login</Link>
 
         <ErrorMsg>{ errorMsg }</ErrorMsg>
       </Form>
