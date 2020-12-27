@@ -7,6 +7,7 @@ const typeDefs = gql`
 
   type Mutation {
     addProduct(product: Product): Status
+    userRegister(email: String, password: String, storeName: String): Status
   }
 
   type Status {

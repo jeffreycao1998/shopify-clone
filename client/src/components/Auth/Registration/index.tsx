@@ -90,17 +90,15 @@ const Registration = () => {
     if (missingFields.length) {
       setErrorMsg(`Missing field${missingFields.length > 1 ? 's' : ''} ${missingFields.join(', ')}!`);
     } else {
-      try {
-        userRegister({
-          variables: {
-            email,
-            password,
-            storeName
-          }
-        })
-      } catch (err) {
-        console.error(err);
-      }
+      userRegister({
+        variables: {
+          email,
+          password,
+          storeName
+        }
+      })
+      .then(data => console.log(data))
+      .catch(err => setErrorMsg(err.message.split('error: ')[1]));
     }
   };
 

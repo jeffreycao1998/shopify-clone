@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS collections CASCADE;
 
 CREATE TABLE collections (
-  id SERIAL PRIMARY KEY NOT NULL,
+  id  INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('serial'),
   name VARCHAR(255) NOT NULL,
   active BOOLEAN,
 
