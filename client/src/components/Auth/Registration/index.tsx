@@ -97,7 +97,7 @@ const Registration = () => {
           storeName
         }
       })
-      .then(data => console.log(data))
+      .then(res => console.log(res.data.userRegister.token))
       .catch(err => setErrorMsg(err.message.split('error: ')[1]));
     }
   };

@@ -1,3 +1,4 @@
+require('dotenv').config();
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../../db';
@@ -25,6 +26,15 @@ const hashPassword = (password: string) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync(password, salt);
   return hash;
+};
+
+type TokenData = {
+
+}
+
+const signToken = (tokenData: TokenData) => {
+  const token = jwt.sign(tokenData, process.env.JWT_SECRET as string);
+  return token;
 };
 
 const userRegister = async (obj: any, args: any, context: any, info: any) => {
@@ -63,7 +73,8 @@ const userRegister = async (obj: any, args: any, context: any, info: any) => {
       throw new Error(e.message)
     });
 
-    return { success: true };
+    const token = signToken({ userId });
+    return { token };
   }
 };
 
