@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import cookies from 'js-cookie';
+import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks'
 import { USER_LOGIN } from '../../../graphql/gql';
 import { colors } from '../../../theme';
@@ -82,7 +83,6 @@ const Login = () => {
     if (!password) {
       missingFields.push('password');
     }
-
     if (missingFields.length) {
       setErrorMsg(`Missing field${missingFields.length > 1 ? 's' : ''} ${missingFields.join(', ')}!`)
     } else {
@@ -92,7 +92,11 @@ const Login = () => {
           password
         }
       })
-      .then(res => console.log(res.data.userLogin.token))
+      .then(res => {
+        const jwt = res.data.userLogin.token;
+        cookies.set('jwt', jwt);
+        console.log('set the token in cookie');
+      })
       .catch(err => setErrorMsg(err.message.split('error: ')[1]));
     }
     

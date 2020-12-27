@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createGlobalStyle } from 'styled-components';
 import App from './App';
+import cookies from 'js-cookie';
+import { createGlobalStyle } from 'styled-components';
 
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from 'react-apollo';
+import { setContext } from '@apollo/client/link/context';
 
-const client = new ApolloClient({ uri: 'http://localhost:4000/' })
-
+// Styled Components
 const GlobalStyle = createGlobalStyle`
   body, html {
     background-color: #f4f4f2;
@@ -24,11 +25,31 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-console.log(client);
+// GraphQL
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000/',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = cookies.get('jwt');
+  
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const client = new ApolloClient({ 
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
+    {/* @ts-ignore */}
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>

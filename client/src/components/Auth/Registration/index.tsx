@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import cookie from 'cookie';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks'
 import { USER_REGISTER } from '../../../graphql/gql';
@@ -97,7 +98,12 @@ const Registration = () => {
           storeName
         }
       })
-      .then(res => console.log(res.data.userRegister.token))
+      .then(res => {
+        const jwt = res.data.userRegister.token;
+        cookie.serialize('jwt', jwt);
+        const cookies = cookie.parse('jwt');
+        console.log(cookies);
+      })
       .catch(err => setErrorMsg(err.message.split('error: ')[1]));
     }
   };

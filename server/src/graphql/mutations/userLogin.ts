@@ -8,7 +8,7 @@ const userLogin = async (obj: any, args: any, context: any, info: any) => {
   const user = (await getUserByEmail(email)).rows[0];
   const hash = user.password;
   const correctPassword = await bcrypt.compare(password, hash);
-  
+
   if (!user || !correctPassword) {
     throw new Error('Incorrect credentials');
   } else {
