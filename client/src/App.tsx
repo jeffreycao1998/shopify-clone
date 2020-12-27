@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 // Components
+import Auth from './components/Auth';
 import Admin from './components/Admin';
 import Store from './components/Store';
 
@@ -13,6 +14,9 @@ const App = () => {
   return (
     <Router>
       <Switch>
+        <Route path='/auth'>
+          <Auth />
+        </Route>
         <Route path='/admin'>
           <Admin />
         </Route>
