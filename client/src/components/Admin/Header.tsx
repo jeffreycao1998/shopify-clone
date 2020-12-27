@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import cookies from 'js-cookie';
+import { Link, useHistory } from 'react-router-dom';
+import { colors } from '../../theme';
 
 const HeaderContainer = styled.div`
   height: 56px;
@@ -21,6 +23,10 @@ const HeaderContainer = styled.div`
 const LogoContainer = styled.div`
   height: 100%;
   padding: 8px;
+
+  a {
+    text-decoration: none;
+  }
 
   .logo {
     height: 100%;
@@ -48,10 +54,16 @@ const LogoContainer = styled.div`
   }
 `;
 
+type ProfileContainerProps = {
+  show: boolean;
+}
+
 const ProfileContainer = styled.div`
   height: 100%;
   padding: 8px;
   align-self: flex-end;
+  position: relative;
+  user-select: none;
 
   .profile {
     height: 100%;
@@ -59,6 +71,7 @@ const ProfileContainer = styled.div`
     align-items: center;
     padding: 6px 8px;
     border-radius: 3px;
+    background-color: ${({show}: ProfileContainerProps) => show ? 'lightgrey' : 'transparent'};
 
     &:hover {
       background-color: lightgrey;
@@ -74,15 +87,69 @@ const ProfileContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 14px;
     }
 
     &-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+`;
 
+type ProfileDropdownProps = {
+  show: boolean;
+}
+
+const ProfileDropdown = styled.div`
+  padding: 8px 0;
+  background-color: ${colors.Ink};
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  min-width: 170px;
+  display: ${({show}: ProfileDropdownProps) => show ? 'block' : 'none'};
+
+  .dropdown-btn {
+    margin: 0 8px;
+    padding: 10px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #353535;
+    }
+
+    ion-icon {
+      color: lightgrey;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+
+    p {
+      color: lightgrey;
+      font-size: 14px;
+      line-height: 0;
     }
   }
 `;
 
 const Header = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const history = useHistory();
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const logout = () => {
+    cookies.remove('jwt');
+    history.push('/auth/login');
+  };
+
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -94,11 +161,19 @@ const Header = () => {
           </div>
         </Link>
       </LogoContainer>
-      <ProfileContainer>
+      <ProfileContainer onClick={toggleDropdown} show={showDropdown}>
         <div className='profile'>
           <div className='profile-logo'>JC</div>
-          <div className='profile-name'>Jeffrey Cao</div>
+          <div className='profile-name'>jeffreycao1998@hotmail.com</div>
         </div>
+
+        <ProfileDropdown show={showDropdown}>
+          <div className='dropdown-btn' onClick={logout}>
+            {/* @ts-ignore */}
+            <ion-icon name="arrow-forward-circle"></ion-icon>
+            <p>Log out</p>
+          </div>
+        </ProfileDropdown>
       </ProfileContainer>
     </HeaderContainer>
   )
