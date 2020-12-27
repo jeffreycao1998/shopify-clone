@@ -22,7 +22,9 @@
     "pg": "^8.5.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.9",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.14.14",
     "@types/pg": "^7.14.7",
     "nodemon": "^2.0.6",

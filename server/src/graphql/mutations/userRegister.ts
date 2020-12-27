@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import db from '../../db';
 
 const getUserByEmail = async (email: string) => {
@@ -18,6 +20,13 @@ const getStoresByName = async (storeName: string) => {
   return result.rows;
 };
 
+const hashPassword = (password: string) => {
+  const saltRounds = 10;
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+};
+
 const userRegister = async (obj: any, args: any, context: any, info: any) => {
   const { email, password, storeName } = args;
   const users = await getUserByEmail(email);
@@ -30,13 +39,14 @@ const userRegister = async (obj: any, args: any, context: any, info: any) => {
 
   } else {
     let userId;
+    const hash = hashPassword(password);
 
     // Create User
     await db.query(`
       INSERT INTO users (email, password)
       VALUES ($1, $2)
       RETURNING *;
-    `, [email, password])
+    `, [email, hash])
     .then(user => {
       userId = user.rows[0].id;
     })
@@ -53,7 +63,7 @@ const userRegister = async (obj: any, args: any, context: any, info: any) => {
       throw new Error(e.message)
     });
 
-    return { success: true }
+    return { success: true };
   }
 };
 
