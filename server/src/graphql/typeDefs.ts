@@ -31,7 +31,6 @@ const typeDefs = gql`
     description: String
     images: [Image]
     price: Int
-    comparePrice: Int
   }
 `;
 

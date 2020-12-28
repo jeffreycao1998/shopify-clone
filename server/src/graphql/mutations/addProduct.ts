@@ -1,19 +1,15 @@
-import db from '../../db';
+import { Image } from '../../types';
+import { createProduct, addImagesToProduct } from '../../db/helpers';
 
 const addProduct = async (obj: any, args: any, context: any, info: any) => {
-  const {} = args;
-  console.log(args);
-  const queryString = `
-    UPDATE orders
-    SET estimated_pickup=$1
-    WHERE id=$2;
-  `;
+  const { title, description, images, price } = args.product;
+  const userId = context.user.id;
 
-  const values = [] as Array<string>;
+  const productId = (await createProduct(title, description, price, userId)).rows[0].id;
 
-  db.query(queryString, values)
-  .then(updatedOrder => updatedOrder.rows)
-  .catch(e => console.error(e));
+  images.forEach( async (image: Image) => {
+    await addImagesToProduct(image.url, productId);
+  })
   
   return { success: true };
 };

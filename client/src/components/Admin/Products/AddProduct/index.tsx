@@ -66,7 +66,6 @@ const AddProducts = () => {
   const [description, descriptionInput] = useInput({ name: 'Description', type: 'textarea', placeholder: '-limited edition doge pic' });
   
   const [price, priceInput] = useInput({ name: 'Price', type: 'text', placeholder: '0.00'});
-  const [comparePrice, comparePriceInput] = useInput({ name: 'Compare price', type: 'text', placeholder: '0.00'});
 
   const onSave = () => {
     const product = {
@@ -74,14 +73,14 @@ const AddProducts = () => {
       description,
       images,
       //@ts-ignore
-      price: parseFloat(price) * 100,
-      //@ts-ignore
-      comparePrice: parseFloat(comparePrice) * 100
+      price: parseFloat(price).toFixed(2) * 100,
     }
     
     addProduct({
       variables: { product }
-    }).then(data => console.log(data));
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err.message))
   };
 
   return (
