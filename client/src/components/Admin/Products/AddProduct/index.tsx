@@ -99,7 +99,7 @@ const AddProducts = () => {
 
   const onSave = () => {
     const product = {
-      title,
+      name: title,
       description,
       images,
       //@ts-ignore
