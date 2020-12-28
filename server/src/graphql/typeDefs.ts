@@ -6,7 +6,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addProduct(product: Product): Status
+    addProduct(product: Product): ProductName
     userRegister(email: String, password: String, storeName: String): JWT
     userLogin(email: String, password: String): JWT
   }
@@ -17,6 +17,10 @@ const typeDefs = gql`
 
   type JWT {
     token: String
+  }
+
+  type ProductName {
+    name: String
   }
 
   input Image {

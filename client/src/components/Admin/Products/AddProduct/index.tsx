@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
 import { ADD_PRODUCT } from '../../../../graphql/gql';
+import { colors } from '../../../../theme';
 import { useInput } from '../../../../hooks';
 import { ImageData } from '../../../../types';
 
@@ -23,6 +24,22 @@ const Header = styled.div`
     margin-left: 16px;
     font-size: 20px;
     font-weight: 500;
+  }
+`;
+
+const Message = styled.div`
+  border: 1px solid #02a302;
+  background-color: #edf8ed;
+  padding: 20px 42px 18px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+
+  ion-icon {
+    color: ${colors.BrandGreen};
+    font-size: 28px;
+    margin-right: 12px;
   }
 `;
 
@@ -59,13 +76,26 @@ const SaveBtn = styled.div`
 
 const AddProducts = () => {
   const [addProduct] = useMutation(ADD_PRODUCT);
+  const [message, setMessage] = useState('');
+
   const [images, setImages] = useState([] as Array<ImageData>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
 
-  const [title, titleInput] = useInput({ name: 'Title', type: 'text', placeholder: 'doge pic' });
-  const [description, descriptionInput] = useInput({ name: 'Description', type: 'textarea', placeholder: '-limited edition doge pic' });
+  const [title, titleInput, clearTitle] = useInput({ name: 'Title', type: 'text', placeholder: 'doge pic' });
+  const [description, descriptionInput, clearDescription] = useInput({ name: 'Description', type: 'textarea', placeholder: '-limited edition doge pic' });
   
-  const [price, priceInput] = useInput({ name: 'Price', type: 'text', placeholder: '0.00'});
+  const [price, priceInput, clearPrice] = useInput({ name: 'Price', type: 'text', placeholder: '0.00'});
+
+  const resetState = () => {
+    setImages([]);
+    setSelectedImages([]);
+    // @ts-ignore
+    clearTitle();
+    // @ts-ignore
+    clearDescription();
+    // @ts-ignore
+    clearPrice();
+  };
 
   const onSave = () => {
     const product = {
@@ -79,17 +109,28 @@ const AddProducts = () => {
     addProduct({
       variables: { product }
     })
-    .then(data => console.log(data))
+    .then(res => {
+      resetState();
+      setMessage(`Added ${res.data.addProduct.name}`)
+    })
     .catch(err => console.log(err.message))
   };
 
   return (
     <Container>
-
       <Header>
         <GoBack route='/admin/products'></GoBack>
         <p className='header'>Add product</p>
       </Header>
+      
+      {
+        message &&
+        <Message>
+          {/* @ts-ignore */}
+          <ion-icon name="checkmark-circle"></ion-icon>
+          { message }
+        </Message>
+      }
 
       <Description>
         <div className='title'>

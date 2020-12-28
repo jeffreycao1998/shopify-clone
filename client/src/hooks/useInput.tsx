@@ -39,6 +39,7 @@ type Props = {
 
 const InputHook = ({ name, type, placeholder }: Props) => {
   const [value, setValue] = useState('');
+  const clear = () => setValue('');
 
   const input = (
     <Container>
@@ -55,9 +56,9 @@ const InputHook = ({ name, type, placeholder }: Props) => {
   );
 
   if (type === 'textarea') {
-    return [value, textarea]
+    return [value, textarea, clear]
   } else {
-    return [value, input]
+    return [value, input, clear]
   }
 };
 
