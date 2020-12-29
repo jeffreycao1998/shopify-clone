@@ -56,13 +56,19 @@ const addImagesToProduct = async (dataUrl: string, productId: number) => {
 };
 
 const getProductsByUserId = async (userId: number) => {
-  Product.findAll({
+  return Product.findAll({
+    attributes: [ 'id', 'name', 'description', 'price' ],
     where: {
       user_id: userId
     },
-    include: Image
+    include: [
+      {
+        model: Image,
+        attributes: [ 'id', 'data_url' ]
+      }
+    ]
   })
-  .then((data: any) => console.log(data))
+  .then((data: any) => data)
   .catch((err: any) => { throw err });
 };
 

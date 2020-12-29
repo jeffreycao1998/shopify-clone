@@ -3,9 +3,7 @@ import { getProductsByUserId } from '../../db/helpers';
 const getUsersProducts = async (obj: any, args: any, context: any, info: any) => {
   const userId = context.user.id;
 
-  const result = await getProductsByUserId(userId);
-
-  // console.log(result);
+  const result = await getProductsByUserId(userId)
 
   // const product = {
   //   id: 1234,
@@ -20,7 +18,7 @@ const getUsersProducts = async (obj: any, args: any, context: any, info: any) =>
   //   price: 1232
   // }
 
-  // return [ product ];
+  return result;
 };
 
 export default getUsersProducts;

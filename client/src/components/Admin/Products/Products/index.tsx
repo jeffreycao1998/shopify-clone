@@ -148,32 +148,9 @@ const Products = () => {
 
   console.log(data);
 
-  const products = [
-    {
-      id: '1',
-      imageUrl: 'https://cdn.eso.org/images/screen/eso1907a.jpg',
-      name: 'Jeff1',
-      price: 910,
-    },
-    {
-      id: '2',
-      imageUrl: 'https://cdn.eso.org/images/screen/eso1907a.jpg',
-      name: 'Jeff2',
-      price: 1312,
-    },
-    {
-      id: '3',
-      imageUrl: 'https://cdn.eso.org/images/screen/eso1907a.jpg',
-      name: 'Jeff3',
-      price: 12333,
-    },
-    {
-      id: '4',
-      imageUrl: 'https://cdn.eso.org/images/screen/eso1907a.jpg',
-      name: 'Jeff4',
-      price: 9934,
-    },
-  ];
+  const products = data && data.getUsersProducts;
+
+  if (!products) return null;
 
   const selectProduct = (productId: string) => {
     if (selectedProducts.includes(productId)) {
@@ -191,7 +168,7 @@ const Products = () => {
     if (selectedProducts.length === products.length) {
       setSelectedProducts([]);
     } else {
-      setSelectedProducts(products.map(product => product.id));
+      setSelectedProducts(products.map((product: any) => product.id));
     }
   };
 
@@ -223,13 +200,14 @@ const Products = () => {
             <h4 className='product-price'>Price</h4>
           </TableHeadings>
           {
-            products.map(product => {
+            products && products.map((product: any) => {
+              console.log(product);
               return (
                 <Product key={product.id}>
                   <div className='selector' onClick={() => selectProduct(product.id)}>
                     <input type='checkbox' checked={selectedProducts.includes(product.id)}/>
                   </div>
-                  <img src={product.imageUrl} alt={product.name}/>
+                  <img src={product.images[0].data_url} alt={product.name}/>
                   <div className='text'>
                     <h5 className='product-name'>{product.name}</h5>
                     <h5 className='product-price'>${(product.price / 100).toFixed(2)}</h5>
