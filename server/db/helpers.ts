@@ -3,9 +3,9 @@ const {
   Product,
   Image,
   Collection,
-  Product_Collection,
+  Products_Collection,
   Store,
-} = require('./index');
+} = require('./models');
 
 const getUserByEmail = async (email: string) => {
   const user = await User.findOne({ where: { email }});

@@ -1,5 +1,5 @@
 import { Image } from '../../types';
-import { createProduct, addImagesToProduct } from '../../db/helpers';
+import { createProduct, addImagesToProduct } from '../../../db/helpers';
 
 const addProduct = async (obj: any, args: any, context: any, info: any) => {
   const { name, description, images, price } = args.product;

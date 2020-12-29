@@ -1,7 +1,7 @@
 require('dotenv').config();
 import bcrypt from 'bcrypt';
 import { signToken } from '../util';
-import { getUserByEmail } from '../../db/helpers';
+import { getUserByEmail } from '../../../db/helpers';
 
 const userLogin = async (obj: any, args: any, context: any, info: any) => {
   const { email, password } = args;
