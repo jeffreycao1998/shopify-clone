@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import cookies from 'js-cookie';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useHistory
 } from "react-router-dom";
 
@@ -14,10 +12,10 @@ import Header from './Header';
 import Navigation from './Navigation'
 
 import Home from './Home';
-import Products from './Products/Products';
+import Products from './Products/AllProducts';
 import AddProduct from './Products/AddProduct';
 import CreateCollection from './Products/CreateCollection';
-import Collections from './Products/Collections';
+import Collections from './Products/AllCollections';
 
 const Container = styled.div`
   width: 100%;
@@ -40,6 +38,7 @@ const Admin = () => {
 
   return (
     <Container>
+
       <Header />
       <Navigation />
 
@@ -65,8 +64,10 @@ const Admin = () => {
           <Route path='/admin'>
             <Home />
           </Route>
+
         </Switch>
       </MainContainer>
+
     </Container>
   )
 };

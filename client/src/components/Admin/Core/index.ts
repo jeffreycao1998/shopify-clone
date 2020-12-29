@@ -1,9 +1,13 @@
 import ContainerRounded from './ContainerRounded';
 import Button from './Button';
-import GoBack from './GoBack';
+import ContentHeader from './ContentHeader';
+import Notification from './Notification';
+import AddDescription from './AddDescription';
 
 export {
   ContainerRounded,
   Button,
-  GoBack,
+  ContentHeader,
+  Notification,
+  AddDescription,
 }

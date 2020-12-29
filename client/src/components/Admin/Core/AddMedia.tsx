@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
-import { Image } from '../../../../types';
-import { ContainerRounded, Button } from '../../Core';
+import { Image } from '../../../types';
+import { ContainerRounded, Button } from '.';
 
 type MediaProps = {
   imageShown: boolean

@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Components
-import { ContainerRounded, Button } from '../../Core';
+import { ContainerRounded, Button } from '../Core';
 
 const Container = styled.div`
   padding: 16px;
 `;
 
-const CreateCollection = () => {
+const Collections = () => {
   return (
     <Container>
 
-      Create Collection
+      All Collections
 
     </Container>
   )
 };
 
-export default CreateCollection;
+export default Collections;
