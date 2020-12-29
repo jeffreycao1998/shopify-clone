@@ -6,10 +6,14 @@ const Image = sequelize.define('Image', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  product_id: {
+  ProductId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
   }
 });
+
+// Image.findAll()
+// .then(data => console.log(data))
+// .catch(err => console.log(err));
 
 module.exports = Image;

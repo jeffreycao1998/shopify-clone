@@ -11,7 +11,7 @@ module.exports = {
       data_url: {
         type: Sequelize.TEXT
       },
-      product_id: {
+      ProductId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Products',

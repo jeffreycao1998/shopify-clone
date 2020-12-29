@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 
 const Products_Collection = sequelize.define('Products_Collection', {
-  product_id: {
+  ProductId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },

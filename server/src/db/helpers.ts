@@ -49,14 +49,21 @@ const createProduct = async (name: string, description: string, price: number, u
 const addImagesToProduct = async (dataUrl: string, productId: number) => {
   const image = await Image.build({
     data_url: dataUrl,
-    product_id: productId,
+    ProductId: productId,
   });
   await image.save();
   return image;
 };
 
 const getProductsByUserId = async (userId: number) => {
-  // const products = await Product.findAll
+  Product.findAll({
+    where: {
+      user_id: userId
+    },
+    include: Image
+  })
+  .then((data: any) => data)
+  .catch((err: any) => { throw err });
 };
 
 export {
