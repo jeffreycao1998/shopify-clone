@@ -12,7 +12,11 @@ module.exports = {
         type: Sequelize.TEXT
       },
       product_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Products',
+          key: 'id'
+        },
       },
       createdAt: {
         allowNull: false,

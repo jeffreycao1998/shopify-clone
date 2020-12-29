@@ -55,13 +55,8 @@ const addImagesToProduct = async (dataUrl: string, productId: number) => {
   return image;
 };
 
-const getProductsByUserId = (userId: number) => {
-//   return db.query(`
-//     SELECT products.*,
-//       (SELECT * FROM images GROUP BY * HAVING images.product_id=products.id) as images
-//     FROM products
-//     WHERE user_id=$1
-//   `, [userId]);
+const getProductsByUserId = async (userId: number) => {
+  // const products = await Product.findAll
 };
 
 export {
