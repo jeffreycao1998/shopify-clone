@@ -4,32 +4,30 @@ import { getUserByEmail, getStoreByName, createUser, createStore } from '../../d
 const userRegister = async (obj: any, args: any, context: any, info: any) => {
   const { email, password, storeName } = args;
   // const users = (await getUserByEmail(email)).rows;
-  const users = await getUserByEmail(email);
-  // const stores = (await getStoreByName(storeName)).rows;
+  const user = await getUserByEmail(email);
+  const store = await getStoreByName(storeName);
   
-  // if (users.length) {
-  //   throw new Error('Email already registered');
-  // } else if (stores.length) {
-  //   throw new Error('Store name in use');
+  if (user) {
+    throw new Error('Email already registered');
+  } else if (store) {
+    throw new Error('Store name in use');
 
-  // } else {
-  //   let userId = '';
-  //   const hash = hashPassword(password);
+  } else {
+    let userId = '';
+    const hash = hashPassword(password);
 
-  //   // Create User
-  //   await createUser(email, hash)
-  //   .then(user => { userId = user.rows[0].id })
-  //   .catch(e => { throw new Error(e.message) });
+    // Create User
+    const newUser = await createUser(email, hash);
+    userId = newUser.dataValues.id;
 
-  //   // Create Store
-  //   await createStore(storeName, userId)
-  //   .catch(e => { throw new Error(e.message) });
+    // Create Store
+    await createStore(storeName, userId);
 
   //   // Create Token
-  //   const token = signToken({ userId });
-
-  //   return { token };
-  // }
+    const token = await signToken({ userId });
+    
+    return { token };
+  }
 };
 
 export default userRegister;

@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import db from '../db';
 import bcrypt from 'bcrypt';
 
 const hashPassword = (password: string) => {

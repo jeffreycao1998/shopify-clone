@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS stores CASCADE;
-
-CREATE TABLE stores (
-  id INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('serial'),
-  name VARCHAR(255) NOT NULL,
-
-  -- FOREIGN KEYS
-  user_id INTEGER REFERENCES users(id)
-);

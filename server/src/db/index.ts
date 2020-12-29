@@ -1,14 +1,16 @@
+import { Model } from "sequelize/types";
+
 const { Sequelize, DataTypes } = require('sequelize');
 
 const user = 'postgres'
 const host = 'localhost'
 const database = 'shopify-clone'
-const password = 'postgres'
+const pass = 'postgres'
 const port = 5432
 
-const sequelize = new Sequelize(`postgres://${user}:${password}@${host}:${port}/${database}`);
+const sequelize = new Sequelize(`postgres://${user}:${pass}@${host}:${port}/${database}`);
 
-const User = sequelize.define('user', {
+const User = sequelize.define('User', {
   email: { 
     type: DataTypes.STRING,
     allowNull: false
@@ -18,7 +20,7 @@ const User = sequelize.define('user', {
     allowNull: false
   }
 });
-const Product = sequelize.define('product', {
+const Product = sequelize.define('Product', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -36,7 +38,7 @@ const Product = sequelize.define('product', {
     allowNull: false
   }
 });
-const Image = sequelize.define('image', {
+const Image = sequelize.define('Image', {
   data_url: {
     type: DataTypes.TEXT,
     allowNull: false,
@@ -46,7 +48,7 @@ const Image = sequelize.define('image', {
     allowNull: false
   }
 });
-const Collection = sequelize.define('collection', {
+const Collection = sequelize.define('Collection', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -60,7 +62,7 @@ const Collection = sequelize.define('collection', {
     allowNull: false
   }
 });
-const Product_Collection = sequelize.define('products_collection', {
+const Product_Collection = sequelize.define('Products_Collection', {
   product_id: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -70,7 +72,7 @@ const Product_Collection = sequelize.define('products_collection', {
     allowNull: false
   },
 });
-const Store = sequelize.define('store', {
+const Store = sequelize.define('Store', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -81,9 +83,10 @@ const Store = sequelize.define('store', {
   }
 });
 
-User.sync();
+// drop all tables
+// sequelize.drop();
 
-export {
+module.exports = {
   User,
   Product,
   Image,

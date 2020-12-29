@@ -5,19 +5,19 @@ import { getUserByEmail } from '../../db/helpers';
 
 const userLogin = async (obj: any, args: any, context: any, info: any) => {
   const { email, password } = args;
-  // const user = (await getUserByEmail(email)).rows[0];
+  const user = await getUserByEmail(email);
 
-  // if (!user) throw new Error('Incorrect credentials');
+  if (!user) throw new Error('Incorrect credentials');
 
-  // const hash = user.password;
-  // const correctPassword = await bcrypt.compare(password, hash);
+  const hash = user.dataValues.password;
+  const correctPassword = await bcrypt.compare(password, hash);
   
-  // if (!correctPassword) {
-  //   throw new Error('Incorrect credentials');
-  // } else {
-  //   const token = signToken({ userId: user.id });
-  //   return { token };
-  // }
+  if (!correctPassword) {
+    throw new Error('Incorrect credentials');
+  } else {
+    const token = await signToken({ userId: user.id });
+    return { token };
+  }
 };
 
 export default userLogin;

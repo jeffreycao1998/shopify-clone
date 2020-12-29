@@ -102,9 +102,11 @@ const Registration = () => {
       .then(res => {
         const jwt = res.data.userRegister.token;
         cookies.set('jwt', jwt);
-        history.push('/admin')
+        history.push('/admin');
       })
-      .catch(err => setErrorMsg(err.message.split('error: ')[1]));
+      .catch(err => {
+        setErrorMsg(err.message);
+      });
     }
   };
 

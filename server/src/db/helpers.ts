@@ -1,43 +1,38 @@
-import { 
+const { 
   User,
   Product,
   Image,
   Collection,
   Product_Collection,
   Store,
-} from './index';
+} = require('./index');
 
 const getUserByEmail = async (email: string) => {
-//   return db.query(`
-//     SELECT * FROM users
-//     WHERE email=$1;
-//   `, [email]);
-  const users = await User.findAll();
-  console.log(users);
-  return users;
+  const user = await User.findOne({ where: { email }});
+  return user;
 };
 
 const getStoreByName = async (storeName: string) => {
-//   return db.query(`
-//     SELECT * FROM stores
-//     WHERE name=$1;
-//   `, [storeName]);
+  const store = await Store.findOne({ where: { name: storeName }});
+  return store;
 };
 
 const createUser = async (email: string, hash: string) => {
-  // return db.query(`
-  //   INSERT INTO users (email, password)
-  //   VALUES ($1, $2)
-  //   RETURNING *;
-  // `, [email, hash]);
-
+  const user = await User.build({
+    email,
+    password: hash
+  });
+  await user.save();
+  return user;
 };
 
 const createStore = async (storeName: string, userId: string) => {
-//   return db.query(`
-//     INSERT INTO stores (name, user_id)
-//     VALUES ($1, $2);
-//   `, [storeName, userId])
+  const store = await Store.build({
+    name: storeName,
+    user_id: userId
+  });
+  await store.save();
+  return store;
 };
 
 const createProduct = async (name: string, description: string, price: number, userId: number) => {
