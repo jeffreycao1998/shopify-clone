@@ -13,7 +13,7 @@ const getUserId = (token: string) => {
 
 const context = ({ req }: any) => {
   const token = req.headers.authorization || '';
-
+  
   if (!token) {
     return { user: null }
   }

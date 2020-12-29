@@ -6,6 +6,7 @@ const {
   Products_Collection,
   Store,
 } = require('./models');
+const { ProductType } = require('../types');
 
 const getUserByEmail = async (email: string) => {
   const user = await User.findOne({ where: { email }});

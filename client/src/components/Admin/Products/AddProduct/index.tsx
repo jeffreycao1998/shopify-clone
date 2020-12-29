@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { ADD_PRODUCT } from '../../../../graphql/gql';
 import { colors } from '../../../../theme';
 import { useInput } from '../../../../hooks';
-import { ImageData } from '../../../../types';
+import { Image } from '../../../../types';
 
 // Components
 import { ContainerRounded, GoBack, Button } from '../../Core';
@@ -78,7 +78,7 @@ const AddProducts = () => {
   const [addProduct] = useMutation(ADD_PRODUCT);
   const [message, setMessage] = useState('');
 
-  const [images, setImages] = useState([] as Array<ImageData>);
+  const [images, setImages] = useState([] as Array<Image>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
 
   const [title, titleInput, clearTitle] = useInput({ name: 'Title', type: 'text', placeholder: 'doge pic' });

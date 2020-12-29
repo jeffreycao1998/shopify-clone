@@ -2,8 +2,14 @@ require('dotenv').config();
 import bcrypt from 'bcrypt';
 import { signToken } from '../util';
 import { getUserByEmail } from '../../db/helpers';
+import { ContextType } from '../../types';
 
-const userLogin = async (obj: any, args: any, context: any, info: any) => {
+type Args = {
+  email: string
+  password: string
+}
+
+const userLogin = async (obj: any, args: Args, context: ContextType) => {
   const { email, password } = args;
   const user = await getUserByEmail(email);
 

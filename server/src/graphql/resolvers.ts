@@ -1,5 +1,4 @@
 // Queries
-import logMessage from './queries/logMessage';
 import getUsersProducts from './queries/getUsersProducts';
 
 // Mutations
@@ -9,7 +8,6 @@ import userLogin from './mutations/userLogin';
 
 const resolvers = {
   Query: {
-    logMessage,
     getUsersProducts,
   },
   Mutation: {

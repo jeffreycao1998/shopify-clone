@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_USERS_PRODUCTS } from '../../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../../theme';
+import { Image, Product } from '../../../../types';
 
 // Components
 import { ContainerRounded, Button } from '../../Core';
@@ -98,7 +99,7 @@ const TableHeadings = styled.div`
   }
 `;
 
-const Product = styled.div`
+const UserProduct = styled.div`
   width: 100%;
   height: 88px;
   padding: 12px 0;
@@ -146,11 +147,9 @@ const Products = () => {
 
   const { data, loading, error } = useQuery(GET_USERS_PRODUCTS);
 
-  console.log(data);
+  if (loading) return null;
 
-  const products = data && data.getUsersProducts;
-
-  if (!products) return null;
+  const products = data.getUsersProducts;
 
   const selectProduct = (productId: string) => {
     if (selectedProducts.includes(productId)) {
@@ -168,7 +167,7 @@ const Products = () => {
     if (selectedProducts.length === products.length) {
       setSelectedProducts([]);
     } else {
-      setSelectedProducts(products.map((product: any) => product.id));
+      setSelectedProducts(products.map((product: Product) => product.id));
     }
   };
 
@@ -200,19 +199,19 @@ const Products = () => {
             <h4 className='product-price'>Price</h4>
           </TableHeadings>
           {
-            products && products.map((product: any) => {
+            products && products.map((product: Product) => {
               console.log(product);
               return (
-                <Product key={product.id}>
-                  <div className='selector' onClick={() => selectProduct(product.id)}>
-                    <input type='checkbox' checked={selectedProducts.includes(product.id)}/>
+                <UserProduct key={product.id}>
+                  <div className='selector' onClick={() => selectProduct(product.id.toString())}>
+                    <input type='checkbox' checked={selectedProducts.includes(product.id.toString())}/>
                   </div>
                   <img src={product.images[0].data_url} alt={product.name}/>
                   <div className='text'>
                     <h5 className='product-name'>{product.name}</h5>
                     <h5 className='product-price'>${(product.price / 100).toFixed(2)}</h5>
                   </div>
-                </Product>
+                </UserProduct>
               )
             })
           }

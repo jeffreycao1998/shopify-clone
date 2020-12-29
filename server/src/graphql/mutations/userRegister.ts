@@ -1,9 +1,16 @@
 import { hashPassword, signToken } from '../util';
 import { getUserByEmail, getStoreByName, createUser, createStore } from '../../db/helpers';
+import { ContextType } from '../../types';
 
-const userRegister = async (obj: any, args: any, context: any, info: any) => {
+type Args = {
+  email: string
+  password: string
+  storeName: string
+}
+
+const userRegister = async (obj: any, args: Args, context: ContextType) => {
   const { email, password, storeName } = args;
-  // const users = (await getUserByEmail(email)).rows;
+  
   const user = await getUserByEmail(email);
   const store = await getStoreByName(storeName);
   

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
-import { ImageData } from '../../../../types';
+import { Image } from '../../../../types';
 import { ContainerRounded, Button } from '../../Core';
 
 type MediaProps = {
@@ -171,9 +171,9 @@ const ImageContainer = styled.div`
 `;
 
 type Props = {
-  images: Array<ImageData>
+  images: Array<Image>
   selectedImages: Array<string>
-  setImages: React.Dispatch<React.SetStateAction<Array<ImageData>>>
+  setImages: React.Dispatch<React.SetStateAction<Array<Image>>>
   setSelectedImages: React.Dispatch<React.SetStateAction<Array<string>>>
 }
 
@@ -187,15 +187,15 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
     isDragReject
   } = useDropzone({ 
     accept: 'image/jpeg, image/png',
-    onDrop: (acceptedFiles: any) => {
-      acceptedFiles.forEach((file: any) => {
+    onDrop: (acceptedFiles: Array<File>) => {
+      acceptedFiles.forEach((file: File) => {
         let reader = new FileReader();
-    
+        console.log(file);
         reader.readAsDataURL(file);
     
         reader.onload = async () => {
           const image = {
-            url: reader.result as string,
+            data_url: reader.result as string,
             name: file.name,
             size: file.size,
             id: `${file.lastModified}${file.name}`,
@@ -207,7 +207,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
     }
   });
 
-  const selectImage = (e: any, imageId: string) => {
+  const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: string) => {
     e.stopPropagation();
     if (selectedImages.includes(imageId)) {
       setSelectedImages(prev => {
@@ -226,7 +226,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
     }
   };
 
-  const renderImages = images.map((imageData: ImageData, index: number) => {
+  const renderImages = images.map((imageData: Image, index: number) => {
     return (
       <ImageContainer 
         key={`${index}${imageData.name}`}
@@ -240,7 +240,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
           checked={selectedImages.includes(imageData.id)}
         />
         <img  
-          src={imageData.url}
+          src={imageData.data_url}
           alt={imageData.name}
         />
       </ImageContainer>
