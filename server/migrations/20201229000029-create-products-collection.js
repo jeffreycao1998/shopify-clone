@@ -1,38 +1,40 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Products_Collections', {
+    await queryInterface.createTable('products_collections', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ProductId: {
+      product_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Products',
+          model: 'products',
           key: 'id'
         },
       },
       collection_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Collections',
+          model: 'collections',
           key: 'id'
         },
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
+    },{
+      underscored: true
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Products_Collections');
+    await queryInterface.dropTable('products_collections');
   }
 };

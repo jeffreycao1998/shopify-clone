@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 
-const Products_Collection = sequelize.define('Products_Collection', {
-  ProductId: {
+const Products_Collection = sequelize.define('products_collection', {
+  product_id: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -10,6 +10,8 @@ const Products_Collection = sequelize.define('Products_Collection', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+},{
+  underscored: true
 });
 
 module.exports = Products_Collection;

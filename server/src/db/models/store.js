@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 
-const Store = sequelize.define('Store', {
+const Store = sequelize.define('store', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -10,6 +10,8 @@ const Store = sequelize.define('Store', {
     type: DataTypes.INTEGER,
     allowNull: false
   }
+},{
+  underscored: true
 });
 
 module.exports = Store;

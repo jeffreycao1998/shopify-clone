@@ -49,7 +49,7 @@ const createProduct = async (name: string, description: string, price: number, u
 const addImagesToProduct = async (dataUrl: string, productId: number) => {
   const image = await Image.build({
     data_url: dataUrl,
-    ProductId: productId,
+    product_id: productId,
   });
   await image.save();
   return image;
@@ -62,7 +62,7 @@ const getProductsByUserId = async (userId: number) => {
     },
     include: Image
   })
-  .then((data: any) => data)
+  .then((data: any) => console.log(data))
   .catch((err: any) => { throw err });
 };
 
