@@ -110,7 +110,7 @@ const AddProducts = () => {
       variables: { product }
     })
     .then(res => {
-      resetState();
+      // resetState();
       setMessage(`Added ${res.data.addProduct.name}`)
     })
     .catch(err => console.log(err.message))

@@ -36,19 +36,23 @@ const createStore = async (storeName: string, userId: string) => {
 };
 
 const createProduct = async (name: string, description: string, price: number, userId: number) => {
-//   return db.query(`
-//     INSERT INTO products (name, description, price, user_id)
-//     VALUES ($1, $2, $3, $4)
-//     RETURNING *;
-//   `, [name, description, price, userId])
+  const product = await Product.build({
+    name,
+    description,
+    price,
+    user_id: userId,
+  });
+  await product.save();
+  return product;
 };
 
-const addImagesToProduct = (dataUrl: string, productId: number) => {
-//   return db.query(`
-//     INSERT INTO images (data_url, product_id)
-//     VALUES ($1, $2)
-//     RETURNING *;
-//   `, [dataUrl, productId])
+const addImagesToProduct = async (dataUrl: string, productId: number) => {
+  const image = await Image.build({
+    data_url: dataUrl,
+    product_id: productId,
+  });
+  await image.save();
+  return image;
 };
 
 const getProductsByUserId = (userId: number) => {

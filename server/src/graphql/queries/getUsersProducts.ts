@@ -1,9 +1,9 @@
-// import { getProductsByUserId } from '../../db/helpers';
+import { getProductsByUserId } from '../../db/helpers';
 
 const getUsersProducts = async (obj: any, args: any, context: any, info: any) => {
   const userId = context.user.id;
 
-  // const result = (await getProductsByUserId(userId)).rows;
+  const result = await getProductsByUserId(userId);
 
   // console.log(result);
 

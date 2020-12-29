@@ -1,5 +1,5 @@
 import { hashPassword, signToken } from '../util';
-import { getUserByEmail, getStoreByName, createUser, createStore } from '../../../db/helpers';
+import { getUserByEmail, getStoreByName, createUser, createStore } from '../../db/helpers';
 
 const userRegister = async (obj: any, args: any, context: any, info: any) => {
   const { email, password, storeName } = args;
