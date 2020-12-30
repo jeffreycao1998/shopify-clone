@@ -13,6 +13,15 @@ export type ProductType = {
   price: number
 }
 
+export type CollectionType = {
+  id: number
+  name: string
+  description: string
+  active: boolean
+  user_id: number
+  image_url: string
+}
+
 export type ContextType = {
   user: {
     id: number

@@ -79,7 +79,7 @@ const getActiveCollection = async (userId: number) => {
       user_id: userId,
       active: true
     }
-  })
+  });
 };
 
 const createCollection = async (name: string, description: string, image_url: string, userId: number) => {
@@ -96,6 +96,14 @@ const createCollection = async (name: string, description: string, image_url: st
   return collection;
 };
 
+const getCollectionsByUserId = async (userId: number) => {
+  return Collection.findAll({
+    where: {
+      user_id: userId
+    }
+  });
+};
+
 export {
   getUserByEmail,
   getStoreByName,
@@ -104,5 +112,6 @@ export {
   createProduct,
   addImagesToProduct,
   getProductsByUserId,
-  createCollection
+  createCollection,
+  getCollectionsByUserId,
 }
