@@ -155,7 +155,7 @@ const Collections = () => {
 
   if (loading) return null;
 
-  const collections = data.getUsersCollections;
+  const collections = data && data.getUsersCollections;
 
   const selectCollection = (collectionId: number) => {
     if (selectedCollections.includes(collectionId)) {
@@ -193,7 +193,7 @@ const Collections = () => {
         <UsersCollections>
           <TableHeadings>
             <div className='selector-all' onClick={selectAllCollections}>
-              <input type='checkbox' checked={selectedCollections.length === collections.length}/>
+              <input type='checkbox' checked={collections && selectedCollections.length === collections.length}/>
             </div>
             <span className='collection-image'/>
             <h4 className='collection-name'>Title</h4>
@@ -206,7 +206,7 @@ const Collections = () => {
                   <div className='selector' onClick={() => selectCollection(collection.id)}>
                     <input type='checkbox' checked={selectedCollections.includes(collection.id)}/>
                   </div>
-                  <img src={collection.image_url} alt={collection.name}/>
+                  <img src={collection.imageUrl} alt={collection.name}/>
                   <div className='text'>
                     <h5 className='collection-name'>{ collection.name }</h5>
                     <h5 className='collection-description'>{ collection.description }</h5>

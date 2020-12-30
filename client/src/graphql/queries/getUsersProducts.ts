@@ -8,7 +8,7 @@ const GET_USERS_PRODUCTS = gql`
       description
       images {
         id
-        data_url
+        dataUrl
       }
       price
     }

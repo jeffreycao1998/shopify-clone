@@ -15,15 +15,13 @@ const Product = sequelize.define('product', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
-},{
-  underscored: true
 });
 
 Product.hasMany(Image);
-Image.belongsTo(Product, {foreignKey: 'product_id', targetKey: 'id'});
+Image.belongsTo(Product, {foreignKey: 'productId', targetKey: 'id'});
 
 module.exports = Product;

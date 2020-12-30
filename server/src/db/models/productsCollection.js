@@ -4,31 +4,27 @@ const sequelize = require('../index');
 const Product = require('./product');
 const Collection = require('./product');
 
-const Products_Collection = sequelize.define('products_collection', {
-  product_id: {
+const ProductsCollection = sequelize.define('productsCollection', {
+  productId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  collection_id: {
+  collectionId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-},{
-  underscored: true
 });
 
 Product.belongsToMany(Collection, {
-  through: Products_Collection,
+  through: ProductsCollection,
   as: 'collections',
-  foreignKey: 'product_id',
-  underscored: true,
+  foreignKey: 'productId',
 });
 
 Collection.belongsToMany(Product, {
-  through: Products_Collection,
+  through: ProductsCollection,
   as: 'products',
-  foreginKey: 'collection_id',
-  underscored: true,
+  foreginKey: 'collectionId',
 });
 
-module.exports = Products_Collection;
+module.exports = ProductsCollection;

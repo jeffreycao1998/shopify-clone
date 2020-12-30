@@ -1,6 +1,6 @@
 export type Image = {
   id: string
-  data_url: string
+  dataUrl: string
   name?: string
   size?: number
 }
@@ -18,6 +18,6 @@ export type Collection = {
   name: string
   description: string
   active: boolean
-  user_id: number
-  image_url: string
+  userId: number
+  imageUrl: string
 }

@@ -7,7 +7,7 @@ const GET_USERS_COLLECTIONS = gql`
       name
       description
       active
-      image_url
+      imageUrl
     }
   }
 `;

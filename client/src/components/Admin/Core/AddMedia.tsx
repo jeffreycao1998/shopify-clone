@@ -202,7 +202,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
     
         reader.onload = async () => {
           const image = {
-            data_url: reader.result as string,
+            dataUrl: reader.result as string,
             name: file.name,
             size: file.size,
             id: `${file.lastModified}${file.name}`,
@@ -251,7 +251,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
           checked={selectedImages.includes(imageData.id)}
         />
         <img  
-          src={imageData.data_url}
+          src={imageData.dataUrl}
           alt={imageData.name}
         />
       </ImageContainer>

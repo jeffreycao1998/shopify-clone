@@ -3,7 +3,7 @@ const {
   Product,
   Image,
   Collection,
-  Products_Collection,
+  ProductsCollection,
   Store,
 } = require('./models');
 const { ProductType, ImageType } = require('../types');
@@ -30,7 +30,7 @@ const createUser = async (email: string, hash: string) => {
 const createStore = async (storeName: string, userId: string) => {
   const store = await Store.build({
     name: storeName,
-    user_id: userId
+    userId
   });
   await store.save();
   return store;
@@ -41,7 +41,7 @@ const createProduct = async (name: string, description: string, price: number, u
     name,
     description,
     price,
-    user_id: userId,
+    userId,
   });
   await product.save();
   return product;
@@ -49,8 +49,8 @@ const createProduct = async (name: string, description: string, price: number, u
 
 const addImagesToProduct = async (dataUrl: string, productId: number) => {
   const image = await Image.build({
-    data_url: dataUrl,
-    product_id: productId,
+    dataUrl,
+    productId,
   });
   await image.save();
   return image;
@@ -59,13 +59,11 @@ const addImagesToProduct = async (dataUrl: string, productId: number) => {
 const getProductsByUserId = async (userId: number) => {
   return Product.findAll({
     attributes: [ 'id', 'name', 'description', 'price' ],
-    where: {
-      user_id: userId
-    },
+    where: { userId },
     include: [
       {
         model: Image,
-        attributes: [ 'id', 'data_url' ]
+        attributes: [ 'id', 'dataUrl' ]
       }
     ]
   })
@@ -76,42 +74,40 @@ const getProductsByUserId = async (userId: number) => {
 const getActiveCollection = async (userId: number) => {
   return Collection.findOne({
     where: {
-      user_id: userId,
+      userId,
       active: true
     }
   });
 };
 
-const createCollection = async (name: string, description: string, image_url: string, userId: number) => {
+const createCollection = async (name: string, description: string, imageUrl: string, userId: number) => {
   const hasActiveCollection = await getActiveCollection(userId);
   
   const collection = await Collection.build({
     name,
     description,
     active: hasActiveCollection ? false : true,
-    user_id: userId,
-    image_url
+    userId,
+    imageUrl
   });
   await collection.save();
   return collection;
 };
 
 const getCollectionsByUserId = async (userId: number) => {
-  return Collection.findAll({ where: { user_id: userId }});
+  return Collection.findAll({ where: { userId }});
 };
 
 const getProductsByCollectionId = async (collectionId: number) => {
-  return Products_Collection.findAll({
-    where: {
-      collection_id: collectionId,
-    },
+  return ProductsCollection.findAll({
+    where: { collectionId },
   })
 };
 
 const addProductToCollection = async (productId: number, collectionId: number) => {
-  const productCollection = await Products_Collection.build({
-    product_id: 1,
-    collection_id: collectionId
+  const productCollection = await ProductsCollection.build({
+    productId: 1,
+    collectionId
   });
   await productCollection.save()
   .then((data: any) => console.log(data))

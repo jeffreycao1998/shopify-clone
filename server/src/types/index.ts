@@ -1,6 +1,6 @@
 export type ImageType = {
   id: string
-  data_url: string
+  dataUrl: string
   name?: string
   size?: number
 }
@@ -18,8 +18,8 @@ export type CollectionType = {
   name: string
   description: string
   active: boolean
-  user_id: number
-  image_url: string
+  userId: number
+  imageUrl: string
 }
 
 export type ContextType = {

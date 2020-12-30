@@ -2,7 +2,7 @@ const User = require('./user');
 const Product = require('./product');
 const Image = require('./image');
 const Collection = require('./collection');
-const Products_Collection = require('./products_collection');
+const ProductsCollection = require('./productsCollection');
 const Store = require('./store');
 
 export {
@@ -10,6 +10,6 @@ export {
   Product,
   Image,
   Collection,
-  Products_Collection,
+  ProductsCollection,
   Store
 };

@@ -29,7 +29,7 @@ const typeDefs = gql`
 
   type Image {
     id: Int
-    data_url: String
+    dataUrl: String
   }
 
   type Product {
@@ -45,12 +45,12 @@ const typeDefs = gql`
     name: String
     description: String
     active: Boolean
-    user_id: Int
-    image_url: String
+    userId: Int
+    imageUrl: String
   }
 
   input AddImage {
-    data_url: String
+    dataUrl: String
     id: String
     name: String
     size: Int

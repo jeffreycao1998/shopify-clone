@@ -6,12 +6,10 @@ const Store = sequelize.define('store', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
-},{
-  underscored: true
 });
 
 module.exports = Store;

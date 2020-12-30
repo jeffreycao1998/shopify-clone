@@ -19,7 +19,7 @@ const addCollection = async (obj: {}, args: Args, context: ContextType) => {
   if (collectionExists) {
     throw new Error('A collection with this name already exists');
   } else {
-    const newCollection = await createCollection(name, description, image.data_url, userId);
+    const newCollection = await createCollection(name, description, image.dataUrl, userId);
     return { name: newCollection.name };
   }
 };

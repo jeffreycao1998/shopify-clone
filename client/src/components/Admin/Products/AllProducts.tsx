@@ -223,7 +223,7 @@ const Products = () => {
                   <div className='selector' onClick={() => selectProduct(product.id)}>
                     <input type='checkbox' checked={selectedProducts.includes(product.id)}/>
                   </div>
-                  <img src={product.images[0].data_url} alt={product.name}/>
+                  <img src={product.images[0].dataUrl} alt={product.name}/>
                   <div className='text'>
                     <h5 className='product-name'>{product.name}</h5>
                     <h5 className='product-price'>${(product.price / 100).toFixed(2)}</h5>

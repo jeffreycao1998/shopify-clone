@@ -14,16 +14,14 @@ const Collection = sequelize.define('collection', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  image_url: {
+  imageUrl: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-},{
-  underscored: true
 });
 
 module.exports = Collection;

@@ -6,9 +6,9 @@ module.exports = {
       name: 'abstract pic 3',
       description: '- cool pic',
       price: 10001,
-      user_id: 1,
-      created_at: new Date(),
-      updated_at: new Date()
+      userId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 

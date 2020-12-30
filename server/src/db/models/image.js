@@ -2,16 +2,14 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 
 const Image = sequelize.define('image', {
-  data_url: {
+  dataUrl: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  product_id: {
+  productId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   }
-},{
-  underscored: true
 });
 
 module.exports = Image;

@@ -125,7 +125,7 @@ const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal 
             data.getUsersCollections.map((collection: Collection) => {
               return (
                 <CollectionImage>
-                  <img src={collection.image_url} alt={collection.name} onClick={() => handleAddToCollection(collection.id)}/>
+                  <img src={collection.imageUrl} alt={collection.name} onClick={() => handleAddToCollection(collection.id)}/>
                   <p>{ collection.name }</p>
                   {/* @ts-ignore */}
                   <ion-icon name="add-circle-outline"></ion-icon>

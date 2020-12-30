@@ -8,7 +8,7 @@ const GET_PRODUCTS_IN_COLLECTION = gql`
       description
       images {
         id
-        data_url
+        dataUrl
       }
       price
     }

@@ -3,10 +3,10 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('images', [{
-      data_url: 'https://i.imgur.com/uh93ZjQ.jpg',
-      product_id: 4,
-      created_at: new Date(),
-      updated_at: new Date()
+      dataUrl: 'https://i.imgur.com/uh93ZjQ.jpg',
+      productId: 4,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 
