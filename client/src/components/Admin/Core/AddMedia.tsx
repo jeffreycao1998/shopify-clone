@@ -16,6 +16,10 @@ const Media = styled(ContainerRounded)`
     justify-content: space-between;
     margin-bottom: 24px;
 
+    .header-title {
+      font-weight: 500;
+    }
+
     .select-all {
       display: flex;
       align-items: center;
@@ -175,9 +179,11 @@ type Props = {
   selectedImages: Array<string>
   setImages: React.Dispatch<React.SetStateAction<Array<Image>>>
   setSelectedImages: React.Dispatch<React.SetStateAction<Array<string>>>
+  maxAmount: number
+  headerText: string
 }
 
-const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Props) => {
+const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmount, headerText }: Props) => {
   const {
     acceptedFiles,
     getRootProps, 
@@ -187,10 +193,11 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
     isDragReject
   } = useDropzone({ 
     accept: 'image/jpeg, image/png',
+    disabled: images.length >= maxAmount,
     onDrop: (acceptedFiles: Array<File>) => {
       acceptedFiles.forEach((file: File) => {
+
         let reader = new FileReader();
-        console.log(file);
         reader.readAsDataURL(file);
     
         reader.onload = async () => {
@@ -201,10 +208,13 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
             id: `${file.lastModified}${file.name}`,
           }
           await setSelectedImages([]);
-          await setImages(prev => [...prev, image])
+          await setImages((prev: Array<Image>) => {
+            if (prev.length >= maxAmount) return [...prev];
+            return [...prev, image];
+          })
         }
       });
-    }
+    },
   });
 
   const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: string) => {
@@ -233,6 +243,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
         anImageSelected={selectedImages.length > 0}
         thisImageSelected={selectedImages.includes(imageData.id)}
         onClick={e => selectImage(e, imageData.id)}
+
       >
         <div className='overlay'></div>
         <input 
@@ -252,7 +263,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
       <div className='header-container'>
         {
           selectedImages.length === 0
-          ? <p className='header-title'>Media</p>
+          ? <p className='header-title'>{ headerText }</p>
           : <>
               <div 
                 onClick={selectAllImages}
@@ -274,16 +285,19 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages }: Prop
             <Button text='Add file' color='white'></Button>
             <p className='instructions'>or drop files to upload</p>
           </div>
-        // : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+        // : <div className='images' {...getRootProps({isDragActive, isDragAccept, isDragReject})}> <<< this is how you get different on drag styling
         : <div className='images' {...getRootProps()}>
             <input {...getInputProps()} />
             { renderImages }
-            <div className='upload-more'>
-              <div className='text-container'>
-                <p className='title'>Add media</p>
-                <p className='subtitle'>or drop files to upload</p>
+            {
+              images.length < maxAmount &&
+              <div className='upload-more'>
+                <div className='text-container'>
+                  <p className='title'>Add media</p>
+                  <p className='subtitle'>or drop files to upload</p>
+                </div>
               </div>
-            </div>
+            }
           </div>
       }
     </Media>

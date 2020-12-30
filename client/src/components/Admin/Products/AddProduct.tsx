@@ -97,6 +97,8 @@ const AddProducts = () => {
         setImages={setImages}
         selectedImages={selectedImages}
         setSelectedImages={setSelectedImages}
+        maxAmount={20}
+        headerText={'Media'}
       />
 
       <Pricing>

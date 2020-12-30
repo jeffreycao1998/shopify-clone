@@ -3,6 +3,7 @@ import Button from './Button';
 import ContentHeader from './ContentHeader';
 import Notification from './Notification';
 import AddDescription from './AddDescription';
+import AddMedia from './AddMedia';
 
 export {
   ContainerRounded,
@@ -10,4 +11,5 @@ export {
   ContentHeader,
   Notification,
   AddDescription,
+  AddMedia
 }

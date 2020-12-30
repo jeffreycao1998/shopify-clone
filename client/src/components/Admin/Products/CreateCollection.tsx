@@ -13,7 +13,7 @@ import {
   AddDescription,
   Button,
 } from '../Core';
-import AddMedia from '../Core/AddMedia';
+import { AddMedia } from '../Core';
 
 const Container = styled.div`
   padding: 16px;
@@ -76,6 +76,8 @@ const CreateCollection = () => {
         setImages={setImages}
         selectedImages={selectedImages}
         setSelectedImages={setSelectedImages}
+        maxAmount={1}
+        headerText={'Collection image'}
       />
 
       <SaveBtn onClick={onSave}>
