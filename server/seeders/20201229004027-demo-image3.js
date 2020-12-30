@@ -2,11 +2,11 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [{
-      email: 'jeffreycao1998@hotmail.com',
-      password: '123',
-      createdAt: new Date(),
-      updatedAt: new Date()
+    return queryInterface.bulkInsert('images', [{
+      data_url: 'https://i.imgur.com/ASeeT5D.jpg',
+      product_id: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     }]);
   },
 

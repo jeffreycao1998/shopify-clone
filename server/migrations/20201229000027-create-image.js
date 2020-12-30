@@ -9,9 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       data_url: {
+        allowNull: false,
         type: Sequelize.TEXT
       },
       product_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'products',

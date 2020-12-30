@@ -8,7 +8,8 @@ const typeDefs = gql`
   type Mutation {
     userRegister(email: String, password: String, storeName: String): JWT
     userLogin(email: String, password: String): JWT
-    addProduct(product: AddProduct): ProductName
+    addProduct(product: AddProduct): Name
+    addCollection(collection: AddCollection): Name
   }
 
   type Status {
@@ -19,7 +20,7 @@ const typeDefs = gql`
     token: String
   }
 
-  type ProductName {
+  type Name {
     name: String
   }
 
@@ -37,10 +38,10 @@ const typeDefs = gql`
   }
 
   input AddImage {
-    url: String
+    data_url: String
+    id: String
     name: String
     size: Int
-    id: String
   }
 
   input AddProduct {
@@ -48,6 +49,12 @@ const typeDefs = gql`
     description: String
     images: [AddImage]
     price: Int
+  }
+
+  input AddCollection {
+    name: String
+    description: String
+    image: AddImage
   }
 `;
 

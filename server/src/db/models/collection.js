@@ -13,7 +13,11 @@ const Collection = sequelize.define('collection', {
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false
-  }
+  },
+  image_url: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
 },{
   underscored: true
 });

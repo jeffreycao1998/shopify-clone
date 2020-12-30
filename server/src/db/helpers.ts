@@ -6,7 +6,7 @@ const {
   Products_Collection,
   Store,
 } = require('./models');
-const { ProductType } = require('../types');
+const { ProductType, ImageType } = require('../types');
 
 const getUserByEmail = async (email: string) => {
   const user = await User.findOne({ where: { email }});
@@ -73,6 +73,17 @@ const getProductsByUserId = async (userId: number) => {
   .catch((err: any) => { throw err });
 };
 
+const createCollection = async (name: string, description: string, image_url: string, userId: number) => {
+  const collection = await Collection.build({
+    name,
+    description,
+    user_id: userId,
+    image_url
+  });
+  await collection.save();
+  return collection;
+};
+
 export {
   getUserByEmail,
   getStoreByName,
@@ -81,4 +92,5 @@ export {
   createProduct,
   addImagesToProduct,
   getProductsByUserId,
+  createCollection
 }

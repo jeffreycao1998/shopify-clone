@@ -9,17 +9,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       active: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       user_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         },
+      },
+      image_url: {
+        allowNull: false,
+        type: Sequelize.TEXT
       },
       created_at: {
         allowNull: false,
