@@ -8,9 +8,8 @@ type Args = {
 
 const addProductsToCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { productIds, collectionId } = args;
-  
+  // console.log(collectionId);
   productIds.forEach(async (productId) => {
-    console.log(productId);
     await addProductToCollection(productId, collectionId);
   });
 

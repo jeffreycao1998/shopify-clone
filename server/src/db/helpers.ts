@@ -105,9 +105,9 @@ const getProductsByCollectionId = async (collectionId: number) => {
 };
 
 const addProductToCollection = async (productId: number, collectionId: number) => {
-  const productCollection = await ProductsCollection.build({
-    productId: 1,
-    collectionId
+  const productCollection = ProductsCollection.build({
+    productId: productId,
+    collectionId: collectionId,
   });
   await productCollection.save()
   .then((data: any) => console.log(data))

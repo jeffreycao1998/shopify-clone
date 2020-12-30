@@ -98,7 +98,6 @@ const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal 
 
   const handleAddToCollection = (collectionId: number) => {
     // const result = getProductsInCollection({ variables: { collectionId }});
-    // console.log(selectedProducts);
     addProductsToCollection({
       variables: {
         productIds: selectedProducts,

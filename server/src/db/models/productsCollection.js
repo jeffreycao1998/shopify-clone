@@ -18,13 +18,13 @@ const ProductsCollection = sequelize.define('productsCollection', {
 Product.belongsToMany(Collection, {
   through: ProductsCollection,
   as: 'collections',
-  foreignKey: 'productId',
+  foreignKey: 'id',
 });
 
 Collection.belongsToMany(Product, {
   through: ProductsCollection,
   as: 'products',
-  foreginKey: 'collectionId',
+  foreginKey: 'id',
 });
 
 module.exports = ProductsCollection;
