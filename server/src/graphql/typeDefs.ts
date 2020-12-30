@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     getUsersProducts: [Product]
     getUsersCollections: [Collection]
+    getProductsInCollection(collectionId: Int): [Product]
   }
 
   type Mutation {
@@ -11,6 +12,7 @@ const typeDefs = gql`
     userLogin(email: String, password: String): JWT
     addProduct(product: AddProduct): Name
     addCollection(collection: AddCollection): Name
+    addProductsToCollection(productIds: [Int], collectionId: Int): Status
   }
 
   type Status {

@@ -4,6 +4,7 @@ import ContentHeader from './ContentHeader';
 import Notification from './Notification';
 import AddDescription from './AddDescription';
 import AddMedia from './AddMedia';
+import AddToCollectionsModal from './AddToCollectionsModal';
 
 export {
   ContainerRounded,
@@ -11,5 +12,6 @@ export {
   ContentHeader,
   Notification,
   AddDescription,
-  AddMedia
+  AddMedia,
+  AddToCollectionsModal,
 }

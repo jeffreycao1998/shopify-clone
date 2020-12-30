@@ -48,7 +48,7 @@ const ButtonContainer = styled.div`
 
 const Button = ({ text, onClick, color }: Props) => {
   return (
-    <ButtonContainer color={color}>
+    <ButtonContainer color={color} onClick={onClick}>
       { text }
     </ButtonContainer>
   )

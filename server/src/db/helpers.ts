@@ -100,6 +100,25 @@ const getCollectionsByUserId = async (userId: number) => {
   return Collection.findAll({ where: { user_id: userId }});
 };
 
+const getProductsByCollectionId = async (collectionId: number) => {
+  return Products_Collection.findAll({
+    where: {
+      collection_id: collectionId,
+    },
+  })
+};
+
+const addProductToCollection = async (productId: number, collectionId: number) => {
+  const productCollection = await Products_Collection.build({
+    product_id: 1,
+    collection_id: collectionId
+  });
+  await productCollection.save()
+  .then((data: any) => console.log(data))
+  .catch((err: any) => console.log(err));
+  return productCollection;
+};
+
 export {
   getUserByEmail,
   getStoreByName,
@@ -110,4 +129,6 @@ export {
   getProductsByUserId,
   createCollection,
   getCollectionsByUserId,
+  getProductsByCollectionId,
+  addProductToCollection,
 }

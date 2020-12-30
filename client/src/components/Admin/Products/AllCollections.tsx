@@ -143,7 +143,7 @@ const UserProduct = styled.div`
 
 const Collections = () => {
   const [tab, setTab] = useState('all');
-  const [selectedCollections, setSelectedCollections] = useState([] as Array<string>);
+  const [selectedCollections, setSelectedCollections] = useState([] as Array<number>);
 
   const { data, loading, refetch } = useQuery(GET_USERS_COLLECTIONS);
 
@@ -157,7 +157,7 @@ const Collections = () => {
 
   const collections = data.getUsersCollections;
 
-  const selectCollection = (collectionId: string) => {
+  const selectCollection = (collectionId: number) => {
     if (selectedCollections.includes(collectionId)) {
       setSelectedCollections(prev => {
         return prev.filter(currCollectionId => currCollectionId !== collectionId);
@@ -203,8 +203,8 @@ const Collections = () => {
             collections && collections.map((collection: Collection) => {
               return (
                 <UserProduct key={collection.id}>
-                  <div className='selector' onClick={() => selectCollection(collection.id.toString())}>
-                    <input type='checkbox' checked={selectedCollections.includes(collection.id.toString())}/>
+                  <div className='selector' onClick={() => selectCollection(collection.id)}>
+                    <input type='checkbox' checked={selectedCollections.includes(collection.id)}/>
                   </div>
                   <img src={collection.image_url} alt={collection.name}/>
                   <div className='text'>

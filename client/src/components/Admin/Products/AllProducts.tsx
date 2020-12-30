@@ -7,7 +7,7 @@ import { colors } from '../../../theme';
 import { Product } from '../../../types';
 
 // Components
-import { ContainerRounded, Button } from '../Core';
+import { ContainerRounded, Button, AddToCollectionsModal } from '../Core';
 
 const Container = styled.div`
   padding: 16px;
@@ -142,12 +142,12 @@ const UserProduct = styled.div`
 `;
 
 const AddToCollectionBtn = styled(Button)`
-  
+
 `;
 
 const Products = () => {
   const [tab, setTab] = useState('all');
-  const [selectedProducts, setSelectedProducts] = useState([] as Array<string>);
+  const [selectedProducts, setSelectedProducts] = useState([] as Array<number>);
   const [showAddToCollectionModal, setShowAddToCollectionModal] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_USERS_PRODUCTS);
@@ -162,7 +162,7 @@ const Products = () => {
 
   const products = data.getUsersProducts;
 
-  const selectProduct = (productId: string) => {
+  const selectProduct = (productId: number) => {
     if (selectedProducts.includes(productId)) {
       setSelectedProducts(prev => {
         return prev.filter(currProductId => currProductId !== productId);
@@ -181,7 +181,7 @@ const Products = () => {
       setSelectedProducts(products.map((product: Product) => product.id));
     }
   };
-
+  
   return (
     <Container>
 
@@ -205,7 +205,11 @@ const Products = () => {
             <span className='product-image'/>
             {
               selectedProducts.length > 0
-              ? <AddToCollectionBtn text='Add to collection' color='white'/>
+              ? <AddToCollectionBtn
+                  text='Add to collection'
+                  color='white'
+                  onClick={() => setShowAddToCollectionModal(true)}
+                />
               : <>
                   <h4 className='product-name'>Product</h4>
                   <h4 className='product-price'>Price</h4>
@@ -216,8 +220,8 @@ const Products = () => {
             products && products.map((product: Product) => {
               return (
                 <UserProduct key={product.id}>
-                  <div className='selector' onClick={() => selectProduct(product.id.toString())}>
-                    <input type='checkbox' checked={selectedProducts.includes(product.id.toString())}/>
+                  <div className='selector' onClick={() => selectProduct(product.id)}>
+                    <input type='checkbox' checked={selectedProducts.includes(product.id)}/>
                   </div>
                   <img src={product.images[0].data_url} alt={product.name}/>
                   <div className='text'>
@@ -229,6 +233,15 @@ const Products = () => {
             })
           }
         </UsersProducts>
+
+        {
+          showAddToCollectionModal &&
+          <AddToCollectionsModal 
+            selectedProducts={selectedProducts}
+            setShowAddToCollectionsModal={setShowAddToCollectionModal}
+          />
+        }
+
       </ContentContainer>
 
     </Container>
