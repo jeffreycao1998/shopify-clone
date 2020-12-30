@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useQuery } from '@apollo/react-hooks'
+import { GET_USERS_COLLECTIONS } from '../../../graphql/gql';
 
 // Components
 import { ContainerRounded, Button } from '../Core';
@@ -9,6 +11,10 @@ const Container = styled.div`
 `;
 
 const Collections = () => {
+  const { data, loading, error } = useQuery(GET_USERS_COLLECTIONS);
+
+  console.log(data);
+
   return (
     <Container>
 

@@ -1,6 +1,6 @@
 // Queries
-import LOG_MESSAGE from './queries/logMessage';
 import GET_USERS_PRODUCTS from './queries/getUsersProducts';
+import GET_USERS_COLLECTIONS from './queries/getUsersCollections';
 
 // Mutations
 import USER_REGISTER from './mutations/userRegister';
@@ -10,8 +10,8 @@ import ADD_COLLECTION from './mutations/addCollection';
 
 export {
   // Queries
-  LOG_MESSAGE,
   GET_USERS_PRODUCTS,
+  GET_USERS_COLLECTIONS,
 
   // Mutations
   USER_REGISTER,

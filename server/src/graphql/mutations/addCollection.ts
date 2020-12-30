@@ -9,7 +9,7 @@ type Args = {
   }
 };
 
-const addCollection = async (obj: any, args: Args, context: ContextType) => {
+const addCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { name, description, image } = args.collection;
   const userId = context.user.id;
   

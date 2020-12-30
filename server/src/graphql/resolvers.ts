@@ -1,5 +1,6 @@
 // Queries
 import getUsersProducts from './queries/getUsersProducts';
+import getUsersCollections from './queries/getUsersCollections';
 
 // Mutations
 import userRegister from './mutations/userRegister';
@@ -10,6 +11,7 @@ import addCollection from './mutations/addCollection';
 const resolvers = {
   Query: {
     getUsersProducts,
+    getUsersCollections,
   },
   Mutation: {
     userRegister,

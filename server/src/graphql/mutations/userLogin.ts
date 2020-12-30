@@ -9,7 +9,7 @@ type Args = {
   password: string
 }
 
-const userLogin = async (obj: any, args: Args, context: ContextType) => {
+const userLogin = async (obj: {}, args: Args, context: ContextType) => {
   const { email, password } = args;
   const user = await getUserByEmail(email);
 

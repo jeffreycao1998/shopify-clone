@@ -10,7 +10,7 @@ type Args = {
   }
 }
 
-const addProduct = async (obj: any, args: Args, context: ContextType) => {
+const addProduct = async (obj: {}, args: Args, context: ContextType) => {
   const { name, description, images, price } = args.product;
   const userId = context.user.id;
 

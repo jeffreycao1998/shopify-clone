@@ -8,7 +8,7 @@ type Args = {
   storeName: string
 }
 
-const userRegister = async (obj: any, args: Args, context: ContextType) => {
+const userRegister = async (obj: {}, args: Args, context: ContextType) => {
   const { email, password, storeName } = args;
   
   const user = await getUserByEmail(email);

@@ -3,6 +3,7 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
   type Query {
     getUsersProducts: [Product]
+    getUsersCollections: [Collection]
   }
 
   type Mutation {
@@ -35,6 +36,15 @@ const typeDefs = gql`
     description: String
     images: [Image]
     price: Int
+  }
+
+  type Collection {
+    id: Int
+    name: String
+    description: String
+    active: Boolean
+    user_id: Int
+    image_url: String
   }
 
   input AddImage {

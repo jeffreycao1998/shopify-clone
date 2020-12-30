@@ -97,11 +97,7 @@ const createCollection = async (name: string, description: string, image_url: st
 };
 
 const getCollectionsByUserId = async (userId: number) => {
-  return Collection.findAll({
-    where: {
-      user_id: userId
-    }
-  });
+  return Collection.findAll({ where: { user_id: userId }});
 };
 
 export {
