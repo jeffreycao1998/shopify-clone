@@ -32,9 +32,9 @@ const ContentContainer = styled(ContainerRounded)`
 
 const Tabs = styled.ul`
   display: flex;
-  margin: 1px 8px 0 8px;
+  padding: 1px 8px 0 8px;
   height: 52px;
-  margin-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
 `;
 
 type TabProps = {
@@ -90,12 +90,12 @@ const TableHeadings = styled.div`
   .product-name {
     width: 200px;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
   }
   .product-price {
     width: 100px;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
   }
 `;
 
@@ -141,15 +141,22 @@ const UserProduct = styled.div`
   }
 `;
 
+const AddToCollectionBtn = styled(Button)`
+  
+`;
+
 const Products = () => {
   const [tab, setTab] = useState('all');
   const [selectedProducts, setSelectedProducts] = useState([] as Array<string>);
+  const [showAddToCollectionModal, setShowAddToCollectionModal] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_USERS_PRODUCTS);
 
-  useEffect(() => {
-    refetch();
-  },[]);
+  // useEffect(() => {
+  //   if (refetch) {
+  //     refetch();
+  //   }
+  // },[]);
 
   if (loading) return null;
 
@@ -188,9 +195,6 @@ const Products = () => {
       <ContentContainer>
         <Tabs>
           <Tab selected={tab === 'all'} onClick={() => setTab('all')}>All</Tab>
-          <Tab selected={tab === 'active'} onClick={() => setTab('active')}>Active</Tab>
-          <Tab selected={tab === 'draft'} onClick={() => setTab('draft')}>Draft</Tab>
-          <Tab selected={tab === 'archived'} onClick={() => setTab('archived')}>Archived</Tab>
         </Tabs>
 
         <UsersProducts>
@@ -199,12 +203,17 @@ const Products = () => {
               <input type='checkbox' checked={selectedProducts.length === products.length}/>
             </div>
             <span className='product-image'/>
-            <h4 className='product-name'>Product</h4>
-            <h4 className='product-price'>Price</h4>
+            {
+              selectedProducts.length > 0
+              ? <AddToCollectionBtn text='Add to collection' color='white'/>
+              : <>
+                  <h4 className='product-name'>Product</h4>
+                  <h4 className='product-price'>Price</h4>
+                </>
+            }
           </TableHeadings>
           {
             products && products.map((product: Product) => {
-              console.log(product);
               return (
                 <UserProduct key={product.id}>
                   <div className='selector' onClick={() => selectProduct(product.id.toString())}>

@@ -12,3 +12,12 @@ export type Product = {
   images: Array<Image>
   price: number
 }
+
+export type Collection = {
+  id: number
+  name: string
+  description: string
+  active: boolean
+  user_id: number
+  image_url: string
+}
