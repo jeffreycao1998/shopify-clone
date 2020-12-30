@@ -65,7 +65,7 @@ const CreateCollection = () => {
 
   return (
     <Container>
-      <ContentHeader route={'./admin/collections'} text='Create collection'/>
+      <ContentHeader route={'/admin/collections'} text='Create collection'/>
       
       <Notification message={message}/>
 

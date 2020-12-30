@@ -86,7 +86,7 @@ const AddProducts = () => {
 
   return (
     <Container>
-      <ContentHeader route={'./admin/products'} text='Add product'/>
+      <ContentHeader route={'/admin/products'} text='Add product'/>
       
       <Notification message={message}/>
 

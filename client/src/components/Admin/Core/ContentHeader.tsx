@@ -36,8 +36,6 @@ type Props = {
 }
 
 const ContentHeader = ({ route, text }: Props) => {
-  route = './admin/products';
-
   return (
     <HeaderContainer>
       {
