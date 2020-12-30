@@ -12,6 +12,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.TEXT
+      },
       active: {
         allowNull: false,
         type: Sequelize.BOOLEAN

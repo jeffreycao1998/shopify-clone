@@ -14,7 +14,7 @@ import Navigation from './Navigation'
 import Home from './Home';
 import Products from './Products/AllProducts';
 import AddProduct from './Products/AddProduct';
-import CreateCollection from './Products/CreateCollection';
+import AddCollection from './Products/AddCollection';
 import Collections from './Products/AllCollections';
 
 const Container = styled.div`
@@ -58,7 +58,7 @@ const Admin = () => {
             <Collections />
           </Route>
           <Route exact path='/admin/collections/new'>
-            <CreateCollection />
+            <AddCollection />
           </Route>
 
           <Route path='/admin'>

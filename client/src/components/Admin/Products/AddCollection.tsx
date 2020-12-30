@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
-import { ADD_PRODUCT } from '../../../graphql/gql';
+import { ADD_COLLECTION } from '../../../graphql/gql';
 import { useInput } from '../../../hooks';
 import { Image } from '../../../types';
 
 // Components
 import { 
-  ContainerRounded,
   ContentHeader,
   Notification,
   AddDescription,
@@ -26,7 +25,7 @@ const SaveBtn = styled.div`
 `;
 
 const CreateCollection = () => {
-  const [addProduct] = useMutation(ADD_PRODUCT);
+  const [addCollection] = useMutation(ADD_COLLECTION);
   const [message, setMessage] = useState('');
 
   const [images, setImages] = useState([] as Array<Image>);
@@ -45,20 +44,18 @@ const CreateCollection = () => {
   };
 
   const onSave = () => {
-    const product = {
+    const collection = {
       name: title,
       description,
-      images,
-      //@ts-ignore
-      price: parseFloat(price).toFixed(2) * 100,
-    }
-    
-    addProduct({
-      variables: { product }
+      image: images[0]
+    };
+
+    addCollection({
+      variables: { collection }
     })
     .then(res => {
       resetState();
-      setMessage(`Added ${res.data.addProduct.name}`)
+      setMessage(`Created ${res.data.addCollection.name}`)
     })
     .catch(err => console.log(err.message))
   };

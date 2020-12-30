@@ -19,6 +19,7 @@ const addProduct = async (obj: any, args: Args, context: ContextType) => {
   images.forEach( async (image: ImageType) => {
     await addImagesToProduct(image.data_url, product.id);
   });
+  
   return { name: product.name };
 };
 

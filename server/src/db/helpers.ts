@@ -73,10 +73,22 @@ const getProductsByUserId = async (userId: number) => {
   .catch((err: any) => { throw err });
 };
 
+const getActiveCollection = async (userId: number) => {
+  return Collection.findOne({
+    where: {
+      user_id: userId,
+      active: true
+    }
+  })
+};
+
 const createCollection = async (name: string, description: string, image_url: string, userId: number) => {
+  const hasActiveCollection = await getActiveCollection(userId);
+  
   const collection = await Collection.build({
     name,
     description,
+    active: hasActiveCollection ? false : true,
     user_id: userId,
     image_url
   });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks'
 import { GET_USERS_PRODUCTS } from '../../../graphql/gql';
@@ -145,7 +145,11 @@ const Products = () => {
   const [tab, setTab] = useState('all');
   const [selectedProducts, setSelectedProducts] = useState([] as Array<string>);
 
-  const { data, loading } = useQuery(GET_USERS_PRODUCTS);
+  const { data, loading, refetch } = useQuery(GET_USERS_PRODUCTS);
+
+  useEffect(() => {
+    refetch();
+  },[]);
 
   if (loading) return null;
 

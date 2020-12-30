@@ -6,6 +6,10 @@ const Collection = sequelize.define('collection', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
   active: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
