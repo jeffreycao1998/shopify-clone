@@ -15,6 +15,7 @@ module.exports = {
           model: 'products',
           key: 'id'
         },
+        onDelete: 'CASCADE',
       },
       collectionId: {
         allowNull: false,
@@ -23,6 +24,7 @@ module.exports = {
           model: 'collections',
           key: 'id'
         },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

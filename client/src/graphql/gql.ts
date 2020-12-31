@@ -10,6 +10,7 @@ import ADD_PRODUCT from './mutations/addProduct';
 import ADD_COLLECTION from './mutations/addCollection';
 import ADD_PRODUCTS_TO_COLLECTION from './mutations/addProductsToCollection';
 import UPDATE_ACTIVE_COLLECTION from './mutations/updateActiveCollection';
+import DELETE_PRODUCTS from './mutations/deleteProducts';
 
 export {
   // Queries
@@ -24,4 +25,5 @@ export {
   ADD_COLLECTION,
   ADD_PRODUCTS_TO_COLLECTION,
   UPDATE_ACTIVE_COLLECTION,
+  DELETE_PRODUCTS,
 }

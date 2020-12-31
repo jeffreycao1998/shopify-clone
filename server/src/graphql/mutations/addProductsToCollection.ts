@@ -22,7 +22,7 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
     });
   };
 
-  return { productsAdded: newProductsToAdd.length };
+  return { amount: newProductsToAdd.length };
 };
 
 export default addProductsToCollection;

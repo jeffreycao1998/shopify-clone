@@ -11,7 +11,7 @@ import { colors } from '../../../theme';
 type Props = {
   text?: string
   onClick?: () => void
-  color?: 'green' | 'white'
+  color?: 'green' | 'white' | 'red'
 }
 
 const ButtonContainer = styled.div`
@@ -41,6 +41,11 @@ const ButtonContainer = styled.div`
         &:hover {
           background-color: transparent;
         }
+      `
+    } else if (color === 'red') {
+      return `
+        color: white;
+        background-color: #ff4757;
       `
     }
   }}

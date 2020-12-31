@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks'
-import { GET_USERS_PRODUCTS } from '../../../graphql/gql';
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { GET_USERS_PRODUCTS, DELETE_PRODUCTS } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
 import { Product } from '../../../types';
@@ -87,6 +87,14 @@ const TableHeadings = styled.div`
   .product-image {
     width: 83px;
   }
+
+  .actions-container {
+    padding-right: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .product-name {
     width: 200px;
     font-weight: 500;
@@ -141,16 +149,13 @@ const UserProduct = styled.div`
   }
 `;
 
-const AddToCollectionBtn = styled(Button)`
-
-`;
-
 const Products = () => {
   const [tab, setTab] = useState('all');
   const [selectedProducts, setSelectedProducts] = useState([] as Array<number>);
   const [showAddToCollectionModal, setShowAddToCollectionModal] = useState(false);
 
-  const { data, loading, refetch } = useQuery(GET_USERS_PRODUCTS);
+  const { data, loading, refetch: refetchProducts } = useQuery(GET_USERS_PRODUCTS);
+  const [deleteProducts] = useMutation(DELETE_PRODUCTS);
 
   // useEffect(() => {
   //   if (refetch) {
@@ -181,6 +186,17 @@ const Products = () => {
       setSelectedProducts(products.map((product: Product) => product.id));
     }
   };
+
+  const handleDeleteProducts = () => {
+    deleteProducts({
+      variables: { productIds: selectedProducts }
+    })
+    .then(res => {
+      console.log(res);
+      refetchProducts();
+    })
+    .catch(err => console.log(err));
+  };
   
   return (
     <Container>
@@ -205,11 +221,23 @@ const Products = () => {
             <span className='product-image'/>
             {
               selectedProducts.length > 0
-              ? <AddToCollectionBtn
-                  text='Add to collection'
-                  color='white'
-                  onClick={() => setShowAddToCollectionModal(true)}
-                />
+              ? 
+                <div className='actions-container'>
+                  <div className='add-to-collection-btn'>
+                    <Button
+                      text='Add to collection'
+                      color='white'
+                      onClick={() => setShowAddToCollectionModal(true)}
+                    />
+                  </div>
+                  <div className='delete-btn'>
+                    <Button
+                      text='Delete'
+                      color='red'
+                      onClick={handleDeleteProducts}
+                    />
+                  </div>
+                </div>
               : <>
                   <h4 className='product-name'>Product</h4>
                   <h4 className='product-price'>Price</h4>

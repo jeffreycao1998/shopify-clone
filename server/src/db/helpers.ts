@@ -131,7 +131,12 @@ const updateUsersActiveCollection = async (newCollectionId: number, userId: numb
   const newActiveCollection = await getCollectionByCollectionId(newCollectionId);
   newActiveCollection.active = true;
   await newActiveCollection.save();
-  console.log(newActiveCollection);
+};
+
+const deleteUsersProducts = async (productIds: Array<number>) => {
+  return Product.destroy({
+    where: { id: [...productIds] }
+  });
 };
 
 export {
@@ -149,4 +154,5 @@ export {
   addProductToCollection,
   getCollectionByCollectionId,
   updateUsersActiveCollection,
+  deleteUsersProducts,
 }

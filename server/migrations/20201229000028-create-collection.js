@@ -27,6 +27,7 @@ module.exports = {
           model: 'users',
           key: 'id'
         },
+        onDelete: 'CASCADE',
       },
       imageUrl: {
         allowNull: false,
