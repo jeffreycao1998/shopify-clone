@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks'
-import { GET_USERS_COLLECTIONS } from '../../../graphql/gql';
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { GET_USERS_COLLECTIONS, UPDATE_ACTIVE_COLLECTION } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
 import { Collection } from '../../../types';
@@ -70,18 +70,9 @@ const TableHeadings = styled.div`
   display: flex;
   align-items: center;
 
-  .selector-all {
-    padding: 0 20px;
+  .open-space {
+    width: 58px;
     height: 100%;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    input {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-    }
   }
 
   .collection-image {
@@ -92,14 +83,17 @@ const TableHeadings = styled.div`
     font-weight: 500;
     font-size: 14px;
   }
-  .collection-price {
-    width: 100px;
+  .collection-description {
     font-weight: 500;
     font-size: 14px;
   }
 `;
 
-const UserProduct = styled.div`
+type UserCollectionProps = {
+  activeCollection: boolean
+}
+
+const UserCollection = styled.div`
   width: 100%;
   height: 88px;
   padding: 12px 0;
@@ -111,7 +105,8 @@ const UserProduct = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    min-width: 60px;
+    cursor: ${({activeCollection}: UserCollectionProps) => activeCollection ? 'default' : 'pointer'};
 
     input {
       height: 18px;
@@ -134,49 +129,63 @@ const UserProduct = styled.div`
 
     .collection-name {
       width: 200px;
+
+      h5 {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 3px 8px;
+        font-size: 12px;
+        font-weight: 500;
+        background-color: #bbe5b3;
+        border-radius: 10px;
+        margin-top: 8px;
+      }
     }
-    .collection-price {
-      width: 100px;
+    .collection-description {
+      font-size: 14px;
     }
   }
 `;
 
 const Collections = () => {
   const [tab, setTab] = useState('all');
-  const [selectedCollections, setSelectedCollections] = useState([] as Array<number>);
+  const [selectedCollection, setSelectedCollection] = useState(-1);
 
-  const { data, loading, refetch } = useQuery(GET_USERS_COLLECTIONS);
+  const { data, loading, refetch: refetchCollections } = useQuery(GET_USERS_COLLECTIONS);
+  const [updateActiveCollection] = useMutation(UPDATE_ACTIVE_COLLECTION);
 
-  useEffect(() => {
-    if (refetch) {
-      refetch();
-    }
-  },[]);
+  // useEffect(() => {
+  //   if (refetch) {
+  //     refetch();
+  //   }
+  // },[]);
 
   if (loading) return null;
 
   const collections = data && data.getUsersCollections;
 
   const selectCollection = (collectionId: number) => {
-    if (selectedCollections.includes(collectionId)) {
-      setSelectedCollections(prev => {
-        return prev.filter(currCollectionId => currCollectionId !== collectionId);
-      })
+    if (selectedCollection === collectionId) {
+      setSelectedCollection(-1);
     } else {
-      setSelectedCollections(prev => {
-        return [...prev, collectionId];
-      })
+      setSelectedCollection(collectionId);
     }
   };
 
-  const selectAllCollections = () => {
-    if (selectedCollections.length === collections.length) {
-      setSelectedCollections([]);
-    } else {
-      setSelectedCollections(collections.map((collection: Collection) => collection.id));
-    }
+  const setActiveCollection = () => {
+    updateActiveCollection({
+      variables: { collectionId: selectedCollection }
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+    
+    console.log(selectedCollection);
   };
-
+  
   return (
     <Container>
 
@@ -192,26 +201,39 @@ const Collections = () => {
 
         <UsersCollections>
           <TableHeadings>
-            <div className='selector-all' onClick={selectAllCollections}>
-              <input type='checkbox' checked={collections && selectedCollections.length === collections.length}/>
-            </div>
-            <span className='collection-image'/>
-            <h4 className='collection-name'>Title</h4>
-            <h4 className='collection-price'>Description</h4>
+            <div className='open-space'></div>
+            {
+              selectedCollection === -1
+              ? <> 
+                  <span className='collection-image'/>
+                  <h4 className='collection-name'>Title</h4>
+                  <h4 className='collection-description'>Description</h4>
+                </>
+              : <Button text='Make active' color='white' onClick={setActiveCollection}/>
+            }
           </TableHeadings>
           {
             collections && collections.map((collection: Collection) => {
               return (
-                <UserProduct key={collection.id}>
+                <UserCollection key={collection.id} activeCollection={collection.active}>
                   <div className='selector' onClick={() => selectCollection(collection.id)}>
-                    <input type='checkbox' checked={selectedCollections.includes(collection.id)}/>
+                    {
+                      !collection.active &&
+                      <input type='checkbox' checked={selectedCollection === collection.id}/>
+                    }
                   </div>
                   <img src={collection.imageUrl} alt={collection.name}/>
                   <div className='text'>
-                    <h5 className='collection-name'>{ collection.name }</h5>
-                    <h5 className='collection-description'>{ collection.description }</h5>
+                    <div className='collection-name'>
+                      <h5 className='collection-name'>{ collection.name }</h5>
+                      {
+                        collection.active &&
+                        <span className='tag'>Active</span>
+                      }
+                    </div>
+                    <p className='collection-description'>{ collection.description }</p>
                   </div>
-                </UserProduct>
+                </UserCollection>
               )
             })
           }

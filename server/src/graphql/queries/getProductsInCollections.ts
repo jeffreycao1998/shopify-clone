@@ -7,9 +7,9 @@ type Args = {
 
 const getProductsInCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { collectionId } = args;
-  getProductsByCollectionId(collectionId)
-  .then(data => console.log(data))
-  .catch(err => console.log(err));
+  // getProductsByCollectionId(collectionId)
+  // .then(data => console.log(data))
+  // .catch(err => console.log(err));
   
 
   // return result;

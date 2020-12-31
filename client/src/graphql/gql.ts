@@ -9,6 +9,7 @@ import USER_LOGIN from './mutations/userLogin';
 import ADD_PRODUCT from './mutations/addProduct';
 import ADD_COLLECTION from './mutations/addCollection';
 import ADD_PRODUCTS_TO_COLLECTION from './mutations/addProductsToCollection';
+import UPDATE_ACTIVE_COLLECTION from './mutations/updateActiveCollection';
 
 export {
   // Queries
@@ -22,4 +23,5 @@ export {
   ADD_PRODUCT,
   ADD_COLLECTION,
   ADD_PRODUCTS_TO_COLLECTION,
+  UPDATE_ACTIVE_COLLECTION,
 }

@@ -12,7 +12,8 @@ const typeDefs = gql`
     userLogin(email: String, password: String): JWT
     addProduct(product: AddProduct): Name
     addCollection(collection: AddCollection): Name
-    addProductsToCollection(productIds: [Int], collectionId: Int): Status
+    addProductsToCollection(productIds: [Int], collectionId: Int): ProductsAdded
+    updateActiveCollection(collectionId: Int): Status
   }
 
   type Status {
@@ -25,6 +26,10 @@ const typeDefs = gql`
 
   type Name {
     name: String
+  }
+
+  type ProductsAdded {
+    productsAdded: Int
   }
 
   type Image {

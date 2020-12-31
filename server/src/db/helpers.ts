@@ -56,7 +56,7 @@ const addImagesToProduct = async (dataUrl: string, productId: number) => {
   return image;
 };
 
-const getProductsByUserId = async (userId: number) => {
+const getProductsByUserId = (userId: number) => {
   return Product.findAll({
     attributes: [ 'id', 'name', 'description', 'price' ],
     where: { userId },
@@ -71,9 +71,9 @@ const getProductsByUserId = async (userId: number) => {
   .catch((err: any) => { throw err });
 };
 
-const getActiveCollection = async (userId: number) => {
+const getActiveCollectionByUserId = (userId: number) => {
   return Collection.findOne({
-    where: {
+    where: { 
       userId,
       active: true
     }
@@ -81,7 +81,7 @@ const getActiveCollection = async (userId: number) => {
 };
 
 const createCollection = async (name: string, description: string, imageUrl: string, userId: number) => {
-  const hasActiveCollection = await getActiveCollection(userId);
+  const hasActiveCollection = await getActiveCollectionByUserId(userId);
   
   const collection = await Collection.build({
     name,
@@ -94,11 +94,11 @@ const createCollection = async (name: string, description: string, imageUrl: str
   return collection;
 };
 
-const getCollectionsByUserId = async (userId: number) => {
+const getCollectionsByUserId = (userId: number) => {
   return Collection.findAll({ where: { userId }});
 };
 
-const getProductsByCollectionId = async (collectionId: number) => {
+const getProductsByCollectionId = (collectionId: number) => {
   return ProductsCollection.findAll({
     where: { collectionId },
   })
@@ -115,6 +115,25 @@ const addProductToCollection = async (productId: number, collectionId: number) =
   return productCollection;
 };
 
+const getCollectionByCollectionId = (collectionId: number) => {
+  return Collection.findOne({ where: { id: collectionId }})
+};
+
+const updateUsersActiveCollection = async (newCollectionId: number, userId: number) => {
+  // Deactivate old collection
+  const activeCollection = await getActiveCollectionByUserId(userId);
+  if (activeCollection) {
+    activeCollection.active = false;
+    await activeCollection.save();
+  }
+  
+  // Activate new collection
+  const newActiveCollection = await getCollectionByCollectionId(newCollectionId);
+  newActiveCollection.active = true;
+  await newActiveCollection.save();
+  console.log(newActiveCollection);
+};
+
 export {
   getUserByEmail,
   getStoreByName,
@@ -123,8 +142,11 @@ export {
   createProduct,
   addImagesToProduct,
   getProductsByUserId,
+  getActiveCollectionByUserId,
   createCollection,
   getCollectionsByUserId,
   getProductsByCollectionId,
   addProductToCollection,
+  getCollectionByCollectionId,
+  updateUsersActiveCollection,
 }

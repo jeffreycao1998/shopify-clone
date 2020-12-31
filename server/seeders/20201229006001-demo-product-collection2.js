@@ -2,15 +2,15 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('images', [{
-      dataUrl: 'https://i.imgur.com/jwkpDCM.jpg',
-      productId: 3,
+    return queryInterface.bulkInsert('productsCollections', [{
+      productId: 2,
+      collectionId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('images', null, {});
+    return queryInterface.bulkDelete('productsCollections', null, {});
   }
 };

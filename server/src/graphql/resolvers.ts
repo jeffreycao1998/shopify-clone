@@ -9,6 +9,7 @@ import userLogin from './mutations/userLogin';
 import addProduct from './mutations/addProduct';
 import addCollection from './mutations/addCollection';
 import addProductsToCollection from './mutations/addProductsToCollection';
+import updateActiveCollection from './mutations/updateActiveCollection';
 
 const resolvers = {
   Query: {
@@ -22,6 +23,7 @@ const resolvers = {
     addProduct,
     addCollection,
     addProductsToCollection,
+    updateActiveCollection,
   }
 }
 
