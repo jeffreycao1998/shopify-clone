@@ -180,10 +180,11 @@ const Collections = () => {
     updateActiveCollection({
       variables: { collectionId: selectedCollection }
     })
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res);
+      refetchCollections();
+    })
     .catch(err => console.log(err));
-    
-    console.log(selectedCollection);
   };
   
   return (
