@@ -139,6 +139,12 @@ const deleteUsersProducts = async (productIds: Array<number>) => {
   });
 };
 
+const deleteUsersCollections = async (collectionIds: Array<number>) => {
+  return Collection.destroy({
+    where: { id: [...collectionIds] }
+  });
+};
+
 export {
   getUserByEmail,
   getStoreByName,
@@ -155,4 +161,5 @@ export {
   getCollectionByCollectionId,
   updateUsersActiveCollection,
   deleteUsersProducts,
+  deleteUsersCollections,
 }

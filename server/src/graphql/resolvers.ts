@@ -11,6 +11,7 @@ import addCollection from './mutations/addCollection';
 import addProductsToCollection from './mutations/addProductsToCollection';
 import updateActiveCollection from './mutations/updateActiveCollection';
 import deleteProducts from './mutations/deleteProducts';
+import deleteCollections from './mutations/deleteCollections';
 
 const resolvers = {
   Query: {
@@ -26,6 +27,7 @@ const resolvers = {
     addProductsToCollection,
     updateActiveCollection,
     deleteProducts,
+    deleteCollections,
   }
 }
 

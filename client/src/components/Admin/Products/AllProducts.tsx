@@ -193,6 +193,7 @@ const Products = () => {
     })
     .then(res => {
       console.log(res);
+      setSelectedProducts([]);
       refetchProducts();
     })
     .catch(err => console.log(err));

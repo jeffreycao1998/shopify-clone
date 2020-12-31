@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_USERS_COLLECTIONS, UPDATE_ACTIVE_COLLECTION } from '../../../graphql/gql';
+import { GET_USERS_COLLECTIONS, UPDATE_ACTIVE_COLLECTION, DELETE_COLLECTIONS } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
 import { Collection } from '../../../types';
@@ -71,8 +71,15 @@ const TableHeadings = styled.div`
   align-items: center;
 
   .open-space {
-    width: 58px;
+    width: 141px;
     height: 100%;
+  }
+
+  .actions-container {
+    padding: 0 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
   .collection-image {
@@ -157,6 +164,7 @@ const Collections = () => {
 
   const { data, loading, refetch: refetchCollections } = useQuery(GET_USERS_COLLECTIONS);
   const [updateActiveCollection] = useMutation(UPDATE_ACTIVE_COLLECTION);
+  const [deleteCollections] = useMutation(DELETE_COLLECTIONS);
 
   // useEffect(() => {
   //   if (refetch) {
@@ -181,7 +189,20 @@ const Collections = () => {
       variables: { collectionId: selectedCollection }
     })
     .then(res => {
-      console.log(res);
+      console.log(res.data);
+      setSelectedCollection(-1);
+      refetchCollections();
+    })
+    .catch(err => console.log(err));
+  };
+
+  const handleDeleteCollection = () => {
+    deleteCollections({
+      variables: { collectionIds: [selectedCollection] }
+    })
+    .then(res => {
+      console.log(res.data);
+      setSelectedCollection(-1);
       refetchCollections();
     })
     .catch(err => console.log(err));
@@ -206,11 +227,13 @@ const Collections = () => {
             {
               selectedCollection === -1
               ? <> 
-                  <span className='collection-image'/>
                   <h4 className='collection-name'>Title</h4>
                   <h4 className='collection-description'>Description</h4>
                 </>
-              : <Button text='Make active' color='white' onClick={setActiveCollection}/>
+              : <div className='actions-container'>
+                  <Button text='Make active' color='white' onClick={setActiveCollection}/>
+                  <Button text='Delete' color='red' onClick={handleDeleteCollection}/>
+                </div>
             }
           </TableHeadings>
           {
