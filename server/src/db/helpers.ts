@@ -155,7 +155,16 @@ const getStoreByEndpoint = (storeEndpoint: string) => {
 };
 
 const getProductsByCollectionId = (collectionId: string) => {
-  return 
+  return Product.findAll({
+    as: 'products',
+    include: [{
+      model: Collection,
+      as: 'collections',
+      through: {
+        where: { collectionId }
+      }
+    }],
+  });
 };
 
 export {
