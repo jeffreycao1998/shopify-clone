@@ -15,10 +15,9 @@ const addProduct = async (obj: {}, args: Args, context: ContextType) => {
   const userId = context.user.id;
 
   const product = await createProduct(name, description, price, userId);
-
-  images.forEach( async (image: ImageType) => {
-    await addImagesToProduct(image.dataUrl, product.id);
-  });
+  
+  const dataUrls = images.map(image => image.dataUrl);
+  await addImagesToProduct(dataUrls, product.id);
   
   return { name: product.name };
 };

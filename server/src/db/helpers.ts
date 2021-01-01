@@ -47,13 +47,15 @@ const createProduct = async (name: string, description: string, price: number, u
   return product;
 };
 
-const addImagesToProduct = async (dataUrl: string, productId: number) => {
-  const image = await Image.build({
-    dataUrl,
-    productId,
+const addImagesToProduct = async (dataUrls: Array<string>, productId: number) => {
+  const newImages = dataUrls.map(dataUrl => {
+    return {
+      dataUrl,
+      productId
+    };
   });
-  await image.save();
-  return image;
+
+  return Image.bulkCreate([...newImages]);
 };
 
 const getProductsByUserId = (userId: number) => {
