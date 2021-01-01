@@ -4,10 +4,10 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_USERS_COLLECTIONS, UPDATE_ACTIVE_COLLECTION, DELETE_COLLECTIONS } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
-import { Collection } from '../../../types';
+import { Collection, Message } from '../../../types';
 
 // Components
-import { ContainerRounded, Button } from '../Core';
+import { ContainerRounded, Button, Notification } from '../Core';
 
 const Container = styled.div`
   padding: 16px;
@@ -161,6 +161,7 @@ const UserCollection = styled.div`
 const Collections = () => {
   const [tab, setTab] = useState('all');
   const [selectedCollection, setSelectedCollection] = useState(-1);
+  const [message, setMessage] = useState({} as Message);
 
   const { data, loading, refetch: refetchCollections } = useQuery(GET_USERS_COLLECTIONS);
   const [updateActiveCollection] = useMutation(UPDATE_ACTIVE_COLLECTION);
@@ -201,11 +202,13 @@ const Collections = () => {
       variables: { collectionIds: [selectedCollection] }
     })
     .then(res => {
-      console.log(res.data);
       setSelectedCollection(-1);
       refetchCollections();
+      setMessage({ success: `Deleted ${res.data.deleteCollections.amount} collection(s)` });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      setMessage({ error: err.message });
+    });
   };
   
   return (
@@ -215,6 +218,8 @@ const Collections = () => {
         <p className='header'>Collections</p>
         <Link to='/admin/collections/new'><Button text='Create collection' color='green' /></Link>
       </Header>
+
+      <Notification message={message}/>
 
       <ContentContainer>
         <Tabs>

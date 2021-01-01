@@ -195,7 +195,7 @@ const Products = () => {
     .then(res => {
       setSelectedProducts([]);
       refetchProducts();
-      setMessage({ success: `Deleted ${res.data.deleteProducts.amount} image(s)` });
+      setMessage({ success: `Deleted ${res.data.deleteProducts.amount} product(s)` });
     })
     .catch(err => {
       setMessage({ error: err.message });
