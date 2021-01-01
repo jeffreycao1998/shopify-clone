@@ -30,7 +30,7 @@ const userRegister = async (obj: {}, args: Args, context: ContextType) => {
     // Create Store
     await createStore(storeName, userId);
 
-  //   // Create Token
+    // Create Token
     const token = await signToken({ userId });
     
     return { token };
