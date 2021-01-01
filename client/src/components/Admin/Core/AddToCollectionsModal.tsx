@@ -6,7 +6,7 @@ import {
   GET_PRODUCTS_IN_COLLECTION,
   ADD_PRODUCTS_TO_COLLECTION
 } from '../../../graphql/gql';
-import { Collection } from '../../../types';
+import { Collection, Message } from '../../../types';
 
 const Container = styled.div`
   position: fixed;
@@ -89,9 +89,10 @@ const CollectionImage = styled.div`
 type Props = {
   selectedProducts: Array<number>
   setShowAddToCollectionsModal: React.Dispatch<React.SetStateAction<boolean>>
+  setMessage: React.Dispatch<React.SetStateAction<Message>>
 }
 
-const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal }: Props) => {
+const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal, setMessage }: Props) => {
   const { data } = useQuery(GET_USERS_COLLECTIONS);
   const [getProductsInCollection] = useLazyQuery(GET_PRODUCTS_IN_COLLECTION);
   const [addProductsToCollection] = useMutation(ADD_PRODUCTS_TO_COLLECTION);

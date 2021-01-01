@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
 import { ADD_COLLECTION } from '../../../graphql/gql';
 import { useInput } from '../../../hooks';
-import { Image } from '../../../types';
+import { Image, Message } from '../../../types';
 
 // Components
 import { 
@@ -26,7 +26,7 @@ const SaveBtn = styled.div`
 
 const CreateCollection = () => {
   const [addCollection] = useMutation(ADD_COLLECTION);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({} as Message);
 
   const [images, setImages] = useState([] as Array<Image>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
@@ -55,7 +55,7 @@ const CreateCollection = () => {
     })
     .then(res => {
       resetState();
-      setMessage(`Created ${res.data.addCollection.name}`)
+      setMessage({ success: `Created ${res.data.addCollection.name}` })
     })
     .catch(err => console.log(err.message))
   };

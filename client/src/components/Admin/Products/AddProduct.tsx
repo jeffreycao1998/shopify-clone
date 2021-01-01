@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
 import { ADD_PRODUCT } from '../../../graphql/gql';
 import { useInput } from '../../../hooks';
-import { Image } from '../../../types';
+import { Image, Message } from '../../../types';
 
 // Components
 import { 
@@ -44,7 +44,7 @@ const SaveBtn = styled.div`
 
 const AddProducts = () => {
   const [addProduct] = useMutation(ADD_PRODUCT);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({} as Message);
 
   const [images, setImages] = useState([] as Array<Image>);
   const [selectedImages, setSelectedImages] = useState([] as Array<string>);
@@ -79,7 +79,7 @@ const AddProducts = () => {
     })
     .then(res => {
       resetState();
-      setMessage(`Added ${res.data.addProduct.name}`)
+      setMessage({ success: `Added ${res.data.addProduct.name}` });
     })
     .catch(err => console.log(err.message))
   };

@@ -21,3 +21,8 @@ export type Collection = {
   userId: number
   imageUrl: string
 }
+
+export type Message = {
+  success?: string
+  error?: string
+}

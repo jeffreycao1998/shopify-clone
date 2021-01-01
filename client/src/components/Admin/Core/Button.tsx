@@ -45,7 +45,7 @@ const ButtonContainer = styled.div`
     } else if (color === 'red') {
       return `
         color: white;
-        background-color: #ff4757;
+        background-color: ${colors.ErrorLight};
       `
     }
   }}

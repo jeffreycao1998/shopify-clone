@@ -4,10 +4,10 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_USERS_PRODUCTS, DELETE_PRODUCTS } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
-import { Product } from '../../../types';
+import { Product, Message } from '../../../types';
 
 // Components
-import { ContainerRounded, Button, AddToCollectionsModal } from '../Core';
+import { ContainerRounded, Button, AddToCollectionsModal, Notification } from '../Core';
 
 const Container = styled.div`
   padding: 16px;
@@ -153,6 +153,7 @@ const Products = () => {
   const [tab, setTab] = useState('all');
   const [selectedProducts, setSelectedProducts] = useState([] as Array<number>);
   const [showAddToCollectionModal, setShowAddToCollectionModal] = useState(false);
+  const [message, setMessage] = useState({} as Message);
 
   const { data, loading, refetch: refetchProducts } = useQuery(GET_USERS_PRODUCTS);
   const [deleteProducts] = useMutation(DELETE_PRODUCTS);
@@ -208,6 +209,8 @@ const Products = () => {
           <Link to='/admin/products/new'><Button text='Add product' color='green' /></Link>
         </div>
       </Header>
+
+      <Notification message={message}/>
 
       <ContentContainer>
         <Tabs>
@@ -268,6 +271,7 @@ const Products = () => {
           <AddToCollectionsModal 
             selectedProducts={selectedProducts}
             setShowAddToCollectionsModal={setShowAddToCollectionModal}
+            setMessage={setMessage}
           />
         }
 

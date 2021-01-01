@@ -240,7 +240,10 @@ const Collections = () => {
             collections && collections.map((collection: Collection) => {
               return (
                 <UserCollection key={collection.id} activeCollection={collection.active}>
-                  <div className='selector' onClick={() => selectCollection(collection.id)}>
+                  <div className='selector' onClick={() => {
+                      if (!collection.active) selectCollection(collection.id)
+                    }
+                  }>
                     {
                       !collection.active &&
                       <input type='checkbox' checked={selectedCollection === collection.id}/>
