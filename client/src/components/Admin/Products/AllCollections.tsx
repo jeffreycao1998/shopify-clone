@@ -167,8 +167,8 @@ const Collections = () => {
   const [deleteCollections] = useMutation(DELETE_COLLECTIONS);
 
   // useEffect(() => {
-  //   if (refetch) {
-  //     refetch();
+  //   if (refetchCollections) {
+  //     refetchCollections();
   //   }
   // },[]);
 

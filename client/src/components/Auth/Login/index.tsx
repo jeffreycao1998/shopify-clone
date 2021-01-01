@@ -68,7 +68,7 @@ const ErrorMsg = styled.p`
 `;
 
 const Login = () => {
-  const [email, emailInput] = useInput({ name: 'Email address', type: 'text', placeholder: 'jeffcao05@gmail.com' })
+  const [email, emailInput] = useInput({ name: 'Email address', type: 'email', placeholder: 'jeffcao05@gmail.com' })
   const [password, passwordInput] = useInput({ name: 'Password', type: 'password', placeholder: 'S3CR3t P@$$' })
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();

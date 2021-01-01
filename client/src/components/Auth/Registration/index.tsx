@@ -68,7 +68,7 @@ const ErrorMsg = styled.p`
 `;
 
 const Registration = () => {
-  const [email, emailInput] = useInput({ name: 'Email address', type: 'text', placeholder: 'jeffcao05@gmail.com' })
+  const [email, emailInput] = useInput({ name: 'Email address', type: 'email', placeholder: 'jeffcao05@gmail.com' })
   const [password, passwordInput] = useInput({ name: 'Password', type: 'password', placeholder: 'S3CR3t P@$$' })
   const [storeName, storeNameInput] = useInput({ name: 'Your store name', type: 'text', placeholder: 'Gucci Clone' })
   const [errorMsg, setErrorMsg] = useState('');

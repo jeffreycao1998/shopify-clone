@@ -52,7 +52,7 @@ const AddProducts = () => {
   const [title, titleInput, clearTitle] = useInput({ name: 'Title', type: 'text', placeholder: 'doge pic' });
   const [description, descriptionInput, clearDescription] = useInput({ name: 'Description', type: 'textarea', placeholder: '-limited edition doge pic' });
   
-  const [price, priceInput, clearPrice] = useInput({ name: 'Price', type: 'text', placeholder: '0.00'});
+  const [price, priceInput, clearPrice] = useInput({ name: 'Price', type: 'number', placeholder: '0.00'});
 
   const resetState = () => {
     setImages([]);
@@ -66,6 +66,12 @@ const AddProducts = () => {
   };
 
   const onSave = () => {
+    if (!title) return setMessage({ error: 'Missing a product title' });
+    if (!description) return setMessage({ error: 'Missing a product description' });
+    if (!images.length) return setMessage({ error: 'Missing a product image' });
+    if (!price) return setMessage({ error: 'Missing a product price' });
+    if (isNaN(parseFloat(price as string))) return setMessage({ error: 'Price must be a number' });
+
     const product = {
       name: title,
       description,
@@ -81,7 +87,9 @@ const AddProducts = () => {
       resetState();
       setMessage({ success: `Added ${res.data.addProduct.name}` });
     })
-    .catch(err => console.log(err.message))
+    .catch(err => {
+      setMessage({ error: err.message });
+    });
   };
 
   return (
