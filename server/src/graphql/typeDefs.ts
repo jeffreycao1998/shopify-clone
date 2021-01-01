@@ -13,7 +13,7 @@ const typeDefs = gql`
     addProduct(product: AddProduct): Name
     addCollection(collection: AddCollection): Name
     addProductsToCollection(productIds: [Int], collectionId: Int): Amount
-    updateActiveCollection(collectionId: Int): Status
+    updateActiveCollection(collectionId: Int): Name
     deleteProducts(productIds: [Int]): Amount
     deleteCollections(collectionIds: [Int]): Amount
   }

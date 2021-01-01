@@ -9,9 +9,12 @@ const updateActiveCollection = async (obj: {}, args: Args, context: ContextType)
   const { collectionId } = args;
   const userId = context.user.id;
 
-  await updateUsersActiveCollection(collectionId, userId);
-  
-  return { success: true };
+  try {
+    const result = await updateUsersActiveCollection(collectionId, userId);
+    return { name: result.dataValues.name };
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 export default updateActiveCollection;

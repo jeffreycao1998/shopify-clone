@@ -190,11 +190,13 @@ const Collections = () => {
       variables: { collectionId: selectedCollection }
     })
     .then(res => {
-      console.log(res.data);
       setSelectedCollection(-1);
       refetchCollections();
+      setMessage({ success: `${res.data.updateActiveCollection.name} is now active` });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      setMessage({ error: err.message });
+    });
   };
 
   const handleDeleteCollection = () => {

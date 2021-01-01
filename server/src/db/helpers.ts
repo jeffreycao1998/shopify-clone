@@ -127,6 +127,7 @@ const updateUsersActiveCollection = async (newCollectionId: number, userId: numb
   const newActiveCollection = await getCollectionByCollectionId(newCollectionId);
   newActiveCollection.active = true;
   await newActiveCollection.save();
+  return newActiveCollection;
 };
 
 const deleteUsersProducts = async (productIds: Array<number>) => {
