@@ -44,6 +44,10 @@ const CreateCollection = () => {
   };
 
   const onSave = () => {
+    if (!title) return setMessage({ error: 'Missing a collection title' });
+    if (!description) return setMessage({ error: 'Missing a collection description' });
+    if (!images.length) return setMessage({ error: 'Missing a collection image' });
+
     const collection = {
       name: title,
       description,
@@ -55,9 +59,11 @@ const CreateCollection = () => {
     })
     .then(res => {
       resetState();
-      setMessage({ success: `Created ${res.data.addCollection.name}` })
+      setMessage({ success: `Created ${res.data.addCollection.name}` });
     })
-    .catch(err => console.log(err.message))
+    .catch(err => {
+      setMessage({ error: err.message });
+    });
   };
 
   return (
