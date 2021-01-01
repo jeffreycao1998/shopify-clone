@@ -14,9 +14,9 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
 
   const store = await getStoreByEndpoint(storeEndpoint)
   const collection = await getActiveCollectionByUserId(store.userId);
-  const products = await getProductsByCollectionId(collection.id);
+  const activeCollection = await getProductsByCollectionId(collection.id);
   
-  return products;
+  return activeCollection.dataValues.products;
 };
 
 export default getStoreProducts;

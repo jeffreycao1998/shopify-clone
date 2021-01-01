@@ -21,7 +21,4 @@ const Product = sequelize.define('product', {
   }
 });
 
-Product.hasMany(Image, { onDelete: 'cascade' });
-Image.belongsTo(Product, {foreignKey: 'productId', targetKey: 'id', onDelete: 'cascade'});
-
 module.exports = Product;

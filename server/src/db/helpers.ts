@@ -155,16 +155,25 @@ const getStoreByEndpoint = (storeEndpoint: string) => {
 };
 
 const getProductsByCollectionId = (collectionId: string) => {
-  return Product.findAll({
-    as: 'products',
-    include: [{
-      model: Collection,
-      as: 'collections',
-      through: {
-        where: { collectionId }
-      }
-    }],
-  });
+  return Collection.findOne({
+    attributes: [],
+    where: { id: collectionId },
+    include: [
+      {
+        model: Product,
+        as: 'products',
+        attributes: [ 'id', 'name', 'description', 'price' ],
+        through: {
+          model: ProductsCollection,
+          where: { collectionId }
+        },
+        include: [{
+          model: Image,
+          attributes: [ 'id', 'dataUrl' ]
+        }]
+      },
+    ],
+  }).catch((err: any) => console.log(err.message));
 };
 
 export {
