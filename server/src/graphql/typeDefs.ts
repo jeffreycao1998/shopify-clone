@@ -4,7 +4,8 @@ const typeDefs = gql`
   type Query {
     getUsersProducts: [Product]
     getUsersCollections: [Collection]
-    getProductsInCollection(collectionId: Int): [Product]
+    getUsersStore: Store
+    getStoreProducts(storeEndpoint: String): [Product]
   }
 
   type Mutation {
@@ -34,6 +35,10 @@ const typeDefs = gql`
     amount: Int
   }
 
+  type UserId {
+    userId: Int
+  }
+
   type Image {
     id: Int
     dataUrl: String
@@ -54,6 +59,13 @@ const typeDefs = gql`
     active: Boolean
     userId: Int
     imageUrl: String
+  }
+
+  type Store {
+    id: Int
+    name: String
+    endpoint: String
+    userId: Int
   }
 
   input AddImage {

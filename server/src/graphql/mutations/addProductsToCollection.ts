@@ -1,5 +1,5 @@
 import { any } from 'sequelize/types/lib/operators';
-import { getProductsByCollectionId, addUsersProductsToCollection } from '../../db/helpers';
+import { getProductIdsByCollectionId, addUsersProductsToCollection } from '../../db/helpers';
 import { ImageType, CollectionType, ContextType } from '../../types';
 
 type Args = {
@@ -10,9 +10,8 @@ type Args = {
 const addProductsToCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { productIds, collectionId } = args;
 
-  const prevCollections = await getProductsByCollectionId(collectionId);
-  const productsInCollection = prevCollections.map((productCollection: any) => productCollection.dataValues.productId);
-  const newProductsToAdd = productIds.filter(productId => !productsInCollection.includes(productId));
+  const prevProductsIds = await getProductIdsByCollectionId(collectionId);
+  const newProductsToAdd = productIds.filter(productId => !prevProductsIds.includes(productId));
 
   if (newProductsToAdd.length === 0) {
     throw new Error('This collection already contains all selected products');

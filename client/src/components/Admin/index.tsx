@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import cookies from 'js-cookie';
+import { useQuery } from '@apollo/react-hooks'
+import { GET_USERS_STORE } from '../../graphql/gql';
 import {
   Switch,
   Route,
@@ -29,18 +31,19 @@ const MainContainer = styled.div`
 
 const Admin = () => {
   const history = useHistory();
+  const { data } = useQuery(GET_USERS_STORE);
 
   const jwt = cookies.get('jwt');
   if (!jwt) {
     history.push('/auth/login');
     return null;
   }
-
+  
   return (
     <Container>
 
-      <Header />
-      <Navigation />
+      <Header storeName={ data && data.getUsersStore.name }/>
+      <Navigation storeEndpoint={ data && data.getUsersStore.endpoint }/>
 
       <MainContainer>
         <Switch>

@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import {
   GET_USERS_COLLECTIONS,
-  GET_PRODUCTS_IN_COLLECTION,
   ADD_PRODUCTS_TO_COLLECTION
 } from '../../../graphql/gql';
 import { Collection, Message } from '../../../types';
@@ -94,11 +93,9 @@ type Props = {
 
 const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal, setMessage }: Props) => {
   const { data } = useQuery(GET_USERS_COLLECTIONS);
-  const [getProductsInCollection] = useLazyQuery(GET_PRODUCTS_IN_COLLECTION);
   const [addProductsToCollection] = useMutation(ADD_PRODUCTS_TO_COLLECTION);
 
   const handleAddToCollection = (collectionId: number) => {
-    // const result = getProductsInCollection({ variables: { collectionId }});
     addProductsToCollection({
       variables: {
         productIds: selectedProducts,

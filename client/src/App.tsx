@@ -20,8 +20,11 @@ const App = () => {
         <Route path='/admin'>
           <Admin />
         </Route>
-        <Route path='/'>
+        <Route path='/store/:storeName'>
           <Store />
+        </Route>
+        <Route path='/'>
+          <Auth />
         </Route>
       </Switch>
     </Router>

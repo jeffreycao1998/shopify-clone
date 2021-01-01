@@ -14,7 +14,9 @@ const getUserByEmail = async (email: string) => {
 };
 
 const getStoreByName = async (storeName: string) => {
-  const store = await Store.findOne({ where: { name: storeName }});
+  const store = await Store.findOne({ 
+    where: { endpoint: storeName.replace(/\s/g,'').toLowerCase() }
+  });
   return store;
 };
 
@@ -30,6 +32,7 @@ const createUser = async (email: string, hash: string) => {
 const createStore = async (storeName: string, userId: string) => {
   const store = await Store.build({
     name: storeName,
+    endpoint: storeName.replace(/\s/g,'').toLowerCase(),
     userId
   });
   await store.save();
@@ -100,10 +103,9 @@ const getCollectionsByUserId = (userId: number) => {
   return Collection.findAll({ where: { userId }});
 };
 
-const getProductsByCollectionId = (collectionId: number) => {
-  return ProductsCollection.findAll({
-    where: { collectionId },
-  })
+const getProductIdsByCollectionId = async (collectionId: number) => {
+  const productCollections = await ProductsCollection.findAll({ where: { collectionId }});
+  return productCollections.map((product: any) => product.productId);
 };
 
 const addUsersProductsToCollection = async (productIds: Array<number>, collectionId: number) => {
@@ -132,33 +134,52 @@ const updateUsersActiveCollection = async (newCollectionId: number, userId: numb
   return newActiveCollection;
 };
 
-const deleteUsersProducts = async (productIds: Array<number>) => {
+const deleteUsersProducts = (productIds: Array<number>) => {
   return Product.destroy({
     where: { id: [...productIds] }
   });
 };
 
-const deleteUsersCollections = async (collectionIds: Array<number>) => {
+const deleteUsersCollections = (collectionIds: Array<number>) => {
   return Collection.destroy({
     where: { id: [...collectionIds] }
   });
 };
 
+const getStoreByUserId = (userId: number) => {
+  return Store.findOne({ where: { userId }});
+};
+
+const getStoreByEndpoint = (storeEndpoint: string) => {
+  return Store.findOne({ where: { endpoint: storeEndpoint } });
+};
+
+const getProductsByCollectionId = (collectionId: string) => {
+  return 
+};
+
 export {
   getUserByEmail,
   getStoreByName,
+  getProductsByUserId,
+  getActiveCollectionByUserId,
+  getCollectionsByUserId,
+  getStoreByUserId,
+  getStoreByEndpoint,
+  getCollectionByCollectionId,
+  getProductIdsByCollectionId,
+  getProductsByCollectionId,
+
   createUser,
   createStore,
   createProduct,
-  addImagesToProduct,
-  getProductsByUserId,
-  getActiveCollectionByUserId,
   createCollection,
-  getCollectionsByUserId,
-  getProductsByCollectionId,
+
+  addImagesToProduct,
   addUsersProductsToCollection,
-  getCollectionByCollectionId,
+  
   updateUsersActiveCollection,
+
   deleteUsersProducts,
   deleteUsersCollections,
 }

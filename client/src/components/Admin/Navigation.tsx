@@ -23,7 +23,7 @@ const CategoryContainer = styled.div`
 `;
 
 type CategoryProps = {
-  selected: boolean
+  selected?: boolean
 }
 
 const Category = styled(Link)`
@@ -53,7 +53,11 @@ const Category = styled(Link)`
   }
 `;
 
-const Navigation = () => {
+type Props = {
+  storeEndpoint: string
+}
+
+const Navigation = ({ storeEndpoint }: Props) => {
   const [selectedTab, setSelectedTab] = useState('/admin');
 
   const categories = [
@@ -99,6 +103,13 @@ const Navigation = () => {
           )
         })
       }
+      <CategoryContainer>
+        <Category to={`/store/${storeEndpoint}`} target="_blank">
+          {/* @ts-ignore */}
+          <ion-icon name="storefront"></ion-icon>
+          <p className='category-name'>Preview Online Store</p>
+        </Category>
+      </CategoryContainer>
     </NavContainer>
   )
 };

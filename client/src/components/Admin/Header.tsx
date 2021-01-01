@@ -137,8 +137,13 @@ const ProfileDropdown = styled.div`
   }
 `;
 
-const Header = () => {
+type Props = {
+  storeName: string
+}
+
+const Header = ({ storeName }: Props) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  
   const history = useHistory();
 
   const toggleDropdown = () => {
@@ -157,7 +162,7 @@ const Header = () => {
           <div className='logo'>
             {/* @ts-ignore */}
             <ion-icon name="aperture"></ion-icon>
-            <p className='store-name'>jeffreycao</p>
+            <p className='store-name'>{ storeName }</p>
           </div>
         </Link>
       </LogoContainer>

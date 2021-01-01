@@ -6,6 +6,10 @@ const Store = sequelize.define('store', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  endpoint: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false

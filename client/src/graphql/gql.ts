@@ -1,7 +1,8 @@
 // Queries
 import GET_USERS_PRODUCTS from './queries/getUsersProducts';
 import GET_USERS_COLLECTIONS from './queries/getUsersCollections';
-import GET_PRODUCTS_IN_COLLECTION from './queries/getProductsInCollection';
+import GET_USERS_STORE from './queries/getUsersStore';
+import GET_STORE_PRODUCTS from './queries/getStoreProducts';
 
 // Mutations
 import USER_REGISTER from './mutations/userRegister';
@@ -17,7 +18,8 @@ export {
   // Queries
   GET_USERS_PRODUCTS,
   GET_USERS_COLLECTIONS,
-  GET_PRODUCTS_IN_COLLECTION,
+  GET_USERS_STORE,
+  GET_STORE_PRODUCTS,
 
   // Mutations
   USER_REGISTER,
