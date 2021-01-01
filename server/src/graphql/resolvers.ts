@@ -1,7 +1,7 @@
 // Queries
 import getUsersProducts from './queries/getUsersProducts';
 import getUsersCollections from './queries/getUsersCollections';
-import getUsersStore from './queries/getUsersStore';
+import getStore from './queries/getStore';
 import getStoreProducts from './queries/getStoreProducts';
 
 // Mutations
@@ -18,7 +18,7 @@ const resolvers = {
   Query: {
     getUsersProducts,
     getUsersCollections,
-    getUsersStore,
+    getStore,
     getStoreProducts,
   },
   Mutation: {

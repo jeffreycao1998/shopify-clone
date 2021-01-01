@@ -3,7 +3,7 @@ export type ImageType = {
   dataUrl: string
   name?: string
   size?: number
-}
+};
 
 export type ProductType = {
   id: number
@@ -11,7 +11,7 @@ export type ProductType = {
   description: string
   images: Array<ImageType>
   price: number
-}
+};
 
 export type CollectionType = {
   id: number
@@ -20,11 +20,15 @@ export type CollectionType = {
   active: boolean
   userId: number
   imageUrl: string
-}
+};
 
 export type ContextType = {
   user: {
     id: number
   },
   _extensionStack: any
-}
+};
+
+export type TokenData = {
+  userId: string
+};

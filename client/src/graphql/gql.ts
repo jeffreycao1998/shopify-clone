@@ -1,7 +1,7 @@
 // Queries
 import GET_USERS_PRODUCTS from './queries/getUsersProducts';
 import GET_USERS_COLLECTIONS from './queries/getUsersCollections';
-import GET_USERS_STORE from './queries/getUsersStore';
+import GET_STORE from './queries/getStore';
 import GET_STORE_PRODUCTS from './queries/getStoreProducts';
 
 // Mutations
@@ -18,7 +18,7 @@ export {
   // Queries
   GET_USERS_PRODUCTS,
   GET_USERS_COLLECTIONS,
-  GET_USERS_STORE,
+  GET_STORE,
   GET_STORE_PRODUCTS,
 
   // Mutations

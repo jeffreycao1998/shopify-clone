@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Query {
     getUsersProducts: [Product]
     getUsersCollections: [Collection]
-    getUsersStore: Store
+    getStore(storeEndpoint: String): Store
     getStoreProducts(storeEndpoint: String): [Product]
   }
 
