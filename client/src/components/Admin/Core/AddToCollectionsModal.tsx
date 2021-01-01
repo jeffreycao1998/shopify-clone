@@ -104,7 +104,7 @@ const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal 
         collectionId,
       }
     })
-    .then(res => console.log(res.data.addProductsToCollection))
+    .then(res => console.log(res))
     .catch(err => console.log(err.message));
   };
 

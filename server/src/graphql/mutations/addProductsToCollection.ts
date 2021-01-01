@@ -16,16 +16,14 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
 
   if (newProductsToAdd.length === 0) {
     throw new Error('This collection already contains all selected products');
-  } else {
-    addUsersProductsToCollection(productIds, collectionId)
-    .then(() => {
-      console.log('works');
-      return { amount: 1 };
-    })
-    .catch(err => {
-      throw new Error(err)
-    });
-  };
+  }
+
+  try {
+    const result = await addUsersProductsToCollection(newProductsToAdd, collectionId)
+    return { amount: result.length };
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 export default addProductsToCollection;

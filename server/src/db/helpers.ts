@@ -108,8 +108,7 @@ const addUsersProductsToCollection = async (productIds: Array<number>, collectio
   const newEntries = productIds.map(productId => {
     return { productId, collectionId }
   });
-  console.log(newEntries);
-  return ProductsCollection.bulkCreate([{ productId: 4, collectionId: 1 }])
+  return ProductsCollection.bulkCreate([...newEntries])
 };
 
 const getCollectionByCollectionId = (collectionId: number) => {
