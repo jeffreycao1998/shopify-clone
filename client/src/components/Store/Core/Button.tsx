@@ -15,33 +15,24 @@ type Props = {
 }
 
 const ButtonContainer = styled.div`
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: .8px;
+  width: 100%;
+  height: 44px;
   user-select: none;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
   
   ${({color}: Props) => {
-    if (color === 'green') {
-      return `
-        color: white;
-        background-color: ${colors.BrandGreen};
-      `
-    } else if (color === 'white') {
+    if (color === 'white') {
       return `
         color: ${colors.Ink};
         background-color: white;
-        border: 1px solid darkgrey;
-
-        &:hover {
-          background-color: transparent;
-        }
+        border: 1px solid black;
       `
     } else if (color === 'red') {
       return `
