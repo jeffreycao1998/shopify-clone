@@ -1,5 +1,5 @@
 import { any } from 'sequelize/types/lib/operators';
-import { getProductsByCollectionId, addProductToCollection } from '../../db/helpers';
+import { getProductsByCollectionId, addUsersProductsToCollection } from '../../db/helpers';
 import { ImageType, CollectionType, ContextType } from '../../types';
 
 type Args = {
@@ -10,19 +10,22 @@ type Args = {
 const addProductsToCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { productIds, collectionId } = args;
 
-  const result = await getProductsByCollectionId(collectionId);
-  const productsInCollection = result.map((productCollection: any) => productCollection.dataValues.productId);
+  const prevCollections = await getProductsByCollectionId(collectionId);
+  const productsInCollection = prevCollections.map((productCollection: any) => productCollection.dataValues.productId);
   const newProductsToAdd = productIds.filter(productId => !productsInCollection.includes(productId));
 
   if (newProductsToAdd.length === 0) {
     throw new Error('This collection already contains all selected products');
   } else {
-    productIds.forEach(async (productId) => {
-      await addProductToCollection(productId, collectionId);
+    addUsersProductsToCollection(productIds, collectionId)
+    .then(() => {
+      console.log('works');
+      return { amount: 1 };
+    })
+    .catch(err => {
+      throw new Error(err)
     });
   };
-
-  return { amount: newProductsToAdd.length };
 };
 
 export default addProductsToCollection;

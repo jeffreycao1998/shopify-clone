@@ -104,15 +104,12 @@ const getProductsByCollectionId = (collectionId: number) => {
   })
 };
 
-const addProductToCollection = async (productId: number, collectionId: number) => {
-  const productCollection = ProductsCollection.build({
-    productId: productId,
-    collectionId: collectionId,
+const addUsersProductsToCollection = async (productIds: Array<number>, collectionId: number) => {
+  const newEntries = productIds.map(productId => {
+    return { productId, collectionId }
   });
-  await productCollection.save()
-  .then((data: any) => console.log(data))
-  .catch((err: any) => console.log(err));
-  return productCollection;
+  console.log(newEntries);
+  return ProductsCollection.bulkCreate([{ productId: 4, collectionId: 1 }])
 };
 
 const getCollectionByCollectionId = (collectionId: number) => {
@@ -157,7 +154,7 @@ export {
   createCollection,
   getCollectionsByUserId,
   getProductsByCollectionId,
-  addProductToCollection,
+  addUsersProductsToCollection,
   getCollectionByCollectionId,
   updateUsersActiveCollection,
   deleteUsersProducts,

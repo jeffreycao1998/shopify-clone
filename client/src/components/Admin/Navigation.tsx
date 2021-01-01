@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +22,10 @@ const CategoryContainer = styled.div`
   align-items: center;
 `;
 
+type CategoryProps = {
+  selected: boolean
+}
+
 const Category = styled(Link)`
   display: flex;
   align-items: center;
@@ -30,10 +34,11 @@ const Category = styled(Link)`
   padding-left: 12px;
   border-radius: 3px;
   text-decoration: none;
+  ${({selected}: CategoryProps) => selected ? 'background-color: lightgrey;' : ''};
+  cursor: pointer;
 
   &:hover {
     background-color: lightgrey;
-    cursor: pointer;
   }
 
   ion-icon {
@@ -49,6 +54,8 @@ const Category = styled(Link)`
 `;
 
 const Navigation = () => {
+  const [selectedTab, setSelectedTab] = useState('/admin');
+
   const categories = [
     {
       icon: 'home',
@@ -82,8 +89,8 @@ const Navigation = () => {
       {
         categories.map(category => {
           return (
-            <CategoryContainer key={category.name}>
-              <Category to={category.route}>
+            <CategoryContainer key={category.name} onClick={() => setSelectedTab(category.route)}>
+              <Category to={category.route} selected={selectedTab === category.route}>
                 {/* @ts-ignore */}
                 <ion-icon name={category.icon} />
                 <p className='category-name'>{category.name}</p>
