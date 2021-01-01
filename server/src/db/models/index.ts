@@ -20,11 +20,13 @@ Collection.belongsToMany(Product, {
   foreginKey: 'collectionId',
 });
 
-export {
+const db = {
   User,
   Product,
   Image,
   Collection,
   ProductsCollection,
   Store
-};
+}
+
+export default db;

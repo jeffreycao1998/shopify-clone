@@ -1,6 +1,5 @@
-import { any } from 'sequelize/types/lib/operators';
-import { getProductIdsByCollectionId, addUsersProductsToCollection } from '../../db/helpers';
-import { ImageType, CollectionType, ContextType } from '../../types';
+import { ContextType } from '../../types';
+import db from '../../db/models';
 
 type Args = {
   productIds: Array<number>
@@ -10,14 +9,20 @@ type Args = {
 const addProductsToCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { productIds, collectionId } = args;
 
-  const prevProductsIds = await getProductIdsByCollectionId(collectionId);
+  const productCollections = await db.ProductsCollection.findAll({ where: { collectionId }});
+  const prevProductsIds = productCollections.map((product: any) => product.productId);
+
   const newProductsToAdd = productIds.filter(productId => !prevProductsIds.includes(productId));
 
   if (newProductsToAdd.length === 0) {
     throw new Error('This collection already contains all selected products');
   }
 
-  const result = await addUsersProductsToCollection(newProductsToAdd, collectionId)
+  const newEntries = productIds.map(productId => {
+    return { productId, collectionId }
+  });
+  const result = await db.ProductsCollection.bulkCreate([...newEntries])
+
   return { amount: result.length };
 };
 

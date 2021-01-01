@@ -1,6 +1,6 @@
 import { hashPassword, signToken } from '../util';
-import { getUserByEmail, getStoreByName, createUser, createStore } from '../../db/helpers';
 import { ContextType } from '../../types';
+import db from '../../db/models';
 
 type Args = {
   email: string
@@ -11,8 +11,10 @@ type Args = {
 const userRegister = async (obj: {}, args: Args, context: ContextType) => {
   const { email, password, storeName } = args;
   
-  const user = await getUserByEmail(email);
-  const store = await getStoreByName(storeName);
+  const user = await db.User.findOne({ where: { email }});
+  const store = await db.Store.findOne({ 
+    where: { endpoint: storeName.replace(/\s/g,'').toLowerCase() }
+  });
   
   if (user) {
     throw new Error('Email already registered');
@@ -24,11 +26,20 @@ const userRegister = async (obj: {}, args: Args, context: ContextType) => {
     const hash = hashPassword(password);
 
     // Create User
-    const newUser = await createUser(email, hash);
+    const newUser = await db.User.build({
+      email,
+      password: hash
+    });
+    await newUser.save();
     userId = newUser.dataValues.id;
 
     // Create Store
-    await createStore(storeName, userId);
+    const store = await db.Store.build({
+      name: storeName,
+      endpoint: storeName.replace(/\s/g,'').toLowerCase(),
+      userId
+    });
+    await store.save();
 
     // Create Token
     const token = await signToken({ userId });

@@ -1,5 +1,5 @@
-import { deleteUsersProducts } from '../../db/helpers';
 import { ContextType } from '../../types';
+import db from '../../db/models';
 
 type Args = {
   productIds: Array<number>
@@ -8,7 +8,7 @@ type Args = {
 const deleteProducts = async (obj: {}, args: Args, context: ContextType) => {
   const { productIds } = args;
   
-  await deleteUsersProducts(productIds);
+  await db.Product.destroy({ where: { id: [...productIds] }});
 
   return { amount: productIds.length };
 };

@@ -1,5 +1,5 @@
-import { getCollectionsByUserId, createCollection } from '../../db/helpers';
-import { ImageType, CollectionType, ContextType } from '../../types';
+import { ImageType, ContextType } from '../../types';
+import db from '../../db/models';
 
 type Args = {
   collection: {
@@ -13,14 +13,26 @@ const addCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { name, description, image } = args.collection;
   const userId = context.user.id;
   
-  const collections = await getCollectionsByUserId(userId);
+  const collections = await db.Collection.findAll({ where: { userId }});;
   const collectionExists = collections.filter((collection: any) => collection.dataValues.name === name).length > 0;
 
   if (collectionExists) {
     throw new Error('A collection with this name already exists');
   } else {
-    const newCollection = await createCollection(name, description, image.dataUrl, userId);
-    return { name: newCollection.name };
+    const hasActiveCollection = await db.Collection.findOne({
+      where: { userId, active: true }
+    });
+  
+    const collection = await db.Collection.build({
+      name,
+      description,
+      active: hasActiveCollection ? false : true,
+      userId,
+      imageUrl: image.dataUrl
+    });
+    await collection.save();
+
+    return { name: collection.name };
   }
 };
 

@@ -1,8 +1,8 @@
 require('dotenv').config();
 import bcrypt from 'bcrypt';
 import { signToken } from '../util';
-import { getUserByEmail } from '../../db/helpers';
 import { ContextType } from '../../types';
+import db from '../../db/models';
 
 type Args = {
   email: string
@@ -11,7 +11,7 @@ type Args = {
 
 const userLogin = async (obj: {}, args: Args, context: ContextType) => {
   const { email, password } = args;
-  const user = await getUserByEmail(email);
+  const user = await db.User.findOne({ where: { email }});
 
   if (!user) throw new Error('Incorrect credentials');
 

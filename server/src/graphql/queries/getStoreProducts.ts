@@ -1,9 +1,5 @@
 import { ContextType } from '../../types';
-import { 
-  getStoreByEndpoint,
-  getActiveCollectionByUserId,
-  getProductsByCollectionId
-} from '../../db/helpers';
+import db from '../../db/models';
 
 type Args = {
   storeEndpoint: string
@@ -12,10 +8,35 @@ type Args = {
 const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
   const { storeEndpoint } = args;
 
-  const store = await getStoreByEndpoint(storeEndpoint)
-  const collection = await getActiveCollectionByUserId(store.userId);
-  const activeCollection = await getProductsByCollectionId(collection.id);
+  const store = await db.Store.findOne({ where: { endpoint: storeEndpoint } });
+
+  const collection = await db.Collection.findOne({
+    where: { 
+      userId: store.userId,
+      active: true
+    }
+  });
   
+  const activeCollection = await db.Collection.findOne({
+    attributes: [],
+    where: { id: collection.id },
+    include: [
+      {
+        model: db.Product,
+        as: 'products',
+        attributes: [ 'id', 'name', 'description', 'price' ],
+        through: {
+          model: db.ProductsCollection,
+          where: { collectionId: collection.id }
+        },
+        include: [{
+          model: db.Image,
+          attributes: [ 'id', 'dataUrl' ]
+        }]
+      },
+    ],
+  });
+
   return activeCollection.dataValues.products;
 };
 
