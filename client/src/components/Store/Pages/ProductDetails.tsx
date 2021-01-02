@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Product } from '../../../types';
+import { Product, Cart, CartProduct, CartStore } from '../../../types';
 
 // Components
 import Button from '../Core/Button';
@@ -76,15 +76,46 @@ const MetaInfo = styled.div`
 
 type Props = {
   product: Product
+  cart: Cart
+  setCart: React.Dispatch<React.SetStateAction<Cart>>
+  storeEndpoint: string
 };
 
-const ProductDetails = ({ product }: Props) => {
+const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
   const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
   window.addEventListener('resize', () => {
     setClientWidth(document.body.clientWidth);
   });
 
   if (!product) return null;
+  
+  const handleAddToCart = (productId: number) => {
+    const newCart = JSON.parse(JSON.stringify(cart));
+
+    let store = newCart.filter((store: CartStore) => store.endpoint === storeEndpoint)[0];
+
+    if (!store) {
+      store = {
+        endpoint: storeEndpoint,
+        products: []
+      };
+      newCart.push(store);
+    }
+
+    let product = store.products.filter((product: CartProduct) => product.id === productId)[0];
+
+    if (!product) {
+      product = {
+        id: productId,
+        quantity: 0
+      };
+      store.products.push(product);
+    }
+
+    product.quantity += 1;
+    
+    setCart([...newCart]);
+  };
 
   return (
     <Container>
@@ -97,7 +128,11 @@ const ProductDetails = ({ product }: Props) => {
           <h3 className='price'>$12.00</h3>
         </div>
         <div className='action-buttons'>
-          <Button text='ADD TO CART' color='white'/>
+          <Button 
+            text='ADD TO CART'
+            color='white'
+            onClick={() => handleAddToCart(product.id)}
+          />
         </div>
         <p className='description'>
           { product.description }

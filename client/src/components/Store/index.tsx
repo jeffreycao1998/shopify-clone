@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Product } from '../../types';
+import { Product, Cart } from '../../types';
 import { useQuery } from '@apollo/react-hooks'
 import { GET_STORE, GET_STORE_PRODUCTS } from '../../graphql/gql';
 import { 
@@ -26,7 +26,18 @@ const MainContent = styled.div`
 `;
 
 const Store = () => {
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState([] as Cart);
+  // const [cart, setCart] = useState([
+  //   {
+  //     endpoint: 'goodstorename',
+  //     products: [
+  //       {
+  //         id: 3,
+  //         quantity: 2
+  //       }
+  //     ]
+  //   }
+  // ] as Cart);
 
   const location = useLocation();
   const storeEndpoint = location.pathname.split('/')[2];
@@ -51,7 +62,11 @@ const Store = () => {
 
   return (
     <Container>
-      <Header storeName={storeName} storeEndpoint={storeEndpoint}/>
+      <Header 
+        storeName={storeName} 
+        storeEndpoint={storeEndpoint}
+        cart={cart}
+      />
 
       <MainContent>
         <Switch>
@@ -59,6 +74,9 @@ const Store = () => {
           <Route path='/store/:storeEndpoint/:productId'>
             <ProductDetails 
               product={productId && productsData && getProduct()}
+              cart={cart}
+              setCart={setCart}
+              storeEndpoint={storeEndpoint}
             />
           </Route>
 

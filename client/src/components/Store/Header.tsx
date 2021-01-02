@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Cart } from '../../types';
 
 const Container = styled.div`
   height: 78px;
@@ -56,9 +57,21 @@ const Actions = styled.ul`
 type Props = {
   storeName: string
   storeEndpoint: string
+  cart: Cart
 };
 
-const Header = ({ storeName, storeEndpoint }: Props) => {
+const Header = ({ storeName, storeEndpoint, cart }: Props) => {
+  const currentStore = cart.filter(store => store.endpoint === storeEndpoint)[0];
+  const totalCartItems = currentStore && currentStore.products.reduce((total, product) => {
+    return total + product.quantity;
+  },0);
+
+  console.log(totalCartItems);
+
+  useEffect(() => {
+    console.log(cart);
+  },[cart])
+
   return (
     <Container>
 

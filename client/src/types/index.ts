@@ -26,3 +26,15 @@ export type Message = {
   success?: string
   error?: string
 }
+
+export type CartProduct = {
+  id: number
+  quantity: number
+}
+
+export type CartStore = {
+  endpoint: string
+  products: Array<CartProduct>
+}
+
+export type Cart = Array<CartStore>
