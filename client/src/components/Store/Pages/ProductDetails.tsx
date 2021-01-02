@@ -94,6 +94,7 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
 
     let store = newCart.filter((store: CartStore) => store.endpoint === storeEndpoint)[0];
 
+    // add store to cart
     if (!store) {
       store = {
         endpoint: storeEndpoint,
@@ -104,6 +105,7 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
 
     let product = store.products.filter((product: CartProduct) => product.id === productId)[0];
 
+    // add product to store in cart
     if (!product) {
       product = {
         id: productId,
@@ -113,7 +115,7 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
     }
 
     product.quantity += 1;
-    
+
     setCart([...newCart]);
   };
 

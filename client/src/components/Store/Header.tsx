@@ -43,15 +43,36 @@ const Actions = styled.ul`
   justify-content: flex-end;
   list-style: none;
 
-  ion-icon {
+  .cart {
+    position: relative;
+
+    ion-icon {
     font-size: 28px;
     padding: 10px;
     cursor: pointer;
 
-    &:hover {
-      color: #636363;
+      &:hover {
+        color: #636363;
+      }
+    }
+
+    .total-items {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      background-color: black;
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 600;
+      height: 15px;
+      width: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
+  
 `;
 
 type Props = {
@@ -66,12 +87,6 @@ const Header = ({ storeName, storeEndpoint, cart }: Props) => {
     return total + product.quantity;
   },0);
 
-  console.log(totalCartItems);
-
-  useEffect(() => {
-    console.log(cart);
-  },[cart])
-
   return (
     <Container>
 
@@ -81,8 +96,14 @@ const Header = ({ storeName, storeEndpoint, cart }: Props) => {
       
 
       <Actions>
-        {/* @ts-ignore */}
-        <ion-icon name="cart-outline"></ion-icon>
+        <div className='cart'>
+          {/* @ts-ignore */}
+          <ion-icon name="cart-outline"></ion-icon>
+          {
+            totalCartItems &&
+            <p className='total-items'>{totalCartItems}</p>
+          }
+        </div>
       </Actions>
 
     </Container>
