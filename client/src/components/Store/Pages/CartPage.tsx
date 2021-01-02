@@ -65,6 +65,10 @@ const SummaryHeader = styled.div`
 const ProductsContainer = styled.div`
   padding: 24px 0;
   border-bottom: 1px solid lightgrey;
+
+  > div:not(:last-child) {
+    margin-bottom: 24px;
+  }
 `;
 
 const ProductContainer = styled.div`
@@ -97,8 +101,10 @@ const ProductContainer = styled.div`
       }
 
       p {
+        display: inline-block;
         font-size: 15px;
         border-bottom: 1px solid black;
+        cursor: pointer;
       }
     }
   }
@@ -130,37 +136,24 @@ type Props = {
 };
 
 const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
-  const products = cart.filter(store => store.endpoint === storeEndpoint)[0].products;
-  const [quantities, setQuantities] = useState({} as any);
-
-  function initQuantities() {
-    const newQuantities = {} as any;
-
-    products.forEach(product => {
-      newQuantities[product.id] = product.quantity
-    });
-    setQuantities({...newQuantities});
-  };
+  const [products, setProducts] = useState(cart.filter(store => store.endpoint === storeEndpoint)[0].products);
 
   const handleQuantityChange = (e: any, product: CartProduct) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity === 0) return;
 
-    setQuantities((prev: any) => {
-      return {
-        ...prev,
-        [product.id]: newQuantity
-      }
+    setProducts((prev: any) => {
+      const targetProduct = prev.filter((cartProduct: CartProduct) => cartProduct === product)[0];
+      const otherProducts = prev.filter((cartProduct: CartProduct) => cartProduct !== product);
+      targetProduct.quantity = newQuantity;
+      return [...otherProducts, {...targetProduct}]
     });
-    product.quantity = newQuantity;
   };
 
-  useEffect(() => {
-    initQuantities();
-  },[]);
-
-  // console.log(products);
-  console.log(quantities);
+  const handleRemoveProduct = (product: CartProduct) => {
+    // products = products.filter(cartProduct => cartProduct !== product);
+    // console.log(products);
+  };
 
   return (
     <Container>
@@ -178,7 +171,7 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
         </SummaryHeader>
         <ProductsContainer>
           {
-            products && products.map((product: CartProduct) => {
+            products.length && products.map((product: CartProduct) => {
               return (
                 <ProductContainer>
                   <div className='product'>
@@ -187,14 +180,14 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
                     </div>
                     <div className='name'>
                       <h3>{product.name}</h3>
-                      <p>Remove</p>
+                      <p onClick={() => handleRemoveProduct(product)}>Remove</p>
                     </div>
                   </div>
                   <div className='price'>
                     <p>${product.price / 100}</p>
                   </div>
                   <div className='quantity'>
-                    <input type='number' value={quantities[product.id]} onChange={(e) => handleQuantityChange(e, product)}/>
+                    <input type='number' value={product.quantity} onChange={(e) => handleQuantityChange(e, product)}/>
                   </div>
                   <div className='total'>
                     <p>${product.price * product.quantity / 100}</p>
