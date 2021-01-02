@@ -81,7 +81,7 @@ type Props = {
   storeEndpoint: string
 };
 
-const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
+const ProductDetailsPage = ({ product, cart, setCart, storeEndpoint }: Props) => {
   const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
   window.addEventListener('resize', () => {
     setClientWidth(document.body.clientWidth);
@@ -89,33 +89,33 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
 
   if (!product) return null;
   
-  const handleAddToCart = (productId: number) => {
+  const handleAddToCart = (product: Product) => {
     const newCart = JSON.parse(JSON.stringify(cart));
 
-    let store = newCart.filter((store: CartStore) => store.endpoint === storeEndpoint)[0];
+    let cartStore = newCart.filter((cartStore: CartStore) => cartStore.endpoint === storeEndpoint)[0];
 
     // add store to cart
-    if (!store) {
-      store = {
+    if (!cartStore) {
+      cartStore = {
         endpoint: storeEndpoint,
         products: []
       };
-      newCart.push(store);
+      newCart.push(cartStore);
     }
 
-    let product = store.products.filter((product: CartProduct) => product.id === productId)[0];
+    let cartProduct = cartStore.products.filter((cartProduct: CartProduct) => cartProduct.id === product.id)[0];
 
     // add product to store in cart
-    if (!product) {
-      product = {
-        id: productId,
+    if (!cartProduct) {
+      cartProduct = {
+        ...product,
         quantity: 0
       };
-      store.products.push(product);
+      cartStore.products.push(cartProduct);
     }
 
-    product.quantity += 1;
-
+    cartProduct.quantity += 1;
+    console.log(cartProduct);
     setCart([...newCart]);
   };
 
@@ -133,7 +133,7 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
           <Button 
             text='ADD TO CART'
             color='white'
-            onClick={() => handleAddToCart(product.id)}
+            onClick={() => handleAddToCart(product)}
           />
         </div>
         <p className='description'>
@@ -144,4 +144,4 @@ const ProductDetails = ({ product, cart, setCart, storeEndpoint }: Props) => {
   );
 };
 
-export default ProductDetails;
+export default ProductDetailsPage;

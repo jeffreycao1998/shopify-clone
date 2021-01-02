@@ -1,5 +1,5 @@
 export type Image = {
-  id: string
+  id: number
   dataUrl: string
   name?: string
   size?: number
@@ -29,6 +29,10 @@ export type Message = {
 
 export type CartProduct = {
   id: number
+  name: string
+  description: string
+  images: Array<Image>
+  price: number
   quantity: number
 }
 

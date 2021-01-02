@@ -176,9 +176,9 @@ const ImageContainer = styled.div`
 
 type Props = {
   images: Array<Image>
-  selectedImages: Array<string>
+  selectedImages: Array<number>
   setImages: React.Dispatch<React.SetStateAction<Array<Image>>>
-  setSelectedImages: React.Dispatch<React.SetStateAction<Array<string>>>
+  setSelectedImages: React.Dispatch<React.SetStateAction<Array<number>>>
   maxAmount: number
   headerText: string
 }
@@ -205,7 +205,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
             dataUrl: reader.result as string,
             name: file.name,
             size: file.size,
-            id: `${file.lastModified}${file.name}`,
+            id: new Date().getSeconds(),
           }
           await setSelectedImages([]);
           await setImages((prev: Array<Image>) => {
@@ -217,7 +217,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
     },
   });
 
-  const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: string) => {
+  const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: number) => {
     e.stopPropagation();
     if (selectedImages.includes(imageId)) {
       setSelectedImages(prev => {

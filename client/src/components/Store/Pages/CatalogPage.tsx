@@ -5,13 +5,23 @@ import { Product } from '../../../types';
 import { useQuery } from '@apollo/react-hooks'
 import { GET_STORE_PRODUCTS } from '../../../graphql/gql';
 
-// Components
-import { ContentHeader } from '../Core';
-
 const Container = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
+`;
+
+const ContentHeader = styled.div`
+  height: 152px;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 750px) {
+    height: 108px;
+  }
 `;
 
 const ActionBar = styled.div`
@@ -74,12 +84,14 @@ type Props = {
   products: Array<Product>
 };
 
-const Catalog = ({ storeEndpoint, products }: Props) => {
+const CatalogPage = ({ storeEndpoint, products }: Props) => {
   if (!products) return null;
 
   return (
     <Container>
-      <ContentHeader text='Products'/>
+      <ContentHeader>
+        <h1>Products</h1>
+      </ContentHeader>
 
       <ActionBar>
         <div></div>
@@ -107,4 +119,4 @@ const Catalog = ({ storeEndpoint, products }: Props) => {
   );
 };
 
-export default Catalog;
+export default CatalogPage;

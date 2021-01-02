@@ -11,8 +11,9 @@ import {
 
 // Components
 import Header from './Header';
-import Catalog from './Pages/Catalog';
-import ProductDetails from './Pages/ProductDetails';
+import CatalogPage from './Pages/CatalogPage';
+import ProductDetailsPage from './Pages/ProductDetailsPage';
+import CartPage from './Pages/CartPage';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -26,18 +27,27 @@ const MainContent = styled.div`
 `;
 
 const Store = () => {
-  const [cart, setCart] = useState([] as Cart);
-  // const [cart, setCart] = useState([
-  //   {
-  //     endpoint: 'goodstorename',
-  //     products: [
-  //       {
-  //         id: 3,
-  //         quantity: 2
-  //       }
-  //     ]
-  //   }
-  // ] as Cart);
+  // const [cart, setCart] = useState([] as Cart);
+  const [cart, setCart] = useState([
+    {
+      endpoint: 'goodstorename',
+      products: [
+        {
+          id: 3,
+          description: '- cool pic',
+          name: 'jeff jeff',
+          images: [
+            {
+              id: 9,
+              dataUrl: 'https://i.imgur.com/jwkpDCM.jpg'
+            }
+          ],
+          price: 10001,
+          quantity: 2
+        }
+      ]
+    }
+  ] as Cart);
 
   const location = useLocation();
   const storeEndpoint = location.pathname.split('/')[2];
@@ -50,7 +60,7 @@ const Store = () => {
   const { data: productsData } = useQuery(GET_STORE_PRODUCTS, {
     variables: { storeEndpoint }
   });
-
+  
   const storeName = storeData && storeData.getStore.name;
   const products = productsData && productsData.getStoreProducts;
 
@@ -71,8 +81,16 @@ const Store = () => {
       <MainContent>
         <Switch>
 
+          <Route path='/store/:storeEndpoint/cart'>
+            <CartPage
+              cart={cart}
+              setCart={setCart}
+              storeEndpoint={storeEndpoint}
+            />
+          </Route>
+
           <Route path='/store/:storeEndpoint/:productId'>
-            <ProductDetails 
+            <ProductDetailsPage
               product={productId && productsData && getProduct()}
               cart={cart}
               setCart={setCart}
@@ -81,7 +99,7 @@ const Store = () => {
           </Route>
 
           <Route path='/store/:storeEndpoint'>
-            <Catalog 
+            <CatalogPage
               storeEndpoint={ storeEndpoint }
               products={products}
             />

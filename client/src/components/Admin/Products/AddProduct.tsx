@@ -47,7 +47,7 @@ const AddProducts = () => {
   const [message, setMessage] = useState({} as Message);
 
   const [images, setImages] = useState([] as Array<Image>);
-  const [selectedImages, setSelectedImages] = useState([] as Array<string>);
+  const [selectedImages, setSelectedImages] = useState([] as Array<number>);
 
   const [title, titleInput, clearTitle] = useInput({ name: 'Title', type: 'text', placeholder: 'doge pic' });
   const [description, descriptionInput, clearDescription] = useInput({ name: 'Description', type: 'textarea', placeholder: '-limited edition doge pic' });

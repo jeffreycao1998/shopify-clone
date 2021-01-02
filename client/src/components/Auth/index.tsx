@@ -31,7 +31,7 @@ const Auth = () => {
           <Route path='/auth/signup'>
             <Registration />
           </Route>
-          <Route path='/auth/login'>
+          <Route path='/'>
             <Login />
           </Route>
         </Switch>
