@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Product, Cart, CartProduct, CartStore } from '../../../types';
 import { Link } from 'react-router-dom';
+import { colors } from '../../../theme';
 
 const Container = styled.div`
   height: 100%;
@@ -64,6 +65,7 @@ const SummaryHeader = styled.div`
 
 const ProductsContainer = styled.div`
   padding: 24px 0;
+  margin-bottom: 48px;
   border-bottom: 1px solid lightgrey;
 
   > div:not(:last-child) {
@@ -129,6 +131,51 @@ const ProductContainer = styled.div`
   }
 `;
 
+const CartFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+const Subtotal = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  .title {
+    text-align: right;
+  }
+
+  .price {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 100px;
+    margin-left: 48px;
+    font-size: 14px;
+    text-align: right;
+  }
+`;
+
+const Shipping = styled.div`
+  margin-bottom: 48px;
+  font-size: 12px;
+`;
+
+const CheckoutBtn = styled.div`
+  border-radius: 2px;
+  background-color: #3d3d3d;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  letter-spacing: .3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #636363;
+  }
+`;
+
 type Props = {
   cart: Cart
   setCart: React.Dispatch<React.SetStateAction<Cart>>
@@ -151,9 +198,13 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
   };
 
   const handleRemoveProduct = (product: CartProduct) => {
-    // products = products.filter(cartProduct => cartProduct !== product);
-    // console.log(products);
+    const newProducts = products.filter(cartProduct => cartProduct !== product);
+    setProducts([...newProducts]);
   };
+
+  const subtotal = products.reduce((total, cartProduct: CartProduct) => {
+    return total + cartProduct.price * cartProduct.quantity;
+  },0);
 
   return (
     <Container>
@@ -162,42 +213,58 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
         <Link to={`/store/${storeEndpoint}`}>Continue shopping</Link>
       </ContentHeader>
 
-      <CartSummary>
-        <SummaryHeader>
-          <p className='product'>PRODUCT</p>
-          <p className='price'>PRICE</p>
-          <p className='quantity'>QUANTITY</p>
-          <p className='total'>TOTAL</p>
-        </SummaryHeader>
-        <ProductsContainer>
-          {
-            products.length && products.map((product: CartProduct) => {
-              return (
-                <ProductContainer>
-                  <div className='product'>
-                    <div className='image'>
-                      <img src={product.images[0].dataUrl} alt={product.name}/>
-                    </div>
-                    <div className='name'>
-                      <h3>{product.name}</h3>
-                      <p onClick={() => handleRemoveProduct(product)}>Remove</p>
-                    </div>
-                  </div>
-                  <div className='price'>
-                    <p>${product.price / 100}</p>
-                  </div>
-                  <div className='quantity'>
-                    <input type='number' value={product.quantity} onChange={(e) => handleQuantityChange(e, product)}/>
-                  </div>
-                  <div className='total'>
-                    <p>${product.price * product.quantity / 100}</p>
-                  </div>
-                </ProductContainer>
-              )
-            })
-          }
-        </ProductsContainer>
-      </CartSummary>
+      {
+        products.length > 0
+        ? <CartSummary>
+            <SummaryHeader>
+              <p className='product'>PRODUCT</p>
+              <p className='price'>PRICE</p>
+              <p className='quantity'>QUANTITY</p>
+              <p className='total'>TOTAL</p>
+            </SummaryHeader>
+            <ProductsContainer>
+              {
+                products.map((product: CartProduct) => {
+                  return (
+                    <ProductContainer>
+                      <div className='product'>
+                        <div className='image'>
+                          <img src={product.images[0].dataUrl} alt={product.name}/>
+                        </div>
+                        <div className='name'>
+                          <h3>{product.name}</h3>
+                          <p onClick={() => handleRemoveProduct(product)}>Remove</p>
+                        </div>
+                      </div>
+                      <div className='price'>
+                        <p>${product.price / 100}</p>
+                      </div>
+                      <div className='quantity'>
+                        <input type='number' value={product.quantity} onChange={(e) => handleQuantityChange(e, product)}/>
+                      </div>
+                      <div className='total'>
+                        <p>${product.price * product.quantity / 100}</p>
+                      </div>
+                    </ProductContainer>
+                  )
+                })
+              }
+            </ProductsContainer>
+            <CartFooter>
+              <Subtotal>
+                <span className='title'>Subtotal</span>
+                <span className='price'>${subtotal / 100}</span>
+              </Subtotal>
+              <Shipping>
+                Taxes and shipping calculated at checkout
+              </Shipping>
+              <CheckoutBtn>
+                CHECK OUT
+              </CheckoutBtn>
+            </CartFooter>
+          </CartSummary>
+        : <div>Your cart is empty!</div>
+      }
     </Container>
   );
 };
