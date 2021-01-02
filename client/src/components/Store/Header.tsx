@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks'
-import { GET_STORE } from '../../graphql/gql';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 78px;
@@ -12,6 +11,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: 750px) {
+    height: 51px;
+    padding: 0 24px;
+  }
 `;
 
 const StoreName = styled.div`
@@ -20,27 +24,15 @@ const StoreName = styled.div`
   font-size: 20px;
   width: 33%;
   letter-spacing: 1.35px;
-`;
-
-const NavContainer = styled.ul`
-  width: 33%;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-`;
-
-type NavLinkProps = {
-  selected: boolean;
-};
-
-const NavLink = styled.li`
-  font-size: 15px;
-  text-decoration: ${({selected}: NavLinkProps) => selected ? 'underline' : 'none'};
-  padding: 3px 10px;
   cursor: pointer;
 
-  &:hover {
-    text-decoration: underline;
+  a {
+    text-decoration: none;
+  }
+
+  @media only screen and (max-width: 750px) {
+    width: 50%;
+    font-size: 18px;
   }
 `;
 
@@ -63,24 +55,17 @@ const Actions = styled.ul`
 
 type Props = {
   storeName: string
+  storeEndpoint: string
 };
 
-const Header = ({ storeName }: Props) => {
-  const [selectedTab, setSelectedTab] = useState('catalog');
-
+const Header = ({ storeName, storeEndpoint }: Props) => {
   return (
     <Container>
 
-      <StoreName>{ storeName }</StoreName>
-
-      {/* <NavContainer>
-        <NavLink
-          selected={selectedTab === 'catalog'}
-          onClick={() => setSelectedTab('catalog')}
-        >
-          Catalog
-        </NavLink>
-      </NavContainer> */}
+      <StoreName>
+        <Link to={`/store/${storeEndpoint}`}>{ storeName }</Link>
+      </StoreName>
+      
 
       <Actions>
         {/* @ts-ignore */}

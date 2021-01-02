@@ -7,6 +7,10 @@ const Container = styled.div`
   border-bottom: 1px solid lightgrey;
   display: flex;
   align-items: center;
+
+  @media only screen and (max-width: 750px) {
+    height: 108px;
+  }
 `;
 
 const Title = styled.h1`

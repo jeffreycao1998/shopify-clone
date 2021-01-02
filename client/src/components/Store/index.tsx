@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Product } from '../../types';
 import { useQuery } from '@apollo/react-hooks'
@@ -26,6 +26,8 @@ const MainContent = styled.div`
 `;
 
 const Store = () => {
+  const [cart, setCart] = useState({});
+
   const location = useLocation();
   const storeEndpoint = location.pathname.split('/')[2];
   const productId = location.pathname.split('/')[3];
@@ -49,7 +51,7 @@ const Store = () => {
 
   return (
     <Container>
-      <Header storeName={storeName}/>
+      <Header storeName={storeName} storeEndpoint={storeEndpoint}/>
 
       <MainContent>
         <Switch>

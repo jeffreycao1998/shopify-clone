@@ -42,6 +42,10 @@ const NavContainer = styled.div`
     display: none;
   }
 
+  .view-store {
+    margin-top: 32px;
+  }
+
   @media only screen and (max-width: 768px) {
     width: 359px;
     height: 100%;
@@ -224,13 +228,15 @@ const Navigation = ({ storeEndpoint, showNavMenu, setShowNavMenu }: Props) => {
             )
           })
         }
-        <CategoryContainer>
-          <Category to={`/store/${storeEndpoint}`} target="_blank">
-            {/* @ts-ignore */}
-            <ion-icon name="storefront"></ion-icon>
-            <p className='category-name'>Preview Online Store</p>
-          </Category>
-        </CategoryContainer>
+        <div className='view-store'>
+          <CategoryContainer>
+            <Category to={`/store/${storeEndpoint}`} target="_blank">
+              {/* @ts-ignore */}
+              <ion-icon name="storefront"></ion-icon>
+              <p className='category-name'>View Online Store</p>
+            </Category>
+          </CategoryContainer>
+        </div>
       </NavContainer>
     </Container>
   )

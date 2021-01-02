@@ -15,6 +15,11 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: 750px) {
+    flex-direction: column;
+    padding: 24px;
+  }
 `;
 
 type ImageContainerProps = {
@@ -32,14 +37,22 @@ const ImageContainer = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  @media only screen and (max-width: 750px) {
+    height: ${({clientWidth}: ImageContainerProps) => ((clientWidth - 100) * .95) * .95 }px;
+    width: ${({clientWidth}: ImageContainerProps) => (clientWidth - 100) * .95}px;
+    margin-bottom: 32px;
+    align-self: center;
+  }
 `;
 
 const MetaInfo = styled.div`
   width: 50%;
+  max-width: 364px;
 
   .details {
+    width: 100%;
     margin-bottom: 36px;
-    max-width: 364px;
 
     .name {
       margin-bottom: 12px;
@@ -51,8 +64,13 @@ const MetaInfo = styled.div`
   }
 
   .action-buttons {
-    max-width: 364px;
+    width: 100%;
     margin-bottom: 48px;
+  }
+
+  @media only screen and (max-width: 750px) {
+    width: 100%;
+    max-width: 400px;
   }
 `;
 
