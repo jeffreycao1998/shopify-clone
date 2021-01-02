@@ -52,6 +52,33 @@ const LogoContainer = styled.div`
       font-size: 14px;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const OpenNavMenu = styled.div`
+  display: none;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    ion-icon {
+      background-color: lightgrey;
+    }
+  }
+
+  ion-icon {
+    font-size: 30px;
+    border-radius: 5px;
+    color: black;
+    padding: 4px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 
 type ProfileContainerProps = {
@@ -139,9 +166,10 @@ const ProfileDropdown = styled.div`
 
 type Props = {
   storeName: string
+  setShowNavMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Header = ({ storeName }: Props) => {
+const Header = ({ storeName, setShowNavMenu }: Props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   
   const history = useHistory();
@@ -155,6 +183,10 @@ const Header = ({ storeName }: Props) => {
     history.push('/auth/login');
   };
 
+  const openNavMenu = () => {
+    setShowNavMenu(true);
+  };
+
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -166,6 +198,12 @@ const Header = ({ storeName }: Props) => {
           </div>
         </Link>
       </LogoContainer>
+
+      <OpenNavMenu onClick={openNavMenu}>
+        {/* @ts-ignore */}
+        <ion-icon name="menu-outline"></ion-icon>
+      </OpenNavMenu>
+
       <ProfileContainer onClick={toggleDropdown} show={showDropdown}>
         <div className='profile'>
           <div className='profile-logo'>JC</div>

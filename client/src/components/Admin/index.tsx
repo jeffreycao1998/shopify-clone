@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import cookies from 'js-cookie';
 import { useQuery } from '@apollo/react-hooks'
@@ -24,14 +24,22 @@ const Container = styled.div`
 `;
 
 const MainContainer = styled.div`
-  min-height: calc(100vh - 56px);
+  height: calc(100vh - 56px);
   width: calc(100% - 240px);
   margin: 56px 0 0 240px;
+  overflow-y: auto;
+
+  @media only screen and (max-width: 768px) {
+    margin: 56px 0 0 0;
+    width: 100%;
+  }
 `;
 
 const Admin = () => {
   const history = useHistory();
   const { data } = useQuery(GET_STORE);
+
+  const [showNavMenu, setShowNavMenu] = useState(false);
 
   const jwt = cookies.get('jwt');
   if (!jwt) {
@@ -42,8 +50,15 @@ const Admin = () => {
   return (
     <Container>
 
-      <Header storeName={ data && data.getStore.name }/>
-      <Navigation storeEndpoint={ data && data.getStore.endpoint }/>
+      <Header 
+        storeName={ data && data.getStore.name }
+        setShowNavMenu={setShowNavMenu}
+      />
+      <Navigation 
+        storeEndpoint={ data && data.getStore.endpoint }
+        showNavMenu={showNavMenu}
+        setShowNavMenu={setShowNavMenu}
+      />
 
       <MainContainer>
         <Switch>

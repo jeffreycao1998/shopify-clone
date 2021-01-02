@@ -9,7 +9,7 @@ const getUsersProducts = async (obj: {}, args: {}, context: ContextType) => {
     where: { userId },
     include: [
       {
-        model: Image,
+        model: db.Image,
         attributes: [ 'id', 'dataUrl' ]
       }
     ]

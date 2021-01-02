@@ -73,14 +73,14 @@ const Header = ({ storeName }: Props) => {
 
       <StoreName>{ storeName }</StoreName>
 
-      <NavContainer>
+      {/* <NavContainer>
         <NavLink
           selected={selectedTab === 'catalog'}
           onClick={() => setSelectedTab('catalog')}
         >
           Catalog
         </NavLink>
-      </NavContainer>
+      </NavContainer> */}
 
       <Actions>
         {/* @ts-ignore */}

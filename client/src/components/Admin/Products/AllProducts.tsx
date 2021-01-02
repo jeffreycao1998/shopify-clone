@@ -10,14 +10,14 @@ import { Product, Message } from '../../../types';
 import { ContainerRounded, Button, AddToCollectionsModal, Notification } from '../Core';
 
 const Container = styled.div`
-  padding: 16px;
+padding: 16px 32px;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 32px 0;
+  margin: 0 0 16px 0;
 
   .header {
     font-size: 20px;
@@ -109,7 +109,7 @@ const TableHeadings = styled.div`
 
 const UserProduct = styled.div`
   width: 100%;
-  height: 88px;
+  min-height: 88px;
   padding: 12px 0;
   border-top: 1px solid lightgrey;
   display: flex;
@@ -130,7 +130,7 @@ const UserProduct = styled.div`
 
   img {
     width: 63px;
-    height: 63px;
+    height: ${63 * .95}px;
     margin-right: 20px;
     border-radius: 3px;
     padding: 0 2px;
@@ -155,28 +155,26 @@ const Products = () => {
   const [showAddToCollectionModal, setShowAddToCollectionModal] = useState(false);
   const [message, setMessage] = useState({} as Message);
 
-  const { data, loading, refetch: refetchProducts } = useQuery(GET_USERS_PRODUCTS);
+  const { data, refetch: refetchProducts } = useQuery(GET_USERS_PRODUCTS);
   const [deleteProducts] = useMutation(DELETE_PRODUCTS);
 
   // useEffect(() => {
-  //   if (refetch) {
-  //     refetch();
-  //   }
+  //   refetchProducts();
   // },[]);
 
-  if (loading) return null;
-
-  const products = data.getUsersProducts;
+  const products = data && data.getUsersProducts;
+  
+  if (!products) return null;
 
   const selectProduct = (productId: number) => {
     if (selectedProducts.includes(productId)) {
       setSelectedProducts(prev => {
         return prev.filter(currProductId => currProductId !== productId);
-      })
+      });
     } else {
       setSelectedProducts(prev => {
         return [...prev, productId];
-      })
+      });
     }
   };
 

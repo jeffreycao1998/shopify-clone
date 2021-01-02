@@ -10,14 +10,14 @@ import { Collection, Message } from '../../../types';
 import { ContainerRounded, Button, Notification } from '../Core';
 
 const Container = styled.div`
-  padding: 16px;
+  padding: 16px 32px;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 32px 0;
+  margin: 0 0 16px 0;
 
   .header {
     font-size: 20px;
@@ -102,7 +102,7 @@ type UserCollectionProps = {
 
 const UserCollection = styled.div`
   width: 100%;
-  height: 88px;
+  min-height: 88px;
   padding: 12px 0;
   border-top: 1px solid lightgrey;
   display: flex;
@@ -124,7 +124,7 @@ const UserCollection = styled.div`
 
   img {
     width: 63px;
-    height: 63px;
+    height: ${63 * .95}px;
     margin-right: 20px;
     border-radius: 3px;
     padding: 0 2px;

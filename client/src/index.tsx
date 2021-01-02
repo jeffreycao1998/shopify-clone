@@ -13,8 +13,8 @@ const GlobalStyle = createGlobalStyle`
   body, html {
     background-color: #f4f4f2;
     width: 100%;
-    min-height: 100vh;
     font-family: 'Inter', 'sans-serif';
+    overflow: hidden;
   }
 
   * {
