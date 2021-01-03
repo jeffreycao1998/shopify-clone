@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import env from '../../../env.json';
 import { Link } from 'react-router-dom';
-import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 import { colors } from '../../../theme';
+import { loadStripe } from '@stripe/stripe-js';
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_STRIPE_SESSION } from '../../../graphql/gql';
-
-// STRIPE STUFF
-import {loadStripe} from '@stripe/stripe-js';
+import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 
 const Container = styled.div`
   height: 100%;
@@ -219,15 +218,16 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
     createStripeSession({
       variables: { 
         cartProducts: formattedCartProducts,
-        successUrl: `http://localhost:3000/store/${storeEndpoint}`,
-        cancelUrl: `http://localhost:3000/store/${storeEndpoint}`
+        successUrl: `${env.SITE_URL}/store/${storeEndpoint}`,
+        cancelUrl: `${env.SITE_URL}/store/${storeEndpoint}`
       }
     })
     .then(async (res: any) => {
-      console.log(res.data.createStripeSession);
       const sessionId = res.data.createStripeSession.sessionId;
-      const stripe = await loadStripe('pk_test_51HKTW1HDGiMZIx1LWKdRMymMpkDqeOetgBL2Bvfbqo7bsFc5kL3rjfX2ejnd3b0NrCCwpl3gcyMXgdYPdTqsiLuw00uiItPIei');
-      stripe?.redirectToCheckout({ sessionId });
+      const stripe = await loadStripe(env.STRIPE_PK);
+      if (stripe) {
+        stripe.redirectToCheckout({ sessionId });
+      }
     })
     .catch((err: any) => {
       console.log(err.message);

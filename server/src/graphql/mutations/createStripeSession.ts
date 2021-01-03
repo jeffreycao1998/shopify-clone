@@ -30,8 +30,6 @@ const createStripeSession = async (obj: {}, args: Args, context: ContextType) =>
     mode: 'payment',
   });
 
-  console.log(args, typeof session.id);
-
   return { sessionId: session.id };
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import env from './env.json';
 import cookies from 'js-cookie';
 import { createGlobalStyle } from 'styled-components';
 
@@ -27,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 
 // GraphQL
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/',
+  uri: env.GRAPHQL_URI,
 });
 
 const authLink = setContext((_, { headers }) => {
