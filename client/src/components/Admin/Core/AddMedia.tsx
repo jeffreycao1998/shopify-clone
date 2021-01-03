@@ -237,12 +237,11 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
   };
 
   const handleDeleteImages = () => {
-    // setImages(prev => {
-    //   const newImages = prev.filter(image => !selectedImages.includes(image.id));
-    //   console.log(newImages);
-    //   return prev;
-    // });
-    console.log('delete');
+    setImages(prev => {
+      const newImages = prev.filter(image => !selectedImages.includes(image.id));
+      return [...newImages];
+    });
+    setSelectedImages([]);
   };
 
   const renderImages = images.map((imageData: Image, index: number) => {

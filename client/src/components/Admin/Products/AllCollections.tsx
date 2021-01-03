@@ -102,7 +102,7 @@ type UserCollectionProps = {
 
 const UserCollection = styled.div`
   width: 100%;
-  min-height: 88px;
+  height: 88px;
   padding: 12px 0;
   border-top: 1px solid lightgrey;
   display: flex;
