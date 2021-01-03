@@ -76,8 +76,7 @@ const AddProducts = () => {
       name: title as string,
       description: description as string,
       images,
-      // @ts-ignore
-      price: Number(price).toFixed(2) * 100
+      price: Number(Number(price).toFixed(2)) * 100
     }
     
     addProduct({

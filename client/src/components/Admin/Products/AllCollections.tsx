@@ -167,11 +167,9 @@ const Collections = () => {
   const [updateActiveCollection] = useMutation(UPDATE_ACTIVE_COLLECTION);
   const [deleteCollections] = useMutation(DELETE_COLLECTIONS);
 
-  // useEffect(() => {
-  //   if (refetchCollections) {
-  //     refetchCollections();
-  //   }
-  // },[]);
+  useEffect(() => {
+    refetchCollections();
+  },[]);
 
   if (loading) return null;
 

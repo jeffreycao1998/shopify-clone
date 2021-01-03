@@ -158,9 +158,9 @@ const Products = () => {
   const { data, refetch: refetchProducts } = useQuery(GET_USERS_PRODUCTS);
   const [deleteProducts] = useMutation(DELETE_PRODUCTS);
 
-  // useEffect(() => {
-  //   refetchProducts();
-  // },[]);
+  useEffect(() => {
+    refetchProducts();
+  },[]);
 
   const products = data && data.getUsersProducts;
   
