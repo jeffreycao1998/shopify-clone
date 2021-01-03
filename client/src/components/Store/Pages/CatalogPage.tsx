@@ -108,7 +108,7 @@ const CatalogPage = ({ storeEndpoint, products }: Props) => {
               >
                 <img className='image' src={product.images[0].dataUrl} alt={product.name}/>
                 <h4 className='name'>{ product.name }</h4>
-                <h4 className='price'>${ (product.price / 100).toFixed(2) }</h4>
+                <h4 className='price'>${(product.price / 100).toFixed(2)}</h4>
               </ProductContainer>
             );
           })

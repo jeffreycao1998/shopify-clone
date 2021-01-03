@@ -236,7 +236,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
                         </div>
                       </div>
                       <div className='price'>
-                        <p>${product.price / 100}</p>
+                        <p>${(product.price / 100).toFixed(2)}</p>
                       </div>
                       <div className='quantity'>
                         <input type='number' value={product.quantity} onChange={(e) => handleQuantityChange(e, product)}/>

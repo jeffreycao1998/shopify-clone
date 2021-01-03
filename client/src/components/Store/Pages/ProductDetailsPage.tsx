@@ -90,19 +90,6 @@ const ProductDetailsPage = ({ product, cartProducts, setCartProducts, storeEndpo
   if (!product) return null;
   
   const handleAddToCart = (product: Product) => {
-    // const newCart = JSON.parse(JSON.stringify(cart));
-
-    // let cartStore = newCart.filter((cartStore: CartStore) => cartStore.endpoint === storeEndpoint)[0];
-
-    // // add store to cart
-    // if (!cartStore) {
-    //   cartStore = {
-    //     endpoint: storeEndpoint,
-    //     products: []
-    //   };
-    //   newCart.push(cartStore);
-    // }
-
     let targetProduct = cartProducts.filter((cartProduct: CartProduct) => cartProduct.id === product.id)[0];
     let otherProducts = cartProducts.filter((cartProduct: CartProduct) => cartProduct.id !== product.id);
 
@@ -125,8 +112,8 @@ const ProductDetailsPage = ({ product, cartProducts, setCartProducts, storeEndpo
       </ImageContainer>
       <MetaInfo>
         <div className='details'>
-          <h1 className='name'>jefeff</h1>
-          <h3 className='price'>$12.00</h3>
+          <h1 className='name'>{ product.name }</h1>
+          <h3 className='price'>${(product.price / 100).toFixed(2)}</h3>
         </div>
         <div className='action-buttons'>
           <Button 
