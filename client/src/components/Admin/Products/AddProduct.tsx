@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
 import { ADD_PRODUCT } from '../../../graphql/gql';
 import { useInput } from '../../../hooks';
-import { Image, Message } from '../../../types';
+import { Image, Message, Product } from '../../../types';
 
 // Components
 import { 
@@ -73,11 +73,11 @@ const AddProducts = () => {
     if (isNaN(parseFloat(price as string))) return setMessage({ error: 'Price must be a number' });
 
     const product = {
-      name: title,
-      description,
+      name: title as string,
+      description: description as string,
       images,
-      //@ts-ignore
-      price: parseFloat(price).toFixed(2) * 100,
+      // @ts-ignore
+      price: Number(price).toFixed(2) * 100
     }
     
     addProduct({

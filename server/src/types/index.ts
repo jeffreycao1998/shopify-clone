@@ -1,5 +1,5 @@
 export type ImageType = {
-  id: string
+  id: number
   dataUrl: string
   name?: string
   size?: number

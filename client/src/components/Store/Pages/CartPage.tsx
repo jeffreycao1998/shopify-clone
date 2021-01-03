@@ -123,6 +123,7 @@ const ProductContainer = styled.div`
       width: 60px;
       padding: 10px 5px;
       border: 1px solid lightgrey;
+      border-radius: 2px;
       text-align: center;
     }
   }

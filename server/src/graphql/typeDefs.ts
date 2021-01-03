@@ -70,7 +70,7 @@ const typeDefs = gql`
 
   input AddImage {
     dataUrl: String
-    id: String
+    id: Int
     name: String
     size: Int
   }

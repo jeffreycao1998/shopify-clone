@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
 import { Image } from '../../../types';
@@ -205,7 +205,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
             dataUrl: reader.result as string,
             name: file.name,
             size: file.size,
-            id: new Date().getSeconds(),
+            id: (new Date().getSeconds() + file.lastModified) % 10000000,
           }
           await setSelectedImages([]);
           await setImages((prev: Array<Image>) => {
@@ -216,6 +216,10 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
       });
     },
   });
+
+  useEffect(() => {
+    console.log(selectedImages);
+  },[selectedImages]);
 
   const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: number) => {
     e.stopPropagation();
@@ -236,14 +240,22 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
     }
   };
 
+  const handleDeleteImages = () => {
+    // setImages(prev => {
+    //   const newImages = prev.filter(image => !selectedImages.includes(image.id));
+    //   console.log(newImages);
+    //   return prev;
+    // });
+    console.log('delete');
+  };
+
   const renderImages = images.map((imageData: Image, index: number) => {
     return (
       <ImageContainer 
-        key={`${index}${imageData.name}`}
+        key={`${imageData.id}`}
         anImageSelected={selectedImages.length > 0}
         thisImageSelected={selectedImages.includes(imageData.id)}
         onClick={e => selectImage(e, imageData.id)}
-
       >
         <div className='overlay'></div>
         <input 
@@ -272,7 +284,7 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
                 <input type='checkbox' checked={selectedImages.length === images.length}/>
                 <p className='header-title'>{selectedImages.length} images selected</p>
               </div>
-              <p className='delete-images'>Delete images</p>
+              <p className='delete-images' onClick={handleDeleteImages}>Delete images</p>
             </>
         }
       </div>

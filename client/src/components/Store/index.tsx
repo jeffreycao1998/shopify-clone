@@ -27,27 +27,27 @@ const MainContent = styled.div`
 `;
 
 const Store = () => {
-  // const [cart, setCart] = useState([] as Cart);
-  const [cart, setCart] = useState([
-    {
-      endpoint: 'goodstorename',
-      products: [
-        {
-          id: 3,
-          description: '- cool pic',
-          name: 'jeff jeff',
-          images: [
-            {
-              id: 9,
-              dataUrl: 'https://i.imgur.com/jwkpDCM.jpg'
-            }
-          ],
-          price: 10001,
-          quantity: 2
-        }
-      ]
-    }
-  ] as Cart);
+  const [cart, setCart] = useState([] as Cart);
+  // const [cart, setCart] = useState([
+  //   {
+  //     endpoint: 'goodstorename',
+  //     products: [
+  //       {
+  //         id: 3,
+  //         description: '- cool pic',
+  //         name: 'jeff jeff',
+  //         images: [
+  //           {
+  //             id: 9,
+  //             dataUrl: 'https://i.imgur.com/jwkpDCM.jpg'
+  //           }
+  //         ],
+  //         price: 10001,
+  //         quantity: 2
+  //       }
+  //     ]
+  //   }
+  // ] as Cart);
 
   const location = useLocation();
   const storeEndpoint = location.pathname.split('/')[2];
