@@ -127,7 +127,7 @@ const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal,
             data && data.getUsersCollections.length &&
             data.getUsersCollections.map((collection: Collection) => {
               return (
-                <CollectionImage>
+                <CollectionImage key={collection.id}>
                   <img src={collection.imageUrl} alt={collection.name} onClick={() => handleAddToCollection(collection.id)}/>
                   <p>{ collection.name }</p>
                   {/* @ts-ignore */}

@@ -178,19 +178,17 @@ const CheckoutBtn = styled.div`
 `;
 
 type Props = {
-  cart: Cart
-  setCart: React.Dispatch<React.SetStateAction<Cart>>
+  cartProducts: Array<CartProduct>
+  setCartProducts: React.Dispatch<React.SetStateAction<Array<CartProduct>>>
   storeEndpoint: string
 };
 
-const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
-  const [products, setProducts] = useState(cart.filter(store => store.endpoint === storeEndpoint)[0].products);
-
+const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
   const handleQuantityChange = (e: any, product: CartProduct) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity === 0) return;
 
-    setProducts((prev: any) => {
+    setCartProducts((prev: any) => {
       const targetProduct = prev.filter((cartProduct: CartProduct) => cartProduct === product)[0];
       const otherProducts = prev.filter((cartProduct: CartProduct) => cartProduct !== product);
       targetProduct.quantity = newQuantity;
@@ -199,14 +197,14 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
   };
 
   const handleRemoveProduct = (product: CartProduct) => {
-    const newProducts = products.filter(cartProduct => cartProduct !== product);
-    setProducts([...newProducts]);
+    const newProducts = cartProducts.filter(cartProduct => cartProduct !== product);
+    setCartProducts([...newProducts]);
   };
 
-  const subtotal = products.reduce((total, cartProduct: CartProduct) => {
+  const subtotal = cartProducts.reduce((total, cartProduct: CartProduct) => {
     return total + cartProduct.price * cartProduct.quantity;
   },0);
-
+  
   return (
     <Container>
       <ContentHeader>
@@ -215,7 +213,7 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
       </ContentHeader>
 
       {
-        products.length > 0
+        cartProducts.length > 0
         ? <CartSummary>
             <SummaryHeader>
               <p className='product'>PRODUCT</p>
@@ -225,9 +223,9 @@ const CartPage = ({ cart, setCart, storeEndpoint }: Props) => {
             </SummaryHeader>
             <ProductsContainer>
               {
-                products.map((product: CartProduct) => {
+                cartProducts.map((product: CartProduct) => {
                   return (
-                    <ProductContainer>
+                    <ProductContainer key={product.id}>
                       <div className='product'>
                         <div className='image'>
                           <img src={product.images[0].dataUrl} alt={product.name}/>

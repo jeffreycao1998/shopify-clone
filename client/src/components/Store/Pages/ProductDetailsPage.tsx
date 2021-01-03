@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 
@@ -76,12 +76,12 @@ const MetaInfo = styled.div`
 
 type Props = {
   product: Product
-  cart: Cart
-  setCart: React.Dispatch<React.SetStateAction<Cart>>
+  cartProducts: Array<CartProduct>
+  setCartProducts: React.Dispatch<React.SetStateAction<Array<CartProduct>>>
   storeEndpoint: string
 };
 
-const ProductDetailsPage = ({ product, cart, setCart, storeEndpoint }: Props) => {
+const ProductDetailsPage = ({ product, cartProducts, setCartProducts, storeEndpoint }: Props) => {
   const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
   window.addEventListener('resize', () => {
     setClientWidth(document.body.clientWidth);
@@ -90,32 +90,32 @@ const ProductDetailsPage = ({ product, cart, setCart, storeEndpoint }: Props) =>
   if (!product) return null;
   
   const handleAddToCart = (product: Product) => {
-    const newCart = JSON.parse(JSON.stringify(cart));
+    // const newCart = JSON.parse(JSON.stringify(cart));
 
-    let cartStore = newCart.filter((cartStore: CartStore) => cartStore.endpoint === storeEndpoint)[0];
+    // let cartStore = newCart.filter((cartStore: CartStore) => cartStore.endpoint === storeEndpoint)[0];
 
-    // add store to cart
-    if (!cartStore) {
-      cartStore = {
-        endpoint: storeEndpoint,
-        products: []
-      };
-      newCart.push(cartStore);
-    }
+    // // add store to cart
+    // if (!cartStore) {
+    //   cartStore = {
+    //     endpoint: storeEndpoint,
+    //     products: []
+    //   };
+    //   newCart.push(cartStore);
+    // }
 
-    let cartProduct = cartStore.products.filter((cartProduct: CartProduct) => cartProduct.id === product.id)[0];
+    let targetProduct = cartProducts.filter((cartProduct: CartProduct) => cartProduct.id === product.id)[0];
+    let otherProducts = cartProducts.filter((cartProduct: CartProduct) => cartProduct.id !== product.id);
 
-    // add product to store in cart
-    if (!cartProduct) {
-      cartProduct = {
+    // add product to cart and initialize quantity
+    if (!targetProduct) {
+      targetProduct = {
         ...product,
         quantity: 0
       };
-      cartStore.products.push(cartProduct);
     }
 
-    cartProduct.quantity += 1;
-    setCart([...newCart]);
+    targetProduct.quantity += 1;
+    setCartProducts([...otherProducts, targetProduct]);
   };
 
   return (

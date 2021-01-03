@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Cart } from '../../types/types';
+import { CartProduct } from '../../types/types';
 
 const Container = styled.div`
   height: 78px;
@@ -81,13 +81,12 @@ const CartContainer = styled(Link)`
 type Props = {
   storeName: string
   storeEndpoint: string
-  cart: Cart
+  cartProducts: Array<CartProduct>
 };
 
-const Header = ({ storeName, storeEndpoint, cart }: Props) => {
-  const currentStore = cart.filter(store => store.endpoint === storeEndpoint)[0];
-  const totalCartItems = currentStore && currentStore.products.reduce((total, product) => {
-    return total + product.quantity;
+const Header = ({ storeName, storeEndpoint, cartProducts }: Props) => {
+  const totalCartItems = cartProducts.reduce((total, cartProduct: CartProduct) => {
+    return total + cartProduct.quantity;
   },0);
 
   return (
@@ -97,14 +96,14 @@ const Header = ({ storeName, storeEndpoint, cart }: Props) => {
         <Link to={`/store/${storeEndpoint}`}>{ storeName }</Link>
       </StoreName>
       
-
       <Actions>
         <CartContainer to={`/store/${storeEndpoint}/cart`}>
           {/* @ts-ignore */}
           <ion-icon name="cart-outline"></ion-icon>
           {
-            totalCartItems &&
-            <p className='total-items'>{totalCartItems}</p>
+            totalCartItems > 0
+            ? <p className='total-items'>{totalCartItems}</p>
+            : null
           }
         </CartContainer>
       </Actions>

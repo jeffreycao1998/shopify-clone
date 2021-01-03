@@ -27,6 +27,10 @@ const MainContent = styled.div`
 `;
 
 const Store = () => {
+  const location = useLocation();
+  const storeEndpoint = location.pathname.split('/')[2];
+  const productId = location.pathname.split('/')[3];
+
   const [cart, setCart] = useState([] as Cart);
   // const [cart, setCart] = useState([
   //   {
@@ -48,10 +52,7 @@ const Store = () => {
   //     ]
   //   }
   // ] as Cart);
-
-  const location = useLocation();
-  const storeEndpoint = location.pathname.split('/')[2];
-  const productId = location.pathname.split('/')[3];
+  const [cartProducts, setCartProducts] = useState(initCartProducts());
 
   const { data: storeData } = useQuery(GET_STORE, {
     variables: { storeEndpoint }
@@ -64,6 +65,16 @@ const Store = () => {
   const storeName = storeData && storeData.getStore.name;
   const products = productsData && productsData.getStoreProducts;
 
+  function initCartProducts() {
+    const currentStore = cart.filter(store => store.endpoint === storeEndpoint)[0];
+
+    if (currentStore) {
+      return currentStore.products;
+    } else {
+      return [];
+    }
+  };
+
   const getProduct = () => {
     return products.filter((product: Product) => {
       return productId === product.id.toString()
@@ -75,7 +86,7 @@ const Store = () => {
       <Header 
         storeName={storeName} 
         storeEndpoint={storeEndpoint}
-        cart={cart}
+        cartProducts={cartProducts}
       />
 
       <MainContent>
@@ -83,8 +94,8 @@ const Store = () => {
 
           <Route path='/store/:storeEndpoint/cart'>
             <CartPage
-              cart={cart}
-              setCart={setCart}
+              cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
               storeEndpoint={storeEndpoint}
             />
           </Route>
@@ -92,8 +103,8 @@ const Store = () => {
           <Route path='/store/:storeEndpoint/:productId'>
             <ProductDetailsPage
               product={productId && productsData && getProduct()}
-              cart={cart}
-              setCart={setCart}
+              cartProducts={cartProducts}
+              setCartProducts={setCartProducts}
               storeEndpoint={storeEndpoint}
             />
           </Route>
