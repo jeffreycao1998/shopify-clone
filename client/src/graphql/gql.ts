@@ -13,6 +13,7 @@ import ADD_PRODUCTS_TO_COLLECTION from './mutations/addProductsToCollection';
 import UPDATE_ACTIVE_COLLECTION from './mutations/updateActiveCollection';
 import DELETE_PRODUCTS from './mutations/deleteProducts';
 import DELETE_COLLECTIONS from './mutations/deleteCollections';
+import CREATE_STRIPE_SESSION from './mutations/createStripeSession';
 
 export {
   // Queries
@@ -30,4 +31,5 @@ export {
   UPDATE_ACTIVE_COLLECTION,
   DELETE_PRODUCTS,
   DELETE_COLLECTIONS,
+  CREATE_STRIPE_SESSION,
 }

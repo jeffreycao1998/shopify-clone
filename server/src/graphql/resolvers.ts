@@ -13,6 +13,7 @@ import addProductsToCollection from './mutations/addProductsToCollection';
 import updateActiveCollection from './mutations/updateActiveCollection';
 import deleteProducts from './mutations/deleteProducts';
 import deleteCollections from './mutations/deleteCollections';
+import createStripeSession from './mutations/createStripeSession';
 
 const resolvers = {
   Query: {
@@ -30,6 +31,7 @@ const resolvers = {
     updateActiveCollection,
     deleteProducts,
     deleteCollections,
+    createStripeSession,
   }
 }
 

@@ -17,6 +17,7 @@ const typeDefs = gql`
     updateActiveCollection(collectionId: Int): Name
     deleteProducts(productIds: [Int]): Amount
     deleteCollections(collectionIds: [Int]): Amount
+    createStripeSession(cartProducts: [CartProduct], successUrl: String, cancelUrl: String): StripeSessionId
   }
 
   type Status {
@@ -37,6 +38,10 @@ const typeDefs = gql`
 
   type UserId {
     userId: Int
+  }
+
+  type StripeSessionId {
+    sessionId: String
   }
 
   type Image {
@@ -86,6 +91,14 @@ const typeDefs = gql`
     name: String
     description: String
     image: AddImage
+  }
+
+  input CartProduct {
+    id: Int
+    name: String
+    description: String
+    price: Int
+    quantity: Int
   }
 `;
 

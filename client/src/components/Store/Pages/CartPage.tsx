@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 import { Link } from 'react-router-dom';
+import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 import { colors } from '../../../theme';
+import { useMutation } from '@apollo/react-hooks'
+import { CREATE_STRIPE_SESSION } from '../../../graphql/gql';
+
+// STRIPE STUFF
+import {loadStripe} from '@stripe/stripe-js';
 
 const Container = styled.div`
   height: 100%;
@@ -184,6 +189,8 @@ type Props = {
 };
 
 const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
+  const [createStripeSession] = useMutation(CREATE_STRIPE_SESSION);
+
   const handleQuantityChange = (e: any, product: CartProduct) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity === 0) return;
@@ -201,6 +208,32 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
     setCartProducts([...newProducts]);
   };
 
+  const handleCheckout = () => {
+    const formattedCartProducts = cartProducts.map((cartProduct: CartProduct) => {
+      return {
+        id: cartProduct.id,
+        quantity: cartProduct.quantity
+      }
+    });
+
+    createStripeSession({
+      variables: { 
+        cartProducts: formattedCartProducts,
+        successUrl: `http://localhost:3000/store/${storeEndpoint}`,
+        cancelUrl: `http://localhost:3000/store/${storeEndpoint}`
+      }
+    })
+    .then(async (res: any) => {
+      console.log(res.data.createStripeSession);
+      const sessionId = res.data.createStripeSession.sessionId;
+      const stripe = await loadStripe('pk_test_51HKTW1HDGiMZIx1LWKdRMymMpkDqeOetgBL2Bvfbqo7bsFc5kL3rjfX2ejnd3b0NrCCwpl3gcyMXgdYPdTqsiLuw00uiItPIei');
+      stripe?.redirectToCheckout({ sessionId });
+    })
+    .catch((err: any) => {
+      console.log(err.message);
+    })
+  };
+
   const subtotal = cartProducts.reduce((total, cartProduct: CartProduct) => {
     return total + cartProduct.price * cartProduct.quantity;
   },0);
@@ -211,7 +244,6 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
         <h1>Your cart</h1>
         <Link to={`/store/${storeEndpoint}`}>Continue shopping</Link>
       </ContentHeader>
-
       {
         cartProducts.length > 0
         ? <CartSummary>
@@ -257,7 +289,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
               <Shipping>
                 Taxes and shipping calculated at checkout
               </Shipping>
-              <CheckoutBtn>
+              <CheckoutBtn onClick={handleCheckout}>
                 CHECK OUT
               </CheckoutBtn>
             </CartFooter>
