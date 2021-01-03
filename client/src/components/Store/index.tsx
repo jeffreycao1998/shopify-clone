@@ -61,7 +61,7 @@ const Store = () => {
     })[0];
   };
 
-  // save cart in local storage everytime they update their cart!
+  // save cart in local storage everytime they update their cart
   useEffect(() => {
     const otherStores = cart.filter((store: CartStore) => store.endpoint !== storeEndpoint);
     const newCart = [
