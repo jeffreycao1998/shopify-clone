@@ -36,6 +36,7 @@ const Modal = styled.div`
     ion-icon {
       font-size: 32px;
       padding: 8px;
+      cursor: pointer;
     }
   }
 
@@ -56,6 +57,7 @@ const Modal = styled.div`
 const CollectionImage = styled.div`
   position: relative;
   margin: 0 16px 8px 0;
+  width: 100px;
 
   &:hover {
     ion-icon {
@@ -64,7 +66,7 @@ const CollectionImage = styled.div`
   }
 
   img {
-    width: 100px;
+    width: 100%;
     height: 100px;
     border-radius: 4px;
     cursor: pointer;
