@@ -218,12 +218,11 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
     createStripeSession({
       variables: { 
         cartProducts: formattedCartProducts,
-        successUrl: `${env.SITE_URL}/store/${storeEndpoint}`,
+        successUrl: `${env.SITE_URL}/store/${storeEndpoint}/success`,
         cancelUrl: `${env.SITE_URL}/store/${storeEndpoint}`
       }
     })
     .then(async (res: any) => {
-      // console.log(res.data.createStripeSession.sessionId);
       const sessionId = res.data.createStripeSession.sessionId;
       const stripe = await loadStripe(env.STRIPE_PK);
       if (stripe) {

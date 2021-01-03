@@ -12,6 +12,7 @@ type Args = {
 const createStripeSession = async (obj: {}, args: Args, context: ContextType) => {
   const { cartProducts, successUrl, cancelUrl } = args;
 
+  // get list of product ids to fetch products from DB
   const productIds = cartProducts.map((cartProduct: CartProductType) => cartProduct.id);
 
   // fetch product names and prices from DB
@@ -38,11 +39,12 @@ const createStripeSession = async (obj: {}, args: Args, context: ContextType) =>
     }
   })
 
+  // create a stripe session
   const session = await stripe.checkout.sessions.create({
     success_url: successUrl,
     cancel_url: cancelUrl,
     payment_method_types: ['card'],
-    line_items: lineItems,
+    line_items: [...lineItems],
     mode: 'payment',
   });
 
