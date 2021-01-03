@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import env from '../../../env.json';
 import { Link } from 'react-router-dom';
-import { colors } from '../../../theme';
 import { loadStripe } from '@stripe/stripe-js';
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_STRIPE_SESSION } from '../../../graphql/gql';
-import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
+import { CartProduct } from '../../../types/types';
 
 const Container = styled.div`
   height: 100%;
