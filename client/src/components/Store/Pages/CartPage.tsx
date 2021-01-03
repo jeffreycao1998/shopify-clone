@@ -96,7 +96,10 @@ const ProductContainer = styled.div`
     .name {
       font-size: 14px;
 
-      h3 {
+      a {
+        text-decoration: none;
+
+        h3 {
         margin-bottom: 3px;
         border-bottom: 1px solid transparent;
         cursor: pointer;
@@ -104,6 +107,7 @@ const ProductContainer = styled.div`
         &:hover {
           border-bottom: 1px solid black;
         }
+      }
       }
 
       p {
@@ -260,10 +264,14 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
                     <ProductContainer key={product.id}>
                       <div className='product'>
                         <div className='image'>
-                          <img src={product.images[0].dataUrl} alt={product.name}/>
+                          <Link to={`/store/${storeEndpoint}/${product.id}`}>
+                            <img src={product.images[0].dataUrl} alt={product.name}/>
+                          </Link>
                         </div>
                         <div className='name'>
-                          <h3>{product.name}</h3>
+                          <Link to={`/store/${storeEndpoint}/${product.id}`}>
+                            <h3>{product.name}</h3>
+                          </Link>
                           <p onClick={() => handleRemoveProduct(product)}>Remove</p>
                         </div>
                       </div>
@@ -274,7 +282,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
                         <input type='number' value={product.quantity} onChange={(e) => handleQuantityChange(e, product)}/>
                       </div>
                       <div className='total'>
-                        <p>${product.price * product.quantity / 100}</p>
+                        <p>${(product.price * product.quantity / 100).toFixed(2)}</p>
                       </div>
                     </ProductContainer>
                   )
@@ -284,7 +292,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
             <CartFooter>
               <Subtotal>
                 <span className='title'>Subtotal</span>
-                <span className='price'>${subtotal / 100}</span>
+                <span className='price'>${(subtotal / 100).toFixed(2)}</span>
               </Subtotal>
               <Shipping>
                 Taxes and shipping calculated at checkout
