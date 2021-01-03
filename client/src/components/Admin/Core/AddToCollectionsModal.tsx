@@ -102,8 +102,14 @@ const AddToCollectionsModal = ({ selectedProducts, setShowAddToCollectionsModal,
         collectionId,
       }
     })
-    .then(res => console.log(res))
-    .catch(err => console.log(err.message));
+    .then(res => {
+      setMessage({ success: `Added ${res.data.addProductsToCollection.amount} product(s) to collection` });
+      setShowAddToCollectionsModal(false);
+    })
+    .catch(err => {
+      setMessage({ error: err.message });
+      setShowAddToCollectionsModal(false);
+    });
   };
 
   return (

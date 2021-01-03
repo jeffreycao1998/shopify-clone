@@ -217,10 +217,6 @@ const AddMedia = ({ images, selectedImages, setImages, setSelectedImages, maxAmo
     },
   });
 
-  useEffect(() => {
-    console.log(selectedImages);
-  },[selectedImages]);
-
   const selectImage = (e: React.MouseEvent<HTMLElement>, imageId: number) => {
     e.stopPropagation();
     if (selectedImages.includes(imageId)) {

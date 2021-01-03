@@ -115,7 +115,6 @@ const ProductDetailsPage = ({ product, cart, setCart, storeEndpoint }: Props) =>
     }
 
     cartProduct.quantity += 1;
-    console.log(cartProduct);
     setCart([...newCart]);
   };
 
