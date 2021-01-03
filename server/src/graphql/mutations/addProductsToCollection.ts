@@ -1,4 +1,4 @@
-import { ContextType } from '../../types';
+import { ContextType, ProductsCollection } from '../../types';
 import db from '../../db/models';
 
 type Args = {
@@ -10,8 +10,9 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
   const { productIds, collectionId } = args;
 
   const productCollections = await db.ProductsCollection.findAll({ where: { collectionId }});
-  const prevProductsIds = productCollections.map((product: any) => product.productId);
-  console.log(productCollections[0])
+  const prevProductsIds = productCollections.map((productsCollection: ProductsCollection) => {
+    return productsCollection.productId;
+  });
 
   const newProductsToAdd = productIds.filter(productId => !prevProductsIds.includes(productId));
 
@@ -22,8 +23,8 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
   const newEntries = newProductsToAdd.map(productId => {
     return { productId, collectionId }
   });
-  const result = await db.ProductsCollection.bulkCreate([...newEntries])
 
+  const result = await db.ProductsCollection.bulkCreate([...newEntries]);
   return { amount: result.length };
 };
 

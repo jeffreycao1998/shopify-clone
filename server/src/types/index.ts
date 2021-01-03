@@ -22,6 +22,11 @@ export type CollectionType = {
   imageUrl: string
 };
 
+export type ProductsCollection = {
+  productId: number
+  collectionId: number
+}
+
 export type CartProductType = {
   id: number
   quantity: number

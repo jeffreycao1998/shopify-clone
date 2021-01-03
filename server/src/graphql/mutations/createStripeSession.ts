@@ -9,6 +9,12 @@ type Args = {
   cancelUrl: string
 }
 
+type ProductDetails = {
+  id: number
+  name: string
+  price: number
+}
+
 const createStripeSession = async (obj: {}, args: Args, context: ContextType) => {
   const { cartProducts, successUrl, cancelUrl } = args;
 
@@ -22,7 +28,7 @@ const createStripeSession = async (obj: {}, args: Args, context: ContextType) =>
   }));
 
   // format products for Stripe API
-  const lineItems = productDetails.map((product: any) => {
+  const lineItems = productDetails.map((product: ProductDetails) => {
     const quantity = cartProducts.filter((cartProduct: CartProductType) => {
       return cartProduct.id === product.id;
     })[0].quantity;
