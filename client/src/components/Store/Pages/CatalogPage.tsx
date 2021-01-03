@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Product } from '../../../types/types';
-import { useQuery } from '@apollo/react-hooks'
-import { GET_STORE_PRODUCTS } from '../../../graphql/gql';
 
 const Container = styled.div`
   width: 100%;

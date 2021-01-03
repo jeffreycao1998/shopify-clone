@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Product, Cart } from '../../types/types';
+import { Product, CartStore } from '../../types/types';
 import { useQuery } from '@apollo/react-hooks'
 import { GET_STORE, GET_STORE_PRODUCTS } from '../../graphql/gql';
 import { 
@@ -30,56 +30,49 @@ const Store = () => {
   const location = useLocation();
   const storeEndpoint = location.pathname.split('/')[2];
   const productId = location.pathname.split('/')[3];
+  let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
+  let currentStore = cart.filter((store: CartStore) => store.endpoint === storeEndpoint)[0];
 
-  const [cart, setCart] = useState([] as Cart);
-  // const [cart, setCart] = useState([
-  //   {
-  //     endpoint: 'goodstorename',
-  //     products: [
-  //       {
-  //         id: 3,
-  //         description: '- cool pic',
-  //         name: 'jeff jeff',
-  //         images: [
-  //           {
-  //             id: 9,
-  //             dataUrl: 'https://i.imgur.com/jwkpDCM.jpg'
-  //           }
-  //         ],
-  //         price: 10001,
-  //         quantity: 2
-  //       }
-  //     ]
-  //   }
-  // ] as Cart);
-  const [cartProducts, setCartProducts] = useState(initCartProducts());
+  // add currentStore to cart;
+  if (!currentStore) {
+    currentStore = {
+      endpoint: storeEndpoint,
+      products: []
+    };
+    cart.push(currentStore);
+  }
 
+  const [cartProducts, setCartProducts] = useState(currentStore.products);
+
+  // GraphQL
   const { data: storeData } = useQuery(GET_STORE, {
     variables: { storeEndpoint }
   });
-
   const { data: productsData } = useQuery(GET_STORE_PRODUCTS, {
     variables: { storeEndpoint }
   });
   
   const storeName = storeData && storeData.getStore.name;
-  const products = productsData && productsData.getStoreProducts;
-
-  function initCartProducts() {
-    const currentStore = cart.filter(store => store.endpoint === storeEndpoint)[0];
-
-    if (currentStore) {
-      return currentStore.products;
-    } else {
-      return [];
-    }
-  };
+  const products = productsData && productsData.getStoreProducts; 
 
   const getProduct = () => {
     return products.filter((product: Product) => {
       return productId === product.id.toString()
     })[0];
   };
+
+  // save cart in local storage everytime they update their cart!
+  useEffect(() => {
+    const otherStores = cart.filter((store: CartStore) => store.endpoint !== storeEndpoint);
+    const newCart = [
+      ...otherStores,
+      {
+        ...currentStore,
+        products: [...cartProducts]
+      }
+    ];
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  },[cartProducts]);
 
   return (
     <Container>
