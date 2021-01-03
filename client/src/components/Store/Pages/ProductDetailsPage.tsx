@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
+import { Product, CartProduct } from '../../../types/types';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 // Components
 import Button from '../Core/Button';
+import { Carousel } from 'react-responsive-carousel';
 
 const Container = styled.div`
   position: absolute;
@@ -31,6 +33,7 @@ const ImageContainer = styled.div`
   width: ${({clientWidth}: ImageContainerProps) => ((clientWidth - 100) * .48) * .95}px;
   max-width: 364px;
   max-height: 346px;
+  user-select: none;
 
   .image {
     width: 100%;
@@ -44,6 +47,18 @@ const ImageContainer = styled.div`
     margin-bottom: 32px;
     align-self: center;
   }
+`;
+
+const StyledCarousel = styled(Carousel)`
+  li {
+    cursor: pointer;
+
+    div {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
 `;
 
 const MetaInfo = styled.div`
@@ -108,7 +123,17 @@ const ProductDetailsPage = ({ product, cartProducts, setCartProducts, storeEndpo
   return (
     <Container>
       <ImageContainer clientWidth={clientWidth}>
-        <img className='image' src={product.images[0].dataUrl} alt={product.name} />
+        <StyledCarousel showArrows={false}>
+          {
+            product.images.map(image => {
+              return (
+                <div>
+                  <img className='image' src={image.dataUrl} alt={image.name}/>
+                </div>
+              )
+            })
+          }
+        </StyledCarousel>
       </ImageContainer>
       <MetaInfo>
         <div className='details'>

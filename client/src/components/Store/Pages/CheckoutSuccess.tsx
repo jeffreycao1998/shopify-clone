@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CartProduct } from '../../../types/types';
 
 const Container = styled.div`
-
+  padding: 55px;
 `;
 
 type Props = {
