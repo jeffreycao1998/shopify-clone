@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Cart } from '../../types';
+import { Cart } from '../../types/types';
 
 const Container = styled.div`
   height: 78px;

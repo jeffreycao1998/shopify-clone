@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import cookies from 'js-cookie';
 import { colors } from '../../theme';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 // Components
 import Header from './Header';
@@ -17,13 +18,21 @@ const Container = styled.div`
 const FormContainer = styled.div`
   height: calc(100vh - 60px);
   width: 100%;
-
 `;
 
 const Auth = () => {
+  const history = useHistory();
+
+  // check if user is already logged in
+  const jwt = cookies.get('jwt');
+  if (jwt) {
+    history.push('/admin');
+    return null;
+  };
 
   return (
     <Container>
+      
       <Header />
 
       <FormContainer>
@@ -36,6 +45,7 @@ const Auth = () => {
           </Route>
         </Switch>
       </FormContainer>
+
     </Container>
   )
 };

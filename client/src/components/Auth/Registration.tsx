@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import cookies from 'js-cookie';
 import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks'
-import { USER_REGISTER } from '../../../graphql/gql';
-import { colors } from '../../../theme';
-import { useInput } from '../../../hooks';
+import { USER_REGISTER } from '../../graphql/gql';
+import { colors } from '../../theme';
+import { useInput } from '../../hooks';
 
 const Container = styled.div`
   height: 100%;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Product, Cart, CartProduct, CartStore } from '../../../types';
+import { Product, Cart, CartProduct, CartStore } from '../../../types/types';
 
 // Components
 import Button from '../Core/Button';

@@ -5,7 +5,7 @@ import {
   GET_USERS_COLLECTIONS,
   ADD_PRODUCTS_TO_COLLECTION
 } from '../../../graphql/gql';
-import { Collection, Message } from '../../../types';
+import { Collection, Message } from '../../../types/types';
 
 const Container = styled.div`
   position: fixed;

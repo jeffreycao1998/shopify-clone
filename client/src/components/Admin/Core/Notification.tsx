@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../theme';
-import { Message } from '../../../types';
+import { Message } from '../../../types/types';
 
 type ContainerProps = {
   result: 'success' | 'error'

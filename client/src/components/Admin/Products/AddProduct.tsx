@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks'
 import { ADD_PRODUCT } from '../../../graphql/gql';
 import { useInput } from '../../../hooks';
-import { Image, Message, Product } from '../../../types';
+import { Image, Message, Product } from '../../../types/types';
 
 // Components
 import { 

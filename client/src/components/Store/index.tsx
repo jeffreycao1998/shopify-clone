@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Product, Cart } from '../../types';
+import { Product, Cart } from '../../types/types';
 import { useQuery } from '@apollo/react-hooks'
 import { GET_STORE, GET_STORE_PRODUCTS } from '../../graphql/gql';
 import { 

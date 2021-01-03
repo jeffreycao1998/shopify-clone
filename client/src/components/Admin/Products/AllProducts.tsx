@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_USERS_PRODUCTS, DELETE_PRODUCTS } from '../../../graphql/gql';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../theme';
-import { Product, Message } from '../../../types';
+import { Product, Message } from '../../../types/types';
 
 // Components
 import { ContainerRounded, Button, AddToCollectionsModal, Notification } from '../Core';
