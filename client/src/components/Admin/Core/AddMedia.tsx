@@ -145,6 +145,7 @@ const ImageContainer = styled.div`
     }
     input {
       display: block;
+      cursor: pointer;
     }
   }
 
