@@ -223,6 +223,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
       }
     })
     .then(async (res: any) => {
+      // console.log(res.data.createStripeSession.sessionId);
       const sessionId = res.data.createStripeSession.sessionId;
       const stripe = await loadStripe(env.STRIPE_PK);
       if (stripe) {

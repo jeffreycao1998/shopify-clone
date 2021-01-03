@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { TokenData } from '../types';
+import { TokenDataType } from '../types';
 
 const hashPassword = (password: string) => {
   const saltRounds = 10;
@@ -9,7 +9,7 @@ const hashPassword = (password: string) => {
   return hash;
 };
 
-const signToken = async (tokenData: TokenData) => {
+const signToken = async (tokenData: TokenDataType) => {
   const token = await jwt.sign(tokenData, process.env.JWT_SECRET as string);
   return token;
 };

@@ -22,6 +22,11 @@ export type CollectionType = {
   imageUrl: string
 };
 
+export type CartProductType = {
+  id: number
+  quantity: number
+}
+
 export type ContextType = {
   user: {
     id: number
@@ -29,6 +34,6 @@ export type ContextType = {
   _extensionStack: any
 };
 
-export type TokenData = {
+export type TokenDataType = {
   userId: string
 };
