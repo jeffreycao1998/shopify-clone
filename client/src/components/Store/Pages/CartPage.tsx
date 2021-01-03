@@ -193,11 +193,11 @@ type Props = {
 const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
   const [createStripeSession] = useMutation(CREATE_STRIPE_SESSION);
 
-  const handleQuantityChange = (e: any, product: CartProduct) => {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>, product: CartProduct) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity === 0) return;
 
-    setCartProducts((prev: any) => {
+    setCartProducts((prev: Array<CartProduct>) => {
       const targetProduct = prev.filter((cartProduct: CartProduct) => cartProduct === product)[0];
       const otherProducts = prev.filter((cartProduct: CartProduct) => cartProduct !== product);
       targetProduct.quantity = newQuantity;
@@ -232,7 +232,7 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
         stripe.redirectToCheckout({ sessionId });
       }
     })
-    .catch((err: any) => {
+    .catch((err: Error) => {
       console.log(err.message);
     })
   };

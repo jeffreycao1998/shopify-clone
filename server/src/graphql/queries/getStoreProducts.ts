@@ -37,7 +37,7 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
     ],
   });
 
-  return activeCollection.dataValues.products;
+  return activeCollection.products;
 };
 
 export default getStoreProducts;

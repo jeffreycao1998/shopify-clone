@@ -7,7 +7,7 @@ const getUsersCollections = async (obj: {}, args: {}, context: ContextType) => {
   const result = await db.Collection.findAll({ where: { userId }});
 
   // order by id
-  result.sort((a: any, b: any) => a.dataValues.id - b.dataValues.id);
+  result.sort((a: any, b: any) => a.id - b.id);
 
   return result;
 };

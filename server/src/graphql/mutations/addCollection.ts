@@ -1,4 +1,4 @@
-import { ImageType, ContextType } from '../../types';
+import { ImageType, ContextType, CollectionType } from '../../types';
 import db from '../../db/models';
 
 type Args = {
@@ -14,7 +14,7 @@ const addCollection = async (obj: {}, args: Args, context: ContextType) => {
   const userId = context.user.id;
   
   const collections = await db.Collection.findAll({ where: { userId }});;
-  const collectionExists = collections.filter((collection: any) => collection.dataValues.name === name).length > 0;
+  const collectionExists = collections.filter((collection: CollectionType) => collection.name === name).length > 0;
 
   if (collectionExists) {
     throw new Error('A collection with this name already exists');

@@ -27,7 +27,7 @@ const updateActiveCollection = async (obj: {}, args: Args, context: ContextType)
   newActiveCollection.active = true;
   await newActiveCollection.save();
 
-  return { name: newActiveCollection.dataValues.name };
+  return { name: newActiveCollection.name };
 };
 
 export default updateActiveCollection;

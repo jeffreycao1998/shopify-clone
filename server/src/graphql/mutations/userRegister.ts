@@ -31,7 +31,7 @@ const userRegister = async (obj: {}, args: Args, context: ContextType) => {
       password: hash
     });
     await newUser.save();
-    userId = newUser.dataValues.id;
+    userId = newUser.id;
 
     // Create Store
     const store = await db.Store.build({

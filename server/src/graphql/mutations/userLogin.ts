@@ -15,7 +15,7 @@ const userLogin = async (obj: {}, args: Args, context: ContextType) => {
 
   if (!user) throw new Error('Incorrect credentials');
 
-  const hash = user.dataValues.password;
+  const hash = user.password;
   const correctPassword = await bcrypt.compare(password, hash);
   
   if (!correctPassword) {

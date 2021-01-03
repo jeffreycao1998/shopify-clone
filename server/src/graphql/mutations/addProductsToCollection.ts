@@ -11,6 +11,7 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
 
   const productCollections = await db.ProductsCollection.findAll({ where: { collectionId }});
   const prevProductsIds = productCollections.map((product: any) => product.productId);
+  console.log(productCollections[0])
 
   const newProductsToAdd = productIds.filter(productId => !prevProductsIds.includes(productId));
 
@@ -18,7 +19,7 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
     throw new Error('This collection already contains all selected products');
   }
 
-  const newEntries = productIds.map(productId => {
+  const newEntries = newProductsToAdd.map(productId => {
     return { productId, collectionId }
   });
   const result = await db.ProductsCollection.bulkCreate([...newEntries])
