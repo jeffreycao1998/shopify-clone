@@ -1,3 +1,6 @@
+## I don't take credit for any of the UI/UX. The goal of this project is produce a mirror replica of the well known Shopify and to practice modularizing/architecting big projects!
+
+
 # GET STARTED
 
 1. in the terminal cd into client folder and run "npm install"
@@ -16,6 +19,5 @@
 You can log with the credentials email "example@hotmail.com" and password "123" or click the register button at the top right to make your own account.
 This is an ongoing project and will see how far I can get with this within a year!
 
-### I don't take credit for any of the UI/UX. The goal of this project is produce a mirror replica of the well known Shopify and to practice modularizing/architecting big projects!
 
 Feel free to contact me @ jeffcao05@gmail.com if you have any questions or want to report any bugs!
