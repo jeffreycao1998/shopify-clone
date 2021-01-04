@@ -1,4 +1,4 @@
-## The goal of this project is produce a mirror replica of the well known Shopify and to practice modularizing/architecting big projects!
+## The goal of this project is to produce a replica of the well known Shopify and to practice modularizing/architecting big projects!
 
 
 # GET STARTED
