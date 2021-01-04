@@ -20,4 +20,4 @@ You can log with the credentials email "example@hotmail.com" and password "123" 
 This is an ongoing project and will see how far I can get with this within a year!
 
 
-Feel free to contact me @ jeffcao05@gmail.com if you have any questions or want to report any bugs!
+Please contact me @ jeffcao05@gmail.com if you have any questions or want to report any bugs!
