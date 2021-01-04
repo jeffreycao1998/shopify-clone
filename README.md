@@ -1,4 +1,4 @@
-## I don't take credit for any of the UI/UX. The goal of this project is produce a mirror replica of the well known Shopify and to practice modularizing/architecting big projects!
+The goal of this project is produce a mirror replica of the well known Shopify and to practice modularizing/architecting big projects!
 
 
 # GET STARTED
