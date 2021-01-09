@@ -16,7 +16,7 @@ pids
 *.pid.lock
 
 # scripts
-scripts/
+server/scripts
 
 # package directories
 node_modules/
