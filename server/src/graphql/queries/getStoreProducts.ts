@@ -12,6 +12,7 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
 
   const collection = await db.Collection.findOne({
     where: { 
+      //@ts-ignore
       userId: store.userId,
       active: true
     }
@@ -19,6 +20,7 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
   
   const activeCollection = await db.Collection.findOne({
     attributes: [],
+    //@ts-ignore
     where: { id: collection.id },
     include: [
       {
@@ -26,7 +28,9 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
         as: 'products',
         attributes: [ 'id', 'name', 'description', 'price' ],
         through: {
+          //@ts-ignore
           model: db.ProductsCollection,
+          //@ts-ignore
           where: { collectionId: collection.id }
         },
         include: [{
@@ -37,6 +41,7 @@ const getStoreProducts = async (obj: {}, args: Args, context: ContextType) => {
     ],
   });
 
+  //@ts-ignore
   return activeCollection.products;
 };
 

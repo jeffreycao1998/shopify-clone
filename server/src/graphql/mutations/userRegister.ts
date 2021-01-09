@@ -31,6 +31,7 @@ const userRegister = async (obj: {}, args: Args, context: ContextType) => {
       password: hash
     });
     await newUser.save();
+    //@ts-ignore
     userId = newUser.id;
 
     // Create Store

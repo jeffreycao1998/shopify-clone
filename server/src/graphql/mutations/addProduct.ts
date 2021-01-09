@@ -27,12 +27,14 @@ const addProduct = async (obj: {}, args: Args, context: ContextType) => {
   const newImages = dataUrls.map(dataUrl => {
     return {
       dataUrl,
+      //@ts-ignore
       productId: product.id
     };
   });
 
   await db.Image.bulkCreate([...newImages]);
   
+  //@ts-ignore
   return { name: product.name };
 };
 

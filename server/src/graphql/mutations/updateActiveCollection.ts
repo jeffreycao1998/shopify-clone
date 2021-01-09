@@ -18,15 +18,19 @@ const updateActiveCollection = async (obj: {}, args: Args, context: ContextType)
   });
 
   if (activeCollection) {
+    //@ts-ignore
     activeCollection.active = false;
     await activeCollection.save();
   }
   
   // Activate new collection
   const newActiveCollection = await db.Collection.findOne({ where: { id: collectionId }});
+  //@ts-ignore
   newActiveCollection.active = true;
+  //@ts-ignore
   await newActiveCollection.save();
 
+  //@ts-ignore
   return { name: newActiveCollection.name };
 };
 

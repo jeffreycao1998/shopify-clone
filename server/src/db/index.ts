@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+import { Sequelize, DataTypes } from 'sequelize';
 
 const user = 'postgres'
 const host = 'localhost'
@@ -8,4 +8,4 @@ const port = 5432
 
 const sequelize = new Sequelize(`postgres://${user}:${pass}@${host}:${port}/${database}`);
 
-module.exports = sequelize;
+export default sequelize;

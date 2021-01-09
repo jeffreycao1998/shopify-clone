@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../index')
+import { DataTypes } from 'sequelize';
+import sequelize from '../index';
 
 const Collection = sequelize.define('collection', {
   name: {
@@ -24,4 +24,4 @@ const Collection = sequelize.define('collection', {
   },
 });
 
-module.exports = Collection;
+export default Collection;

@@ -13,7 +13,8 @@ const addCollection = async (obj: {}, args: Args, context: ContextType) => {
   const { name, description, image } = args.collection;
   const userId = context.user.id;
   
-  const collections = await db.Collection.findAll({ where: { userId }});;
+  const collections = await db.Collection.findAll({ where: { userId }});
+  //@ts-ignore
   const collectionExists = collections.filter((collection: CollectionType) => collection.name === name).length > 0;
 
   if (collectionExists) {
@@ -32,6 +33,7 @@ const addCollection = async (obj: {}, args: Args, context: ContextType) => {
     });
     await collection.save();
 
+    //@ts-ignore
     return { name: collection.name };
   }
 };

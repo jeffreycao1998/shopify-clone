@@ -1,6 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../index')
-const Image = require('./image');
+import { DataTypes } from 'sequelize';
+import sequelize from '../index';
 
 const Product = sequelize.define('product', {
   name: {
@@ -21,4 +20,4 @@ const Product = sequelize.define('product', {
   }
 });
 
-module.exports = Product;
+export default Product;

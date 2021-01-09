@@ -10,6 +10,7 @@ const addProductsToCollection = async (obj: {}, args: Args, context: ContextType
   const { productIds, collectionId } = args;
 
   const productCollections = await db.ProductsCollection.findAll({ where: { collectionId }});
+  //@ts-ignore
   const prevProductsIds = productCollections.map((productsCollection: ProductsCollection) => {
     return productsCollection.productId;
   });

@@ -28,6 +28,7 @@ const createStripeSession = async (obj: {}, args: Args, context: ContextType) =>
   }));
 
   // format products for Stripe API
+  //@ts-ignore
   const lineItems = productDetails.map((product: ProductDetails) => {
     const quantity = cartProducts.filter((cartProduct: CartProductType) => {
       return cartProduct.id === product.id;

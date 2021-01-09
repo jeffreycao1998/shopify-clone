@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../index')
+import { DataTypes } from 'sequelize';
+import sequelize from '../index';
 
 const Image = sequelize.define('image', {
   dataUrl: {
@@ -12,4 +12,4 @@ const Image = sequelize.define('image', {
   }
 });
 
-module.exports = Image;
+export default Image;

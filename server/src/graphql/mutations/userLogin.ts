@@ -15,12 +15,14 @@ const userLogin = async (obj: {}, args: Args, context: ContextType) => {
 
   if (!user) throw new Error('Incorrect credentials');
 
+  //@ts-ignore
   const hash = user.password;
   const correctPassword = await bcrypt.compare(password, hash);
   
   if (!correctPassword) {
     throw new Error('Incorrect credentials');
   } else {
+    //@ts-ignore
     const token = await signToken({ userId: user.id });
     return { token };
   }

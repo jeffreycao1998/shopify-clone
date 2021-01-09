@@ -1,9 +1,9 @@
-const User = require('./user');
-const Product = require('./product');
-const Image = require('./image');
-const Collection = require('./collection');
-const ProductsCollection = require('./productsCollection');
-const Store = require('./store');
+import User from './user';
+import Product from './product';
+import Image from './image';
+import Collection from './collection';
+import ProductsCollection from './productsCollection';
+import Store from './store';
 
 Product.hasMany(Image, { onDelete: 'cascade' });
 Image.belongsTo(Product, { foreignKey: 'productId', targetKey: 'id', onDelete: 'cascade'});
@@ -17,6 +17,7 @@ Product.belongsToMany(Collection, {
 Collection.belongsToMany(Product, {
   through: ProductsCollection,
   as: 'products',
+  //@ts-ignore
   foreginKey: 'collectionId',
 });
 
