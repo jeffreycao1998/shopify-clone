@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 
 // GraphQL
 const httpLink = createHttpLink({
-  uri: env.GRAPHQL_URI,
+  uri: env.GRAPHQL_URI_LAMBDA, // GRAPHQL_URI_LOCAL | GRAPHQL_URI_LAMBDA
 });
 
 const authLink = setContext((_, { headers }) => {
