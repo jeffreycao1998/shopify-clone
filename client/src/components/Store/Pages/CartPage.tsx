@@ -258,7 +258,9 @@ const CartPage = ({ cartProducts, setCartProducts, storeEndpoint }: Props) => {
             </SummaryHeader>
             <ProductsContainer>
               {
-                cartProducts.map((product: CartProduct) => {
+                cartProducts
+                .sort((a: CartProduct, b: CartProduct) => a.id - b.id)
+                .map((product: CartProduct) => {
                   return (
                     <ProductContainer key={product.id}>
                       <div className='product'>
