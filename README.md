@@ -3,25 +3,25 @@ Produce a replica of the well known Shopify to practice modularizing/architectin
 
 
 ## Key Features
-User Authentication with JWT
+-  User Authentication with JWT
 
-Create/Delete products
+-  Create/Delete products
 
-Create/Update/Delete collection of products
+-  Create/Update/Delete collection of products
 
-Easily generate a store once you've added a few products
+-  Easily generate a store once you've added a few products
 
-Change store products by setting another collection to active
+-  Change store products by setting another collection to active
 
-Cart checkout on each individual store
+-  Cart checkout on each individual store
 
 
 ## Future Features
-Admin transactions history
+-  Admin transactions history
 
-Automatic payout to store owners (by sending an email to the email)
+-  Automatic payout to store owners (by sending an email to the email)
 
-Automatically create products from .csv files
+-  Automatically create products from .csv files
 
 ### User Authentication
 ![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/1.gif?raw=true)
@@ -69,9 +69,12 @@ Automatically create products from .csv files
 
 ## Login/Checkout Credentials
 Either register to create your own store or log into the community account with the following credentials:
+
 Email address: example@hotmail.com
+
 Password: 123
 
 
 This is an ongoing project and will see how far I can get with this within a year!
+
 Please contact me @ jeffcao05@gmail.com if you have any questions or want to report any bugs!
