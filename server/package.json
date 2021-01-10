@@ -1,7 +1,7 @@
 {
-  "name": "aws-node-typescript-apollo-lambda",
+  "name": "shopify-clone",
   "version": "1.0.0",
-  "description": "Serverless example for apollo lambda",
+  "description": "Serverless apollo lambda",
   "main": "handler.js",
   "scripts": {
     "start": "nodemon src/graphql/apolloServer.ts",
@@ -36,6 +36,5 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.2.4"
   },
-  "author": "Miguel Frazao (https://github.com/jmpfrazao/aws-node-typescript-apollo-lambda)",
   "license": "MIT"
 }
