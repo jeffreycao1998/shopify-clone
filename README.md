@@ -1,23 +1,70 @@
-## The goal of this project is to produce a replica of the well known Shopify and to practice modularizing/architecting big projects!
+## Project Goal
+Produce a replica of the well known Shopify to practice modularizing/architecting big projects!
 
 
-# GET STARTED
-
-1. in the terminal cd into client folder and run "npm install"
-2. open up the env.json file and replace the STRIPE_PK with your own stripe publishable key by signing up on stripe's website and heading to your developer dashboard
-3. run "npm start" to start the client
-4. in a seperate terminal cd into the server folder and run "npm install"
-5. make a copy of the example.env and rename it to .env
-6. create a postgres database and replace the values in the exmaple.env with your own database connection variables
-7. go to your stripe dashboard and replace the value of the STRIPE_SK variable with your own stripe secret key
-8. run "npm db:migrate" to create all the tables in your database and fill it with placeholder data
-9. run "npm start" to star the server
-10. navigate to http://localhost:3000 in a browser
-11. have fun!
+## Key Features
+User Authentication with JWT
+Create/Delete products
+Create/Update/Delete collection of products
+Easily generate a store once you've added a few products
+Change store products by setting another collection to active
+Cart checkout on each individual store
 
 
-You can log with the credentials email "example@hotmail.com" and password "123" or click the register button at the top right to make your own account.
+## Future Features
+Admin transactions history
+Automatic payout to store owners (by sending an email to the email)
+Automatically create products from .csv files
+
+### User Authentication
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/1.gif?raw=true)
+
+### Adding a product
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/2.gif?raw=true)
+
+### Adding a product to a collection
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/3.gif?raw=true)
+
+### The amazing store
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/4.gif?raw=true)
+
+### Switching to another set of products
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/5.gif?raw=true)
+
+### Checkout Page
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/6.gif?raw=true)
+
+### List of links to reach other people's stores
+![](https://github.com/jeffreycao1998/shopify-clone/blob/master/client/documents/7.gif?raw=true)
+
+
+## Tech Stack
+### Front End
+-  Typescript
+-  React
+-  Styled Components
+
+### Back End
+-  Typescript
+-  GraphQL
+-  Apollo
+-  Postgres
+-  Sequelize
+-  JWT
+-  Stripe
+
+### Infrastructure
+-  Serverless Framework
+-  AWS Lambda
+-  AWS RDS
+-  AWS S3
+
+
+## Login/Checkout Credentials
+Either register to create your own store or log into the community account with the following credentials:
+Email address: example@hotmail.com
+Password: 123
+
+
 This is an ongoing project and will see how far I can get with this within a year!
-
-
 Please contact me @ jeffcao05@gmail.com if you have any questions or want to report any bugs!
