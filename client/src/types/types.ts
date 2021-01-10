@@ -42,3 +42,10 @@ export type CartStore = {
 }
 
 export type Cart = Array<CartStore>
+
+export type Store = {
+  endpoint: string
+  id: number
+  name: string
+  userId: number
+}

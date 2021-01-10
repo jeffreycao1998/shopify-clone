@@ -24,6 +24,10 @@ const Logo = styled(Link)`
   }
 `;
 
+const Navigation = styled.ul`
+  display: flex;
+`;
+
 const Nav = styled(Link)`
   color: lightgrey;
   text-decoration: none;
@@ -32,6 +36,7 @@ const Nav = styled(Link)`
   justify-content: center;
   align-items: center;
   font-weight: 500;
+  margin-left: 24px;
 
   &:hover {
     color: white;
@@ -47,18 +52,23 @@ const Registration = () => {
         shopifyclone
       </Logo>
 
-      <Switch>
-        <Route path='/auth/login'>
-          <Nav to='/auth/signup'>
-            Register
-          </Nav>
-        </Route>
-        <Route path='/auth/signup'>
-          <Nav to='/auth/login'>
-            Login
-          </Nav>
-        </Route>
-      </Switch>
+      <Navigation>
+        <Nav to='/stores'>
+          Stores
+        </Nav>
+        <Switch>
+          <Route path='/auth/signup'>
+            <Nav to='/auth/login'>
+              Login
+            </Nav>
+          </Route>
+          <Route path='/'>
+            <Nav to='/auth/signup'>
+              Register
+            </Nav>
+          </Route>
+        </Switch>
+      </Navigation>
     </Container>
   )
 };

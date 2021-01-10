@@ -1,33 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Product, CartStore, CartProduct } from '../../types/types';
+import { Store } from '../../types/types';
 import { useQuery } from '@apollo/react-hooks'
-import { GET_STORE, GET_STORE_PRODUCTS, GET_STORES } from '../../graphql/gql';
+import { GET_STORES } from '../../graphql/gql';
 import { 
   Link
 } from 'react-router-dom';
-
-// Components
-// import Header from './Header';
-// import CatalogPage from './Pages/CatalogPage';
-// import ProductDetailsPage from './Pages/ProductDetailsPage';
-// import CartPage from './Pages/CartPage';
-// import CheckoutSuccess from './Pages/CheckoutSuccess';
 
 const Container = styled.div`
   height: 100vh;
   width: 100%;
   overflow-y: auto;
+  padding: 50px;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 16px;
+`;
+
+const StoreLink = styled.li`
+  list-style-type: square;
+  margin-bottom: 8px;
 `;
 
 const StoresList = () => {
-  const { data } = useQuery(GET_STORES);
-  
-  console.log(data);
+  const { data: storeList } = useQuery(GET_STORES);
 
   return (
     <Container>
-
+      <Title>Check out one of these amazing stores!</Title>
+      { 
+        storeList && storeList.getStores.map((store: Store) => {
+          return (
+            <StoreLink key={store.id}>
+              <Link to={`/store/${store.endpoint}`}>{ store.name }</Link>
+            </StoreLink>
+          )
+        })
+      }
     </Container>
   )
 };
