@@ -34,6 +34,7 @@ jspm_packages
 
 # scripts
 server/scripts
+server/config
 
 # package directories
 node_modules/
