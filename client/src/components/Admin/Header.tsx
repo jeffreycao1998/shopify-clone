@@ -166,10 +166,11 @@ const ProfileDropdown = styled.div`
 
 type Props = {
   storeName: string
+  userEmail: string
   setShowNavMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Header = ({ storeName, setShowNavMenu }: Props) => {
+const Header = ({ storeName, userEmail, setShowNavMenu }: Props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   
   const history = useHistory();
@@ -206,8 +207,8 @@ const Header = ({ storeName, setShowNavMenu }: Props) => {
 
       <ProfileContainer onClick={toggleDropdown} show={showDropdown}>
         <div className='profile'>
-          <div className='profile-logo'>JC</div>
-          <div className='profile-name'>jeffreycao1998@hotmail.com</div>
+          <div className='profile-logo'>Hi</div>
+          <div className='profile-name'>{ userEmail }</div>
         </div>
 
         <ProfileDropdown show={showDropdown}>

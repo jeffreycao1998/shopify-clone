@@ -4,6 +4,7 @@ import GET_USERS_COLLECTIONS from './queries/getUsersCollections';
 import GET_STORE from './queries/getStore';
 import GET_STORE_PRODUCTS from './queries/getStoreProducts';
 import GET_STORES from './queries/getStores';
+import GET_USER from './queries/getUser';
 
 // Mutations
 import USER_REGISTER from './mutations/userRegister';
@@ -23,6 +24,7 @@ export {
   GET_STORE,
   GET_STORE_PRODUCTS,
   GET_STORES,
+  GET_USER,
 
   // Mutations
   USER_REGISTER,

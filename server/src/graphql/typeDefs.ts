@@ -7,6 +7,7 @@ const typeDefs = gql`
     getStore(storeEndpoint: String): Store
     getStoreProducts(storeEndpoint: String): [Product]
     getStores: [Store]
+    getUser: User
   }
 
   type Mutation {
@@ -39,6 +40,11 @@ const typeDefs = gql`
 
   type UserId {
     userId: Int
+  }
+
+  type User {
+    id: Int
+    email: String
   }
 
   type StripeSessionId {

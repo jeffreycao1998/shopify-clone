@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import cookies from 'js-cookie';
 import { useQuery } from '@apollo/react-hooks'
-import { GET_STORE } from '../../graphql/gql';
+import { GET_STORE, GET_USER } from '../../graphql/gql';
 import {
   Switch,
   Route,
@@ -37,9 +37,15 @@ const MainContainer = styled.div`
 
 const Admin = () => {
   const history = useHistory();
-  const { data } = useQuery(GET_STORE);
+  const { data: storeData, refetch: refetchStore } = useQuery(GET_STORE);
+  const { data: userData, refetch: refetchUser } = useQuery(GET_USER);
 
   const [showNavMenu, setShowNavMenu] = useState(false);
+
+  useEffect(() => {
+    refetchStore();
+    refetchUser();
+  },[]);
 
   const jwt = cookies.get('jwt');
   if (!jwt) {
@@ -51,11 +57,12 @@ const Admin = () => {
     <Container>
 
       <Header 
-        storeName={ data && data.getStore.name }
+        storeName={ storeData && storeData.getStore.name }
+        userEmail={ userData && userData.getUser.email }
         setShowNavMenu={setShowNavMenu}
       />
       <Navigation 
-        storeEndpoint={ data && data.getStore.endpoint }
+        storeEndpoint={ storeData && storeData.getStore.endpoint }
         showNavMenu={showNavMenu}
         setShowNavMenu={setShowNavMenu}
       />
