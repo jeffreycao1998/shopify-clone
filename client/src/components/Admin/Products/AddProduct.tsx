@@ -78,7 +78,7 @@ const AddProducts = () => {
       images,
       price: Number(Number(price).toFixed(2)) * 100
     }
-    
+    console.log(images);
     addProduct({
       variables: { product }
     })

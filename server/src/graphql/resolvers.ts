@@ -3,6 +3,7 @@ import getUsersProducts from './queries/getUsersProducts';
 import getUsersCollections from './queries/getUsersCollections';
 import getStore from './queries/getStore';
 import getStoreProducts from './queries/getStoreProducts';
+import getStores from './queries/getStores';
 
 // Mutations
 import userRegister from './mutations/userRegister';
@@ -21,6 +22,7 @@ const resolvers = {
     getUsersCollections,
     getStore,
     getStoreProducts,
+    getStores,
   },
   Mutation: {
     userRegister,

@@ -6,6 +6,7 @@ const typeDefs = gql`
     getUsersCollections: [Collection]
     getStore(storeEndpoint: String): Store
     getStoreProducts(storeEndpoint: String): [Product]
+    getStores: [Store]
   }
 
   type Mutation {

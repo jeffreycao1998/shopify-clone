@@ -9,6 +9,7 @@ import {
 import Auth from './components/Auth';
 import Admin from './components/Admin';
 import Store from './components/Store';
+import StoresList from './components/StoresList';
 
 const App = () => {
   return (
@@ -19,6 +20,9 @@ const App = () => {
         </Route>
         <Route path='/admin'>
           <Admin />
+        </Route>
+        <Route path='/stores'>
+          <StoresList />
         </Route>
         <Route path='/store/:storeName'>
           <Store />

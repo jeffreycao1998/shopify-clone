@@ -20,6 +20,10 @@ const getStore = async (_obj: {}, args: Args, context: ContextType) => {
       where: { userId },
     });
   }
+
+  if (!store) {
+    throw new Error('Could not find store name :(');
+  }
   
   return store;
 };
