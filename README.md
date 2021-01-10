@@ -4,16 +4,23 @@ Produce a replica of the well known Shopify to practice modularizing/architectin
 
 ## Key Features
 User Authentication with JWT
+
 Create/Delete products
+
 Create/Update/Delete collection of products
+
 Easily generate a store once you've added a few products
+
 Change store products by setting another collection to active
+
 Cart checkout on each individual store
 
 
 ## Future Features
 Admin transactions history
+
 Automatic payout to store owners (by sending an email to the email)
+
 Automatically create products from .csv files
 
 ### User Authentication
