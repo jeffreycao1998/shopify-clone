@@ -14,7 +14,7 @@ const context = ({ event }: any) => {
   const token = event.headers.Authorization || '';
   
   if (!token) {
-    return { user: null }
+    return { user: { id: null}}
   }
 
   return { 
