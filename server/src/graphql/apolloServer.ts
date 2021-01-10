@@ -1,7 +1,8 @@
+require('dotenv').config();
 import { ApolloServer } from 'apollo-server-lambda';
-import typeDefs from './graphql/typeDefs';
-import resolvers from './graphql/resolvers';
-import context from './graphql/context';
+import typeDefs from './typeDefs';
+import resolvers from './resolvers';
+import context from './context';
 
 const server = new ApolloServer({ 
   typeDefs, 

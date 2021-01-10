@@ -1,4 +1,3 @@
-require('dotenv').config();
 import jwt from 'jsonwebtoken';
 
 const getUserId = (token: string) => {

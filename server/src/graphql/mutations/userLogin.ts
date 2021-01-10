@@ -1,4 +1,3 @@
-require('dotenv').config();
 import * as bcrypt from 'bcryptjs';
 import { signToken } from '../util';
 import { ContextType } from '../../types';

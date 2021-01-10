@@ -1,1 +1,1 @@
-export { default as graphqlHandler } from './apolloServer';
+export { default as graphqlHandler } from './graphql/apolloServer';

@@ -1,4 +1,3 @@
-require('dotenv').config();
 import { ContextType, CartProductType } from '../../types';
 import db from '../../db/models';
 const stripe = require('stripe')(process.env.STRIPE_SK);
