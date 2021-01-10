@@ -1,5 +1,6 @@
-import * as jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcryptjs';
+require('dotenv').config();
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { TokenDataType } from '../types';
 
 const hashPassword = (password: string) => {
