@@ -1,6 +1,9 @@
 ## Project Goal
 Produce a replica of the well known Shopify to practice modularizing/architecting big projects!
 
+## Live Link
+http://shopifyclone-client.s3-website-us-east-1.amazonaws.com/
+
 
 ## Key Features
 -  User Authentication with JWT
