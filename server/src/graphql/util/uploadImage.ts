@@ -1,8 +1,8 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 
-const ID = 'AKIAJTOBM6NON3AJMZTQ';
-const SECRET = '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';
+const ID = process.env.AWS_ID;
+const SECRET = process.env.AWS_SECRET;
 
 const BUCKET_NAME = 'shopifyclone-assets';
 
@@ -16,7 +16,9 @@ const uploadImage = async (dataUri) => {
   const params = {
     Bucket: BUCKET_NAME,
     Key: uuidv4(),
-    Body: buffer
+    Body: buffer,
+    ContentEncoding: 'base64',
+    ContentType: 'image/jpeg'
   };
 
   const imageData = await s3.upload(params).promise();
