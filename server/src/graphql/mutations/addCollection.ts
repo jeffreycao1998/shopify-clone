@@ -1,5 +1,6 @@
 import { ImageType, ContextType, CollectionType } from '../../types';
 import db from '../../db/models';
+import { uploadImageToS3 } from '../util';
 
 type Args = {
   collection: {
@@ -23,13 +24,15 @@ const addCollection = async (_obj: {}, args: Args, context: ContextType) => {
     const hasActiveCollection = await db.Collection.findOne({
       where: { userId, active: true }
     });
+
+    const imageLocation = await uploadImageToS3(image.dataUrl);
   
     const collection = await db.Collection.build({
       name,
       description,
       active: hasActiveCollection ? false : true,
       userId,
-      imageUrl: image.dataUrl
+      imageUrl: imageLocation
     });
     await collection.save();
 

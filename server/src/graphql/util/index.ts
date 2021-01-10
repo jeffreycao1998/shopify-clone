@@ -1,9 +1,9 @@
 import hashPassword from './hashPassword';
 import signToken from './signToken';
-import uploadImage from './uploadImage';
+import uploadImageToS3 from './uploadImageToS3';
 
 export {
   hashPassword,
   signToken,
-  uploadImage,
+  uploadImageToS3,
 }

@@ -11,7 +11,7 @@ const s3 = new AWS.S3({
   secretAccessKey: SECRET
 });
 
-const uploadImage = async (dataUri) => {
+const uploadImageToS3 = async (dataUri) => {
   const buffer = Buffer.from(dataUri.split(',')[1], 'base64');
   const params = {
     Bucket: BUCKET_NAME,
@@ -25,4 +25,4 @@ const uploadImage = async (dataUri) => {
   return imageData.Location;
 };
 
-export default uploadImage;
+export default uploadImageToS3;
